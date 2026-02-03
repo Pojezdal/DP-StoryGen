@@ -16,7 +16,7 @@ class StoryDirectory:
     def new(cls, title : str, base_dir: str = "Stories") -> StoryDirectory:
         timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
         title_sanitized = re.sub(r'[\\/*?:"<>|]', "", title)[:120].strip().replace(" ", "_").lower()
-        path = os.path.join(base_dir, f"{title_sanitized}_{timestamp}")
+        path = os.path.join(base_dir, f"{timestamp}_{title_sanitized}")
         os.makedirs(path, exist_ok=True)
         return cls(path)
     
@@ -33,7 +33,7 @@ class StoryDirectory:
             if not os.path.isdir(parent):
                 raise FileNotFoundError(f"No such directory: {path}")
             title_sanitized = re.sub(r'[\\/*?:"<>|]', "", name)[:120].strip().replace(" ", "_").lower()
-            pattern = re.compile(rf'^{re.escape(title_sanitized)}_\d{{4}}-\d{{2}}-\d{{2}}_\d{{6}}$')
+            pattern = re.compile(rf'^\d{{4}}-\d{{2}}-\d{{2}}_\d{{6}}_{re.escape(title_sanitized)}$')
             candidates = [
                 d for d in os.listdir(parent)
                 if os.path.isdir(os.path.join(parent, d)) and pattern.match(d)

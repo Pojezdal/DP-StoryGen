@@ -101,7 +101,7 @@ results = fetch_wikidata_works(literary_instances, literary_genres)
 print(f"Fetched {len(results)} works")
 
 def merge_duplicate_works(results):
-    results.sort(key=lambda x: (x.get("authorLabel", {}).get("value", ""), x.get("workLabel", {}).get("value", ""), x.get("pubDate", {}).get("value", "")))
+    results.sort(key=lambda x: (x.get("qid", {}).get("value", ""), x.get("authorLabel", {}).get("value", ""), x.get("workLabel", {}).get("value", ""), x.get("pubDate", {}).get("value", "")))
     merged_results = []
     last_qid = None
     for result in results:
@@ -175,7 +175,7 @@ for reason, items in failed.items():
     print(f"  {reason}: {len(items)}")
 
 os.makedirs("datasets/wikidata/literary", exist_ok=True)
-with open(f"datasets/wikidata/literary/data.jsonl", "a") as f:
+with open(f"datasets/wikidata/literary/data.jsonl", "w") as f:
     for data in successful:
         f.write(json.dumps(data.to_dict()) + "\n")
         
@@ -185,6 +185,6 @@ with open(f"datasets/wikidata/literary/failure_report.jsonl", "w") as f:
             f.write(json.dumps({"reason": reason, "title": item}) + "\n")
         
 # os.makedirs("datasets/wikidata/movies", exist_ok=True)
-# with open(f"datasets/wikidata/movies/data.jsonl", "a") as f:
+# with open(f"datasets/wikidata/movies/data.jsonl", "w") as f:
 #     for data in successful:
 #         f.write(json.dumps(data.to_dict()) + "\n")
