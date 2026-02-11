@@ -29,8 +29,18 @@ class GoogleLLM(LLM):
             contents=prompt,
             config=gen_config,
         )
+        
+        if generation_params.response_schema:
+            try:
+                output = generation_params.response_schema.model_validate_json(response.text)
+            except Exception as e:
+                print("Error parsing LLM response with schema:", e)
+                output = response.text
+        else:
+            output = response.text
+
         return GenerationResult(
-            text=response.text,
+            output=output,
             token_count=response.usage_metadata.candidates_token_count,
             prompt_token_count=response.usage_metadata.prompt_token_count,
             finish_reason=response.candidates[0].finish_reason
@@ -60,8 +70,17 @@ class GoogleLLM(LLM):
             if chunk.text and print_output:
                 print(chunk.text, end="")
                 
+        if generation_params.response_schema:
+            try:
+                output = generation_params.response_schema.model_validate_json(text)
+            except Exception as e:
+                print("Error parsing LLM response with schema:", e)
+                output = text
+        else:
+            output = text
+                
         return GenerationResult(
-            text=text,
+            output=output,
             token_count=last_chunk.usage_metadata.candidates_token_count,
             prompt_token_count=last_chunk.usage_metadata.prompt_token_count,
             finish_reason=last_chunk.candidates[0].finish_reason

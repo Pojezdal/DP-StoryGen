@@ -23,7 +23,7 @@ class GenerationParams:
 
 @dataclass
 class GenerationResult:
-    text: Union[str, BaseModel]
+    output: Union[str, BaseModel]
     token_count: Optional[int] = None
     prompt_token_count: Optional[int] = None
     finish_reason: Optional[str] = None
@@ -46,7 +46,7 @@ class LLM(ABC):
         prompt: str,
         system_instruction: Optional[str] = None,
         generation_params: Optional[GenerationParams] = None,
-    ) -> List[GenerationResult]:
+    ) -> GenerationResult:
         pass
 
 

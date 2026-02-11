@@ -50,8 +50,18 @@ class TransformersLLM(LLM):
         )
         outputs = self.model.generate(**inputs, generation_config=gen_config)
         text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+        
+        if generation_params.response_schema:
+            try:
+                output = generation_params.response_schema.model_validate_json(text)
+            except Exception as e:
+                print("Error parsing LLM response with schema:", e)
+                output = text
+        else:
+            output = text
+        
         return GenerationResult(
-            text=text,
+            output=output,
             token_count=len(outputs[0]),
         )
         
@@ -96,8 +106,18 @@ class TransformersLLM(LLM):
             if print_output:
                 print(new_text, end="", flush=True)
         thread.join()
+        
+        if generation_params.response_schema:
+            try:
+                output = generation_params.response_schema.model_validate_json(text)
+            except Exception as e:
+                print("Error parsing LLM response with schema:", e)
+                output = text
+        else:
+            output = text
+        
         return GenerationResult(
-            text=text,
+            output=output,
             token_count=len(self.tokenizer.encode(text)),
         )
 

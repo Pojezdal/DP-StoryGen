@@ -1,0 +1,381 @@
+{
+    "prompt": "Extract the information from the following user input: \nI want to write a detective story set in Victorian London, featuring a brilliant but eccentric detective and a loyal assistant. The story should involve a mysterious murder in a grand mansion, with a cast of intriguing suspects. I want the story to have a dark and atmospheric tone, with plenty of twists and turns to keep readers guessing until the very end.\n",
+    "response": {
+        "title": null,
+        "genre": "detective",
+        "theme": "mystery",
+        "core_idea": "A brilliant but eccentric detective and his loyal assistant investigate a mysterious murder in a grand mansion.",
+        "setting": {
+            "location": "Victorian London",
+            "time_period": "Victorian era",
+            "atmosphere": "dark and atmospheric",
+            "isolation_level": "grand mansion"
+        },
+        "crime": {
+            "crime_type": "murder",
+            "method": null,
+            "motive": null,
+            "specifications": "mysterious"
+        },
+        "characters": {
+            "detective_type": "brilliant but eccentric",
+            "detective_specifications": null,
+            "sidekick_type": "loyal assistant",
+            "sidekick_specifications": null,
+            "suspect_count": null
+        },
+        "structure": {
+            "length": null,
+            "complexity": "high",
+            "twist_specifications": "plenty of twists and turns",
+            "red_herring_specifications": null
+        }
+    },
+    "model": "gemini-2.5-flash-lite",
+    "system_instruction": "You are a structured information extractor for a detective story generator.\nYour task is to extract only information that is explicitly stated or strongly implied in the user input.\n\nRules:\n- Only extract information that is clearly supported by the user input. If something is not mentioned or is ambiguous, leave it blank or null.\n- Output must strictly follow the provided JSON schema.\n- Do not include any other infomation, explanations, or assumptions that are not directly supported by the user input.\n- If the user input contains conflicting information, prioritize the most recent statement and ignore contradictions.\n",
+    "generation_params": {
+        "temperature": 0.5,
+        "do_sample": true,
+        "top_p": 0.9,
+        "top_k": 5,
+        "max_tokens": 10000,
+        "repetition_penalty": 0,
+        "response_type": "application/json",
+        "response_schema": {
+            "$defs": {
+                "CharactersData": {
+                    "properties": {
+                        "detective_type": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Type of detective (e.g., amateur, professional, private investigator)",
+                            "title": "Detective Type"
+                        },
+                        "detective_specifications": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Any specific constraints or requirements related to the detective",
+                            "title": "Detective Specifications"
+                        },
+                        "sidekick_type": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Type of sidekick (e.g., loyal friend, comic relief, reluctant partner)",
+                            "title": "Sidekick Type"
+                        },
+                        "sidekick_specifications": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Any specific constraints or requirements related to the sidekick",
+                            "title": "Sidekick Specifications"
+                        },
+                        "suspect_count": {
+                            "anyOf": [
+                                {
+                                    "type": "integer"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Number of suspects in the story (3-6 suspects scaling with complexity)",
+                            "title": "Suspect Count"
+                        }
+                    },
+                    "required": [
+                        "detective_type",
+                        "detective_specifications",
+                        "sidekick_type",
+                        "sidekick_specifications",
+                        "suspect_count"
+                    ],
+                    "title": "CharactersData",
+                    "type": "object"
+                },
+                "CrimeData": {
+                    "properties": {
+                        "crime_type": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Type of crime around which the story revolves",
+                            "title": "Crime Type"
+                        },
+                        "method": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Method used to commit the crime",
+                            "title": "Method"
+                        },
+                        "motive": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Motive behind the crime",
+                            "title": "Motive"
+                        },
+                        "specifications": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Any specific constraints or requirements related to the crime",
+                            "title": "Specifications"
+                        }
+                    },
+                    "required": [
+                        "crime_type",
+                        "method",
+                        "motive",
+                        "specifications"
+                    ],
+                    "title": "CrimeData",
+                    "type": "object"
+                },
+                "SettingData": {
+                    "properties": {
+                        "location": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Location where the story takes place",
+                            "title": "Location"
+                        },
+                        "time_period": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Time period in which the story is set",
+                            "title": "Time Period"
+                        },
+                        "atmosphere": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Atmosphere or mood of the setting",
+                            "title": "Atmosphere"
+                        },
+                        "isolation_level": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Level of isolation in the setting (e.g., isolated mansion, bustling city, remote village)",
+                            "title": "Isolation Level"
+                        }
+                    },
+                    "required": [
+                        "location",
+                        "time_period",
+                        "atmosphere",
+                        "isolation_level"
+                    ],
+                    "title": "SettingData",
+                    "type": "object"
+                },
+                "StructureData": {
+                    "properties": {
+                        "length": {
+                            "anyOf": [
+                                {
+                                    "type": "integer"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Length of the story in chapters (8-12 chapters scaling with complexity)",
+                            "title": "Length"
+                        },
+                        "complexity": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Complexity of the plot (e.g., simple, moderate, complex)",
+                            "title": "Complexity"
+                        },
+                        "twist_specifications": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Any specific constraints or requirements related to plot twists",
+                            "title": "Twist Specifications"
+                        },
+                        "red_herring_specifications": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Any specific constraints or requirements related to red herrings",
+                            "title": "Red Herring Specifications"
+                        }
+                    },
+                    "required": [
+                        "length",
+                        "complexity",
+                        "twist_specifications",
+                        "red_herring_specifications"
+                    ],
+                    "title": "StructureData",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "title": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Title of the story",
+                    "title": "Title"
+                },
+                "genre": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Genre of the story",
+                    "title": "Genre"
+                },
+                "theme": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Theme of the story",
+                    "title": "Theme"
+                },
+                "core_idea": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Core idea or premise of the story",
+                    "title": "Core Idea"
+                },
+                "setting": {
+                    "$ref": "#/$defs/SettingData",
+                    "description": "Details about the setting of the story"
+                },
+                "crime": {
+                    "$ref": "#/$defs/CrimeData",
+                    "description": "Details about the crime around which the story revolves"
+                },
+                "characters": {
+                    "$ref": "#/$defs/CharactersData",
+                    "description": "Details about the main characters in the story"
+                },
+                "structure": {
+                    "$ref": "#/$defs/StructureData",
+                    "description": "Details about the structure of the story"
+                }
+            },
+            "required": [
+                "title",
+                "genre",
+                "theme",
+                "core_idea",
+                "setting",
+                "crime",
+                "characters",
+                "structure"
+            ],
+            "title": "InputData",
+            "type": "object"
+        },
+        "extras": null
+    }
+}
