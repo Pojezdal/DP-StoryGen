@@ -1,0 +1,332 @@
+{
+    "prompt": "Based on the following input data in JSON format, generate a structured actor pool for a detective fiction story.\n\ntitle=None genre='Detective Fiction' theme='Mystery and Intrigue' core_idea='A brilliant but eccentric detective and his loyal assistant investigate a mysterious murder in a grand Victorian mansion.' setting=SettingData(location='Victorian London', time_period='Victorian Era', atmosphere='Dark and atmospheric', isolation_level='Isolated mansion') crime=CrimeData(crime_type='Murder', method=None, motive=None, specifications='Mysterious murder') characters=CharactersData(detective_type='Brilliant but eccentric detective', detective_specifications=None, sidekick_type='Loyal assistant', sidekick_specifications=None, suspect_count=None, culprit_specifications=None) structure=StructureData(length=None, complexity='Complex', twist_specifications='Plenty of twists and turns', red_herring_specifications=None)\n",
+    "response": {
+        "victim": {
+            "id": "lord_ashworth",
+            "relationships": {
+                "owner_of": [
+                    "ashworth_manor"
+                ],
+                "employer_of": [
+                    "butler_jenkins",
+                    "maid_hannah",
+                    "gardener_thomas"
+                ],
+                "business_partner_of": [
+                    "sir_richard_blackwood"
+                ],
+                "estranged_from": [
+                    "lady_eleanor_ashworth"
+                ],
+                "rival_of": [
+                    "baron_von_strauss"
+                ]
+            }
+        },
+        "suspects": [
+            {
+                "id": "butler_jenkins",
+                "relationships": {
+                    "employee_of": [
+                        "lord_ashworth"
+                    ],
+                    "secretly_resentful_of": [
+                        "lord_ashworth"
+                    ],
+                    "in_love_with": [
+                        "maid_hannah"
+                    ]
+                },
+                "occupation": "Butler",
+                "motive": "Resentment over years of mistreatment and a hidden affair with the maid that Lord Ashworth threatened to expose.",
+                "crime_relevant_traits": [
+                    "Observant",
+                    "Quiet",
+                    "Loyal (superficially)",
+                    "Resentful"
+                ],
+                "possible_alibis": [
+                    "Was in the servants' quarters preparing for dinner.",
+                    "Claims to have been polishing silver in the pantry."
+                ],
+                "possible_means": [
+                    "Access to the entire mansion and its contents.",
+                    "Knowledge of household routines and Lord Ashworth's habits.",
+                    "Familiarity with poisons or household chemicals."
+                ],
+                "culprit": false
+            },
+            {
+                "id": "lady_eleanor_ashworth",
+                "relationships": {
+                    "estranged_wife_of": [
+                        "lord_ashworth"
+                    ],
+                    "rival_of": [
+                        "lord_ashworth"
+                    ]
+                },
+                "occupation": "Aristocrat",
+                "motive": "Inheritance and freedom from an unhappy marriage.",
+                "crime_relevant_traits": [
+                    "Cold",
+                    "Calculating",
+                    "Ambitious",
+                    "Desperate"
+                ],
+                "possible_alibis": [
+                    "Was in her private chambers, supposedly reading.",
+                    "Claims to have been taking a solitary walk in the grounds."
+                ],
+                "possible_means": [
+                    "Financial resources to hire someone.",
+                    "Knowledge of the manor's layout and security.",
+                    "Could have used a hidden passage."
+                ],
+                "culprit": false
+            },
+            {
+                "id": "sir_richard_blackwood",
+                "relationships": {
+                    "business_partner_of": [
+                        "lord_ashworth"
+                    ],
+                    "indebted_to": [
+                        "lord_ashworth"
+                    ]
+                },
+                "occupation": "Businessman",
+                "motive": "Lord Ashworth was about to expose his fraudulent business dealings, which would lead to ruin.",
+                "crime_relevant_traits": [
+                    "Suave",
+                    "Deceptive",
+                    "Desperate",
+                    "Ruthless"
+                ],
+                "possible_alibis": [
+                    "Was reportedly in his London office, but could have left.",
+                    "Claims to have been on a late-night train journey back to the city."
+                ],
+                "possible_means": [
+                    "Possesses significant wealth and influence.",
+                    "Could have hired an assassin or used a skilled operative.",
+                    "Has a history of aggressive business tactics."
+                ],
+                "culprit": false
+            },
+            {
+                "id": "maid_hannah",
+                "relationships": {
+                    "employee_of": [
+                        "lord_ashworth"
+                    ],
+                    "lover_of": [
+                        "butler_jenkins"
+                    ],
+                    "mistreated_by": [
+                        "lord_ashworth"
+                    ]
+                },
+                "occupation": "Maid",
+                "motive": "Fear of exposure of her affair with the butler, and potential revenge for Lord Ashworth's advances.",
+                "crime_relevant_traits": [
+                    "Timid",
+                    "Scared",
+                    "Loyal (to Jenkins)",
+                    "Potentially desperate"
+                ],
+                "possible_alibis": [
+                    "Was in her room in the servants' quarters.",
+                    "Claims to have been tending to household chores in a different wing."
+                ],
+                "possible_means": [
+                    "Intimate knowledge of the household.",
+                    "Could have facilitated access for another.",
+                    "Might have used a common household item as a weapon."
+                ],
+                "culprit": false
+            },
+            {
+                "id": "baron_von_strauss",
+                "relationships": {
+                    "rival_of": [
+                        "lord_ashworth"
+                    ],
+                    "involved_in_disputed_deal_with": [
+                        "lord_ashworth"
+                    ]
+                },
+                "occupation": "Foreign Dignitary/Businessman",
+                "motive": "A long-standing feud and a recent, highly contentious business deal that Lord Ashworth threatened to derail.",
+                "crime_relevant_traits": [
+                    "Proud",
+                    "Arrogant",
+                    "Vindictive",
+                    "Impatient"
+                ],
+                "possible_alibis": [
+                    "Was a guest in the mansion, but claims to have retired early to his room.",
+                    "Could have slipped out unnoticed due to his foreign status and unfamiliarity."
+                ],
+                "possible_means": [
+                    "Possesses a sharp, potentially concealed weapon.",
+                    "Has a reputation for ruthlessness in his dealings.",
+                    "Could have exploited a moment of opportunity."
+                ],
+                "culprit": false
+            },
+            {
+                "id": "gardener_thomas",
+                "relationships": {
+                    "employee_of": [
+                        "lord_ashworth"
+                    ],
+                    "disgruntled_over": [
+                        "unfair_dismissal_threat"
+                    ]
+                },
+                "occupation": "Gardener",
+                "motive": "Lord Ashworth threatened to dismiss him without severance pay after a minor mistake, leaving him desperate.",
+                "crime_relevant_traits": [
+                    "Strong",
+                    "Gruff",
+                    "Loyal (to his family)",
+                    "Resentful"
+                ],
+                "possible_alibis": [
+                    "Was tending to the greenhouses at the far end of the estate.",
+                    "Claims to have been home in his cottage on the grounds."
+                ],
+                "possible_means": [
+                    "Access to tools that could be used as weapons (e.g., shears, spade).",
+                    "Knowledge of the grounds, including less-used paths.",
+                    "Physical strength."
+                ],
+                "culprit": false
+            }
+        ]
+    },
+    "model": "gemini-2.5-flash-lite",
+    "system_instruction": "You are designing a structural actor pool for a detective fiction story.\nYour task is to generate:\n- One victim\n- N suspects (based on the input data, or if missing use a reasonable number between 3 and 6)\n\nRules:\n- The generated actors should be consistent with the provided input data and with common conventions of detective stories.\n- Details not included in the input data should be filled in creatively, but must still fit within the detective genre and the specific subgenre if one is provided.\n- The cuprit should not be specified unless explicitly mentioned in the input data.\n- All suspects should have plausible motives, means, and opportunities for committing the crime, even if they are not the cuprit.\n",
+    "generation_params": {
+        "temperature": 1.0,
+        "do_sample": true,
+        "top_p": 0.9,
+        "top_k": 5,
+        "max_tokens": 10000,
+        "repetition_penalty": 0,
+        "response_type": "application/json",
+        "response_schema": {
+            "$defs": {
+                "Suspect": {
+                    "properties": {
+                        "id": {
+                            "description": "Unique identifier for the actor",
+                            "title": "Id",
+                            "type": "string"
+                        },
+                        "relationships": {
+                            "additionalProperties": true,
+                            "description": "Relationships with other actors, e.g., {'friend': ['actor_id1', 'actor_id2'], 'enemy': ['actor_id3']}, the relationships do not need to be symmetric, e.g., actor A can consider B a friend while B considers A an enemy",
+                            "title": "Relationships",
+                            "type": "object"
+                        },
+                        "occupation": {
+                            "description": "Occupation of the suspect",
+                            "title": "Occupation",
+                            "type": "string"
+                        },
+                        "motive": {
+                            "description": "Specific motive for commiting the crime based on the input data.",
+                            "title": "Motive",
+                            "type": "string"
+                        },
+                        "crime_relevant_traits": {
+                            "description": "List of traits that are relevant to the crime, e.g., ['greedy', 'jealous']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Crime Relevant Traits",
+                            "type": "array"
+                        },
+                        "possible_alibis": {
+                            "description": "List of possible alibis for the suspect, e.g., ['was at the pub', 'was out of town']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Possible Alibis",
+                            "type": "array"
+                        },
+                        "possible_means": {
+                            "description": "List of possible means for committing the crime, e.g., if the crime is poisoning, possible means could be ['is pharmacist'] or ['prepares food'], if the crime is shooting, possible means could be ['is a hunter'] or ['has a history of violence']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Possible Means",
+                            "type": "array"
+                        },
+                        "culprit": {
+                            "description": "Whether the suspect is the culprit of the crime or not, leave false unless the culprit is explicitly specified in the input data, in which case set to true",
+                            "title": "Culprit",
+                            "type": "boolean"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "relationships",
+                        "occupation",
+                        "motive",
+                        "crime_relevant_traits",
+                        "possible_alibis",
+                        "possible_means",
+                        "culprit"
+                    ],
+                    "title": "Suspect",
+                    "type": "object"
+                },
+                "Victim": {
+                    "properties": {
+                        "id": {
+                            "description": "Unique identifier for the actor",
+                            "title": "Id",
+                            "type": "string"
+                        },
+                        "relationships": {
+                            "additionalProperties": true,
+                            "description": "Relationships with other actors, e.g., {'friend': ['actor_id1', 'actor_id2'], 'enemy': ['actor_id3']}, the relationships do not need to be symmetric, e.g., actor A can consider B a friend while B considers A an enemy",
+                            "title": "Relationships",
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "relationships"
+                    ],
+                    "title": "Victim",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "victim": {
+                    "$ref": "#/$defs/Victim",
+                    "description": "The victim of the crime"
+                },
+                "suspects": {
+                    "description": "List of suspects in the story",
+                    "items": {
+                        "$ref": "#/$defs/Suspect"
+                    },
+                    "title": "Suspects",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "victim",
+                "suspects"
+            ],
+            "title": "ActorPool",
+            "type": "object"
+        },
+        "extras": null
+    }
+}

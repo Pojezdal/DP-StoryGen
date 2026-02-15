@@ -1,0 +1,301 @@
+{
+    "prompt": "Based on the following input data in JSON format, generate a structured actor pool for a detective fiction story.\n\ntitle=None genre='detective story' theme='dark and atmospheric tone' core_idea='mysterious murder in a grand mansion, with a cast of intriguing suspects' setting=SettingData(location='Victorian London', time_period='Victorian', atmosphere='dark and atmospheric tone', isolation_level=None) crime=CrimeData(crime_type='murder', method='shot through the eye', motive=None, specifications=None) characters=CharactersData(detective_type='eccentric detective', detective_specifications='brilliant but eccentric', sidekick_type='loyal assistant', sidekick_specifications='loyal', suspect_count=None, culprit_specifications='The killer should be the gardener') structure=StructureData(length=None, complexity='complex', twist_specifications='plenty of twists and turns', red_herring_specifications=None)\n",
+    "response": {
+        "victim": {
+            "id": "Lord_Ashworth",
+            "relationships": [
+                {
+                    "type": "employer_of",
+                    "to": "Silas_Blackwood"
+                },
+                {
+                    "type": "husband_of",
+                    "to": "Lady_Eleanor_Ashworth"
+                },
+                {
+                    "type": "uncle_of",
+                    "to": "Alistair_Finch"
+                },
+                {
+                    "type": "employer_of",
+                    "to": "Mr_Reginald_Humphrey"
+                }
+            ]
+        },
+        "suspects": [
+            {
+                "id": "Silas_Blackwood",
+                "relationships": [
+                    {
+                        "type": "employee_of",
+                        "to": "Lord_Ashworth"
+                    },
+                    {
+                        "type": "secret_enemy_of",
+                        "to": "Lord_Ashworth"
+                    }
+                ],
+                "occupation": "Head Gardener",
+                "motive": "Deep-seated resentment over past injustices inflicted by Lord Ashworth, possibly involving a hidden family secret or stolen land that ruined Blackwood's family.",
+                "crime_relevant_traits": [
+                    "observant",
+                    "resentful",
+                    "strong-willed",
+                    "patient",
+                    "resourceful"
+                ],
+                "possible_alibis": [
+                    "working in the distant greenhouses, far from the main house",
+                    "attending to the stable horses, a task often left to him"
+                ],
+                "possible_means": [
+                    "secretly owned a hunting rifle, hidden on the estate",
+                    "familiar with all nooks and crannies of the mansion grounds for covert movement"
+                ],
+                "culprit": true
+            },
+            {
+                "id": "Lady_Eleanor_Ashworth",
+                "relationships": [
+                    {
+                        "type": "wife_of",
+                        "to": "Lord_Ashworth"
+                    },
+                    {
+                        "type": "has_an_affair_with",
+                        "to": "Alistair_Finch"
+                    }
+                ],
+                "occupation": "Lady of the Manor",
+                "motive": "Strained and loveless marriage, desire for freedom and access to her own inheritance, suspicion of Lord Ashworth's infidelity and crippling financial misdealings that threatened her security.",
+                "crime_relevant_traits": [
+                    "manipulative",
+                    "cold",
+                    "desperate",
+                    "proud"
+                ],
+                "possible_alibis": [
+                    "retired early to her chambers with a severe headache",
+                    "attending a late-night social engagement at a friend's house (unconfirmed)"
+                ],
+                "possible_means": [
+                    "kept a small, antique pistol for self-defense hidden in her boudoir",
+                    "intimate knowledge of Lord Ashworth's habits and the mansion's security protocols"
+                ],
+                "culprit": false
+            },
+            {
+                "id": "Alistair_Finch",
+                "relationships": [
+                    {
+                        "type": "nephew_of",
+                        "to": "Lord_Ashworth"
+                    },
+                    {
+                        "type": "heir_to",
+                        "to": "Lord_Ashworth"
+                    },
+                    {
+                        "type": "secret_lover_of",
+                        "to": "Lady_Eleanor_Ashworth"
+                    }
+                ],
+                "occupation": "Aspiring Gentleman (unemployed)",
+                "motive": "Impatience to inherit Lord Ashworth's vast estate and fortune, which he desperately needs to settle exorbitant gambling debts and maintain his lavish lifestyle. Also, a desire to openly pursue his affair with Lady Eleanor.",
+                "crime_relevant_traits": [
+                    "reckless",
+                    "greedy",
+                    "arrogant",
+                    "impulsive",
+                    "desperate"
+                ],
+                "possible_alibis": [
+                    "gambling at a private, illicit club across town",
+                    "drinking heavily and alone in his private quarters at the mansion"
+                ],
+                "possible_means": [
+                    "known to own a collection of firearms for sport hunting",
+                    "familiar with the mansion's layout and staff movements from frequent visits"
+                ],
+                "culprit": false
+            },
+            {
+                "id": "Mr_Reginald_Humphrey",
+                "relationships": [
+                    {
+                        "type": "loyal_servant_of",
+                        "to": "Lord_Ashworth"
+                    },
+                    {
+                        "type": "knows_dark_secret_about",
+                        "to": "Lord_Ashworth"
+                    }
+                ],
+                "occupation": "Head Butler",
+                "motive": "Protecting a long-held, scandalous family secret involving Lord Ashworth that could ruin the Ashworth name, or perhaps Lord Ashworth was about to dismiss him after discovering Humphrey's own subtle embezzlement over decades of service.",
+                "crime_relevant_traits": [
+                    "loyal (to the house's reputation)",
+                    "secretive",
+                    "meticulous",
+                    "possessive"
+                ],
+                "possible_alibis": [
+                    "overseeing the kitchen staff's late-night duties",
+                    "polishing silverware in the pantry, a task he often performed personally"
+                ],
+                "possible_means": [
+                    "intimate knowledge of the mansion's routines, hidden passages, and secret compartments",
+                    "access to a forgotten weapon from a previous era, kept in the house's curios"
+                ],
+                "culprit": false
+            }
+        ]
+    },
+    "model": "gemini-2.5-flash",
+    "system_instruction": "You are designing a structural actor pool for a detective fiction story.\nYour task is to generate:\n- One victim\n- N suspects (based on the input data, or if missing use a reasonable number between 3 and 6)\n\nRules:\n- The generated actors should be consistent with the provided input data and with common conventions of detective stories.\n- Details not included in the input data should be filled in creatively, but must still fit within the detective genre and the specific subgenre if one is provided.\n- The cuprit should not be specified unless explicitly mentioned in the input data.\n- All suspects should have plausible motives, means, and opportunities for committing the crime, even if they are not the cuprit.\n- The relationships between the actors should be coherent and should reflect common dynamics found in detective stories, such as friendships, rivalries, family ties, or professional relationships.\n- The relationships do not need to be symmetric, e.g., actor A can consider B a friend while B considers A an enemy. Symetiric relationships should be specified in both actors' relationship fields.\n- The relationships should be only between the specified actors (victim and suspects), do not introduce additional actors for the relationships.\n",
+    "generation_params": {
+        "temperature": 1.0,
+        "do_sample": true,
+        "top_p": 0.9,
+        "top_k": 5,
+        "max_tokens": 10000,
+        "repetition_penalty": 0,
+        "response_type": "application/json",
+        "response_schema": {
+            "$defs": {
+                "Relationship": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of relationship, e.g., friend, enemy, family, colleague",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "to": {
+                            "description": "ID of the other actor in the relationship",
+                            "title": "To",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "to"
+                    ],
+                    "title": "Relationship",
+                    "type": "object"
+                },
+                "Suspect": {
+                    "properties": {
+                        "id": {
+                            "description": "Unique identifier for the actor",
+                            "title": "Id",
+                            "type": "string"
+                        },
+                        "relationships": {
+                            "description": "List of relationships this actor has with other actors in the story, the relationships do not need to be symmetric, e.g., if actor A is a friend of actor B, it does not necessarily mean that actor B is a friend of actor A, the relationships should be based on the input data and should not be inferred based on common sense or general knowledge",
+                            "items": {
+                                "$ref": "#/$defs/Relationship"
+                            },
+                            "title": "Relationships",
+                            "type": "array"
+                        },
+                        "occupation": {
+                            "description": "Occupation of the suspect",
+                            "title": "Occupation",
+                            "type": "string"
+                        },
+                        "motive": {
+                            "description": "Specific motive for commiting the crime based on the input data.",
+                            "title": "Motive",
+                            "type": "string"
+                        },
+                        "crime_relevant_traits": {
+                            "description": "List of traits that are relevant to the crime, e.g., ['greedy', 'jealous']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Crime Relevant Traits",
+                            "type": "array"
+                        },
+                        "possible_alibis": {
+                            "description": "List of possible alibis for the suspect, e.g., ['was at the pub', 'was out of town']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Possible Alibis",
+                            "type": "array"
+                        },
+                        "possible_means": {
+                            "description": "List of possible means for committing the crime, e.g., if the crime is poisoning, possible means could be ['is pharmacist'] or ['prepares food'], if the crime is shooting, possible means could be ['is a hunter'] or ['has a history of violence']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Possible Means",
+                            "type": "array"
+                        },
+                        "culprit": {
+                            "description": "Whether the suspect is the culprit of the crime or not, leave false unless the culprit is explicitly specified in the input data, in which case set to true",
+                            "title": "Culprit",
+                            "type": "boolean"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "relationships",
+                        "occupation",
+                        "motive",
+                        "crime_relevant_traits",
+                        "possible_alibis",
+                        "possible_means",
+                        "culprit"
+                    ],
+                    "title": "Suspect",
+                    "type": "object"
+                },
+                "Victim": {
+                    "properties": {
+                        "id": {
+                            "description": "Unique identifier for the actor",
+                            "title": "Id",
+                            "type": "string"
+                        },
+                        "relationships": {
+                            "description": "List of relationships this actor has with other actors in the story, the relationships do not need to be symmetric, e.g., if actor A is a friend of actor B, it does not necessarily mean that actor B is a friend of actor A, the relationships should be based on the input data and should not be inferred based on common sense or general knowledge",
+                            "items": {
+                                "$ref": "#/$defs/Relationship"
+                            },
+                            "title": "Relationships",
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "relationships"
+                    ],
+                    "title": "Victim",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "victim": {
+                    "$ref": "#/$defs/Victim",
+                    "description": "The victim of the crime"
+                },
+                "suspects": {
+                    "description": "List of suspects in the story",
+                    "items": {
+                        "$ref": "#/$defs/Suspect"
+                    },
+                    "title": "Suspects",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "victim",
+                "suspects"
+            ],
+            "title": "ActorPool",
+            "type": "object"
+        },
+        "extras": null
+    }
+}

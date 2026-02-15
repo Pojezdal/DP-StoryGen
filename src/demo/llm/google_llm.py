@@ -21,7 +21,7 @@ class GoogleLLM(LLM):
             top_p=generation_params.top_p,
             top_k=generation_params.top_k,
             response_mime_type=generation_params.response_type,
-            response_schema=generation_params.response_schema.model_json_schema() if generation_params.response_schema else None,
+            response_json_schema=generation_params.response_schema.model_json_schema() if generation_params.response_schema else None,
         )
 
         response = self.client.models.generate_content(
@@ -55,7 +55,7 @@ class GoogleLLM(LLM):
             top_p=generation_params.top_p,
             top_k=generation_params.top_k,
             response_mime_type=generation_params.response_type,
-            response_schema=generation_params.response_schema.model_json_schema() if generation_params.response_schema else None,
+            response_json_schema=generation_params.response_schema.model_json_schema() if generation_params.response_schema else None,
         )
     
         text = ""

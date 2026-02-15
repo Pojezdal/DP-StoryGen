@@ -1,0 +1,269 @@
+{
+    "prompt": "Based on the following input data and provided actor pool, generate a structured crime graph that describes the objective crime timeline for a detective story.\n\nInput data:\ntitle=None genre='detective story' theme='dark and atmospheric tone' core_idea='mysterious murder in a grand mansion, with a cast of intriguing suspects' setting=SettingData(location='Victorian London', time_period='Victorian', atmosphere='dark and atmospheric tone', isolation_level=None) crime=CrimeData(crime_type='murder', method='shot through the eye', motive=None, specifications=None) characters=CharactersData(detective_type='eccentric detective', detective_specifications='brilliant but eccentric', sidekick_type='loyal assistant', sidekick_specifications='loyal', suspect_count=None, culprit_specifications='The killer should be the gardener') structure=StructureData(length=None, complexity='complex', twist_specifications='plenty of twists and turns', red_herring_specifications=None)\n\nActor pool:\nvictim=Victim(id='Lord_Ashworth', relationships=[Relationship(type='employer_of', to='Silas_Blackwood'), Relationship(type='husband_of', to='Lady_Eleanor_Ashworth'), Relationship(type='uncle_of', to='Alistair_Finch'), Relationship(type='employer_of', to='Mr_Reginald_Humphrey')]) suspects=[Suspect(id='Silas_Blackwood', relationships=[Relationship(type='employee_of', to='Lord_Ashworth'), Relationship(type='secret_enemy_of', to='Lord_Ashworth')], occupation='Head Gardener', motive=\"Deep-seated resentment over past injustices inflicted by Lord Ashworth, possibly involving a hidden family secret or stolen land that ruined Blackwood's family.\", crime_relevant_traits=['observant', 'resentful', 'strong-willed', 'patient', 'resourceful'], possible_alibis=['working in the distant greenhouses, far from the main house', 'attending to the stable horses, a task often left to him'], possible_means=['secretly owned a hunting rifle, hidden on the estate', 'familiar with all nooks and crannies of the mansion grounds for covert movement'], culprit=True), Suspect(id='Lady_Eleanor_Ashworth', relationships=[Relationship(type='wife_of', to='Lord_Ashworth'), Relationship(type='has_an_affair_with', to='Alistair_Finch')], occupation='Lady of the Manor', motive=\"Strained and loveless marriage, desire for freedom and access to her own inheritance, suspicion of Lord Ashworth's infidelity and crippling financial misdealings that threatened her security.\", crime_relevant_traits=['manipulative', 'cold', 'desperate', 'proud'], possible_alibis=['retired early to her chambers with a severe headache', \"attending a late-night social engagement at a friend's house (unconfirmed)\"], possible_means=['kept a small, antique pistol for self-defense hidden in her boudoir', \"intimate knowledge of Lord Ashworth's habits and the mansion's security protocols\"], culprit=False), Suspect(id='Alistair_Finch', relationships=[Relationship(type='nephew_of', to='Lord_Ashworth'), Relationship(type='heir_to', to='Lord_Ashworth'), Relationship(type='secret_lover_of', to='Lady_Eleanor_Ashworth')], occupation='Aspiring Gentleman (unemployed)', motive=\"Impatience to inherit Lord Ashworth's vast estate and fortune, which he desperately needs to settle exorbitant gambling debts and maintain his lavish lifestyle. Also, a desire to openly pursue his affair with Lady Eleanor.\", crime_relevant_traits=['reckless', 'greedy', 'arrogant', 'impulsive', 'desperate'], possible_alibis=['gambling at a private, illicit club across town', 'drinking heavily and alone in his private quarters at the mansion'], possible_means=['known to own a collection of firearms for sport hunting', \"familiar with the mansion's layout and staff movements from frequent visits\"], culprit=False), Suspect(id='Mr_Reginald_Humphrey', relationships=[Relationship(type='loyal_servant_of', to='Lord_Ashworth'), Relationship(type='knows_dark_secret_about', to='Lord_Ashworth')], occupation='Head Butler', motive=\"Protecting a long-held, scandalous family secret involving Lord Ashworth that could ruin the Ashworth name, or perhaps Lord Ashworth was about to dismiss him after discovering Humphrey's own subtle embezzlement over decades of service.\", crime_relevant_traits=[\"loyal (to the house's reputation)\", 'secretive', 'meticulous', 'possessive'], possible_alibis=[\"overseeing the kitchen staff's late-night duties\", 'polishing silverware in the pantry, a task he often performed personally'], possible_means=[\"intimate knowledge of the mansion's routines, hidden passages, and secret compartments\", \"access to a forgotten weapon from a previous era, kept in the house's curios\"], culprit=False)]\n",
+    "response": {
+        "crime_events": [
+            {
+                "type": "decision",
+                "description": "Silas Blackwood, after years of simmering resentment, solidifies his long-held decision to murder Lord Ashworth. This decision is fueled by Lord Ashworth's theft of Blackwood's family's ancestral land, which ruined Blackwood's lineage and directly led to Ashworth's vast prosperity.",
+                "actors_involved": [
+                    "Silas_Blackwood",
+                    "Lord_Ashworth"
+                ],
+                "location": "Silas Blackwood's secluded cottage on the Ashworth estate",
+                "time": "Several months before the crime",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A scorched, half-burnt letter fragment found later in Silas Blackwood's cottage fireplace, bearing Lord Ashworth's partial seal and a cryptic reference to 'Ashworth's debt' and 'stolen legacy,' hinting at the motive."
+                    }
+                ]
+            },
+            {
+                "type": "preparation",
+                "description": "Silas Blackwood retrieves his old, unregistered hunting rifle from its hiding place beneath a loose flagstone in a forgotten, disused shed near the estate's boundary wall. He cleans and prepares it for use.",
+                "actors_involved": [
+                    "Silas_Blackwood"
+                ],
+                "location": "Forgotten shed on the estate boundary",
+                "time": "One week before the crime",
+                "traces_left": [
+                    {
+                        "type": "forensic evidence",
+                        "description": "Microscopic traces of a specific, rust-colored pollen, endemic only to the flora around the forgotten shed, found clinging to the rifle's stock even after an attempt to clean it."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A subtle disturbance of the loose flagstone, indicating recent activity, though easily overlooked."
+                    }
+                ]
+            },
+            {
+                "type": "preparation",
+                "description": "Silas Blackwood meticulously observes Lord Ashworth's evening routine for three consecutive nights, noting his habit of retiring to his study for a late-night brandy and cigar, often leaving the tall window facing the gardens slightly ajar on warmer evenings.",
+                "actors_involved": [
+                    "Silas_Blackwood",
+                    "Lord_Ashworth"
+                ],
+                "location": "Exterior of Lord Ashworth's study, main mansion",
+                "time": "Three nights before the crime",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A very distinct, slightly larger-than-average boot print impression, partially obscured by ivy, in the damp earth directly beneath Lord Ashworth's study window, inconsistent with typical garden staff footwear."
+                    }
+                ]
+            },
+            {
+                "type": "preparation",
+                "description": "On the day of the crime, Silas Blackwood makes a deliberate point of being seen performing arduous and time-consuming tasks in the distant greenhouses and stables, creating a visible presence far from the main house to establish a plausible alibi for the evening.",
+                "actors_involved": [
+                    "Silas_Blackwood"
+                ],
+                "location": "Greenhouses and stables on the Ashworth estate",
+                "time": "The afternoon of the crime",
+                "traces_left": [
+                    {
+                        "type": "witness",
+                        "description": "The head groom can recall Silas Blackwood being unusually focused and almost aggressively thorough in his stable duties that afternoon, despite typically delegating such tasks, finding it slightly odd."
+                    }
+                ]
+            },
+            {
+                "type": "execution",
+                "description": "Under the cover of an unusually dense fog that rolled in over the estate, Silas Blackwood, utilizing his intimate knowledge of the grounds, silently approaches the mansion. He slips through an overgrown, seldom-used service entrance near the conservatory, making his way stealthily towards Lord Ashworth's study.",
+                "actors_involved": [
+                    "Silas_Blackwood"
+                ],
+                "location": "Service entrance of the main mansion",
+                "time": "The night of the crime, approximately 10:30 PM",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A small, distinctive button, torn from an old gardening coat, snagged on a thorny rose bush directly beside the seldom-used service entrance."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A faint, muddy boot print found just inside the service entrance, slightly larger and with a different tread pattern than common staff footwear."
+                    }
+                ]
+            },
+            {
+                "type": "execution",
+                "description": "Silas Blackwood enters Lord Ashworth's study, finding him slumped asleep in his armchair, a half-finished brandy by his side. With cold, calculated precision, Blackwood aims his hunting rifle and fires a single, muffled shot, striking Lord Ashworth directly through the left eye, ensuring a swift and fatal demise.",
+                "actors_involved": [
+                    "Silas_Blackwood",
+                    "Lord_Ashworth"
+                ],
+                "location": "Lord Ashworth's Study",
+                "time": "The night of the crime, approximately 10:45 PM",
+                "traces_left": [
+                    {
+                        "type": "forensic evidence",
+                        "description": "A single spent rifle casing, specifically from an antique hunting rifle (.303 calibre), found partially hidden beneath a Persian rug near the armchair."
+                    },
+                    {
+                        "type": "forensic evidence",
+                        "description": "A unique rifling pattern on the bullet recovered from Lord Ashworth's skull, matching an obscure, older model of hunting rifle."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A faint, almost invisible burn mark on the antique mahogany desk surface, precisely where the rifle's muzzle briefly rested for stability."
+                    }
+                ]
+            },
+            {
+                "type": "cover-up",
+                "description": "Silas Blackwood swiftly exits the study, retraces his steps through the service entrance, and disassembles the hunting rifle. He then meticulously buries the individual pieces in different, remote locations across the expansive estate grounds, including a corner of his private garden plot and a disused well near the old stable block.",
+                "actors_involved": [
+                    "Silas_Blackwood"
+                ],
+                "location": "Various remote spots on the Ashworth estate grounds",
+                "time": "Immediately after the crime, approximately 11:00 PM - 12:00 AM",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "Freshly disturbed soil in a discreet corner of Silas Blackwood's private garden plot, inconsistent with any recent planting activity or typical garden work."
+                    },
+                    {
+                        "type": "forensic evidence",
+                        "description": "Minute traces of gun oil, mixed with damp soil, found clinging to the bottom and seams of Silas Blackwood's work boots, discovered later during the investigation."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A faint metallic sheen or discoloration at the bottom of the disused well, if inspected closely, where a piece of the rifle might have settled."
+                    }
+                ]
+            },
+            {
+                "type": "cover-up",
+                "description": "Silas Blackwood, now soaked from the fog and his clandestine activities, returns to the stables and makes a point to be seen briefly by the night watchman, feigning a late check on the horses before retiring to his cottage, reinforcing his fabricated alibi.",
+                "actors_involved": [
+                    "Silas_Blackwood"
+                ],
+                "location": "Stables on the Ashworth estate",
+                "time": "Late night of the crime, approximately 12:30 AM",
+                "traces_left": [
+                    {
+                        "type": "digital evidence",
+                        "description": "The night watchman's handwritten logbook entry, dated the night of the crime, briefly mentions 'Blackwood, returning from stables, quite late and soaked to the bone,' a detail that slightly contradicts Blackwood's later claims of having been in the greenhouses all evening."
+                    }
+                ]
+            }
+        ]
+    },
+    "model": "gemini-2.5-flash",
+    "system_instruction": "You are constructing the objective crime timeline for a detective story.\nThis is the ground truth of what actually happened. Ensure that the timeline is consistent with the provided input data and with common conventions of detective stories.\nAlso ensure logical consistency within the timeline itself and causality, e.g., the preparation for the crime must happen before the execution of the crime, the decision to commit the crime must happen before the preparation and execution, etc.\n\nGenerate events that describe the crime, the events leading up to the crime, and the events immediately following the crime.\nThe events should describe:\n- Decision: any decision made by any actor that is relevant to the crime, e.g., the decision to commit the crime\n- Preparation: any preparation made for the crime, e.g., buying a weapon, researching the victim's schedule, acquiring a key to the victim's house, ensuring an alibi for the time of the crime\n- Execution: the execution of the crime itself, e.g., the act of poisoning the victim's drink, the act of shooting the victim, the act of breaking into the house to commit the crime\n- Cover-up: any action taken to cover up the crime, e.g., cleaning up the crime scene, moving the body, staging the crime scene to look like a burglary, deleting digital evidence, persuading witnesses to lie\n\nEach event can leave behind crime traces, that migh be discovered by the detective during the investigation and help solve the crime.\n\nUses concrete and specific descriptions for the crime events and crime traces, avoid vague or generic descriptions. For example, instead of saying \"the suspect prepared for the crime\", say \"the suspect bought a bottle of arsenic from the local pharmacy\",\nor instead of saying \"the suspect left behind evidence at the crime scene\", say \"the suspect left fingerprints on the glass used for poisoning\".\nTry to be creative and imaginative with the crime events and crime traces to provide an engaging and intriguing crime timeline.\n",
+    "generation_params": {
+        "temperature": 1.0,
+        "do_sample": true,
+        "top_p": 0.9,
+        "top_k": 5,
+        "max_tokens": 10000,
+        "repetition_penalty": 0,
+        "response_type": "application/json",
+        "response_schema": {
+            "$defs": {
+                "CrimeEvent": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime event, e.g., decision, preparation, execution or cover-up",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime event, e.g., 'The suspect poisoned the victim's drink at the party', 'The suspect gained access to the victim's house by persuading the maid to let them in', 'The suspect bought a gun.'",
+                            "title": "Description",
+                            "type": "string"
+                        },
+                        "actors_involved": {
+                            "description": "List of actor ids involved in the crime event, e.g., ['victim_id', 'suspect_id1']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Actors Involved",
+                            "type": "array"
+                        },
+                        "location": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Location where the crime event takes place, if relevant",
+                            "title": "Location"
+                        },
+                        "time": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Time when the crime event takes place relative to the crime itself, e.g., 'two days before the crime', 'the night of the crime', if relevant",
+                            "title": "Time"
+                        },
+                        "traces_left": {
+                            "description": "List of crime traces left by this crime event, e.g., fingerprints, witnesses, forensic evidence, digital evidence",
+                            "items": {
+                                "$ref": "#/$defs/CrimeTrace"
+                            },
+                            "title": "Traces Left",
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description",
+                        "actors_involved",
+                        "location",
+                        "time",
+                        "traces_left"
+                    ],
+                    "title": "CrimeEvent",
+                    "type": "object"
+                },
+                "CrimeTrace": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime trace, e.g., physical evidence, witness, forensic evidence, digital evidence",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime trace, e.g., 'Fingeprints on the glass used for poisoning', 'A witness saw the suspect arguing with the victim', 'Missing gun from the victim's collection', 'Toxicology report showing presence of poison in the victim's system'",
+                            "title": "Description",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description"
+                    ],
+                    "title": "CrimeTrace",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "crime_events": {
+                    "description": "List of crime events that make up the crime, including the crime itself and any relevant events leading up to or following the crime",
+                    "items": {
+                        "$ref": "#/$defs/CrimeEvent"
+                    },
+                    "title": "Crime Events",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "crime_events"
+            ],
+            "title": "CrimeGraph",
+            "type": "object"
+        },
+        "extras": null
+    }
+}

@@ -1,0 +1,252 @@
+{
+    "prompt": "Based on the following input data and provided actor pool, generate a structured crime graph that describes the objective crime timeline for a detective story.\n\nInput data:\ntitle=None genre='detective story' theme='mystery, intrigue, dark atmosphere' core_idea='A brilliant but eccentric detective and his loyal assistant investigate a mysterious murder in a grand mansion, surrounded by intriguing suspects.' setting=SettingData(location='London', time_period='Victorian', atmosphere='dark and atmospheric', isolation_level='contained within a grand mansion') crime=CrimeData(crime_type='murder', method=None, motive=None, specifications='mysterious murder') characters=CharactersData(detective_type='detective', detective_specifications='brilliant but eccentric', sidekick_type='assistant', sidekick_specifications='loyal', suspect_count=None, culprit_specifications='No specific requirements') structure=StructureData(length=None, complexity='complex', twist_specifications='plenty of twists and turns to keep readers guessing until the very end', red_herring_specifications=None)\n\nActor pool:\nvictim=Victim(id='Lord Alistair Finch', relationships=[Relationship(type='niece', to='Lady Eleanor Finch'), Relationship(type='employer', to='Mr. Silas Blackwood'), Relationship(type='employer', to='Miss Clara Thorne'), Relationship(type='former business partner', to='Mr. Arthur Pendelton')]) suspects=[Suspect(id='Mr. Silas Blackwood', relationships=[Relationship(type='employee of', to='Lord Alistair Finch'), Relationship(type='overseer of', to='Miss Clara Thorne')], occupation='Butler', motive='Resentment over years of dismissive treatment and a recent reduction in his pension promised by Lord Finch, compounded by financial difficulties from a gambling debt.', crime_relevant_traits=['resentful', 'meticulous', 'secretive'], possible_alibi='Was in the wine cellar cataloging a new shipment of Bordeaux during the estimated time of death, a task Lord Finch had specifically assigned him earlier that evening.', possible_method=\"Administered a fast-acting poison, perhaps mixed into Lord Finch's customary evening port.\", possible_means=[\"has access to all areas of the mansion including Lord Finch's private decanters\", \"knowledge of Lord Finch's nightly routine\", \"has discreetly acquired poisons for 'pest control' in the past\"], culprit=False), Suspect(id='Lady Eleanor Finch', relationships=[Relationship(type='niece of', to='Lord Alistair Finch')], occupation='Unmarried Noblewoman', motive='Lord Finch had recently threatened to disinherit her completely after she amassed significant debts, leaving her destitute and without prospects.', crime_relevant_traits=['desperate', 'manipulative', 'calculating'], possible_alibi='Was sketching in the conservatory, a habit she often cultivated to appear delicate and artistic, and claims to have seen no one.', possible_method='Stabbed Lord Finch with a sharpened letter opener found on his desk during an argument about her debts.', possible_means=[\"financially dependent on Lord Finch's will\", 'known to have a temper when cornered', \"has free access to Lord Finch's study\"], culprit=False), Suspect(id='Mr. Arthur Pendelton', relationships=[Relationship(type='former business partner of', to='Lord Alistair Finch')], occupation='Disgraced Financier', motive=\"Lord Finch had ruthlessly ruined Pendelton's family business years ago and was about to expose a secret financial scheme Pendelton was attempting to rebuild his fortune with, which would have led to his imprisonment.\", crime_relevant_traits=['vengeful', 'ruthless', 'desperate'], possible_alibi='Was at a private club across town, supposedly finalising a deal, though no one can explicitly confirm his exact whereabouts for the crucial hour.', possible_method='Bludgeoned Lord Finch with a heavy marble statuette from his study during a heated confrontation.', possible_means=['strong and physically capable', 'deep-seated grudge against Lord Finch', 'knew of a secret entrance to the mansion used for clandestine meetings'], culprit=False), Suspect(id='Miss Clara Thorne', relationships=[Relationship(type='housemaid for', to='Lord Alistair Finch'), Relationship(type='subordinate of', to='Mr. Silas Blackwood')], occupation='Head Housemaid', motive='Lord Finch had promised to financially secure her family after an affair, but recently reneged, threatening to dismiss her and expose their relationship, which would ruin her reputation and leave her family impoverished.', crime_relevant_traits=['secretive', 'loyal to family', 'resourceful'], possible_alibi=\"Claims she was tidying the guest bedrooms on the third floor, far from Lord Finch's study, a task often left until late.\", possible_method='Smothered Lord Finch with a pillow after he fell asleep in his armchair, following a tense argument.', possible_means=[\"has intimate knowledge of the mansion and its residents' habits\", \"regularly enters Lord Finch's private quarters for cleaning\", 'driven by desperation to protect her family'], culprit=False)]\n",
+    "response": {
+        "crime_events": [
+            {
+                "type": "Decision",
+                "description": "Mr. Arthur Pendelton, upon receiving a discreet warning that Lord Alistair Finch was preparing to expose his last desperate financial scheme, makes the chilling decision to murder Lord Finch. His motivation is a dual one: to prevent imminent ruin and imprisonment, and to finally exact vengeance for Lord Finch's ruthless destruction of his family's business years prior.",
+                "actors_involved": [
+                    "Mr. Arthur Pendelton"
+                ],
+                "location": "Mr. Pendelton's rented London lodgings",
+                "time": "One week before the crime",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A partially incinerated, official-looking letter detailing Lord Finch's intent to disclose financial irregularities, found within the ashes of Mr. Pendelton's fireplace, indicating his knowledge of the impending threat."
+                    }
+                ]
+            },
+            {
+                "type": "Preparation",
+                "description": "Mr. Arthur Pendelton discreetly revisits and clears the old, rarely used secret tunnel connecting the abandoned coach house on the Finch estate to the mansion's wine cellar. This tunnel was known to him from past clandestine meetings with Lord Finch. He also meticulously observes Lord Finch's nightly routine, noting his habit of retiring to his study after dinner with a decanter of port.",
+                "actors_involved": [
+                    "Mr. Arthur Pendelton"
+                ],
+                "location": "Abandoned coach house and the mansion's cellar",
+                "time": "Three days before the crime",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "Faint, distinctive boot prints (Pendelton's) found in the dust near the concealed entrance to the tunnel within the abandoned coach house, along with disturbed cobwebs and a faint metallic smell near the cellar's secret panel."
+                    }
+                ]
+            },
+            {
+                "type": "Preparation",
+                "description": "Mr. Arthur Pendelton orchestrates a superficial alibi for the evening of the planned murder. He arranges to meet a junior associate at the exclusive 'Blackwood Club', making an ostentatious display of discussing a 'crucial' business deal, ensuring he is seen and remembered by staff and other patrons for a specific window of time. He mentions he might need to step out briefly for an urgent matter.",
+                "actors_involved": [
+                    "Mr. Arthur Pendelton"
+                ],
+                "location": "The Blackwood Club, London",
+                "time": "The day of the crime, early evening (8:00 PM - 9:30 PM)",
+                "traces_left": [
+                    {
+                        "type": "digital evidence",
+                        "description": "A signed bill from the Blackwood Club for an expensive bottle of brandy, dated the night of the murder, with the time of purchase meticulously logged by the establishment's strict accounting system."
+                    },
+                    {
+                        "type": "witness",
+                        "description": "Testimony from the junior associate and several club members recalling Mr. Pendelton's presence and his 'important' business discussions, though none can confirm his exact whereabouts for every minute of the crucial hour."
+                    }
+                ]
+            },
+            {
+                "type": "Execution",
+                "description": "Under the cloak of late-night darkness, Mr. Arthur Pendelton silently infiltrates the Finch mansion. He uses the pre-prepared secret tunnel from the abandoned coach house, emerging into the wine cellar and bypassing all conventional entry points and household staff.",
+                "actors_involved": [
+                    "Mr. Arthur Pendelton"
+                ],
+                "location": "Secret tunnel to the mansion's cellar",
+                "time": "The night of the crime, approximately 10:45 PM",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "Microscopic specks of distinctive, damp cellar earth found embedded in the intricate stitching of Mr. Pendelton's evening shoe soles, inconsistent with his alibi location."
+                    }
+                ]
+            },
+            {
+                "type": "Execution",
+                "description": "Mr. Arthur Pendelton stealthily makes his way to Lord Finch's study. A ferocious, hushed confrontation ensues between the two men, fueled by Lord Finch's impending exposure of Pendelton's scheme and Pendelton's long-simmering resentment. In a fit of uncontrollable rage, Pendelton seizes a heavy, ornate marble statuette of a Roman general from Lord Finch's desk and brutally bludgeons him multiple times until he is dead.",
+                "actors_involved": [
+                    "Mr. Arthur Pendelton",
+                    "Lord Alistair Finch"
+                ],
+                "location": "Lord Finch's Study",
+                "time": "The night of the crime, approximately 11:00 PM - 11:10 PM",
+                "traces_left": [
+                    {
+                        "type": "forensic evidence",
+                        "description": "The heavy marble statuette, found covered in Lord Finch's blood and bearing faint, smudged partial fingerprints later matched to Mr. Pendelton."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "Significant disarray of papers, overturned inkwell, and a broken antique quill pen on Lord Finch's desk, indicative of a violent struggle."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "Lord Finch's valuable pocket watch, found crushed and stopped at 11:02 PM, tightly clutched in his dead hand, indicating the approximate moment of his demise."
+                    }
+                ]
+            },
+            {
+                "type": "Cover-up",
+                "description": "To divert suspicion and mislead investigators, Mr. Arthur Pendelton swiftly stages the study to resemble a burglary gone awry. He overturns a few chairs, scatters some decorative, unimportant papers, and forcibly opens a locked drawer in a large mahogany cabinet, making it appear as though an intruder was searching for valuables. He deliberately leaves a prominent, valuable antique snuff box untouched on the mantelpiece to suggest the 'burglar' was either interrupted or not interested in easily accessible treasures.",
+                "actors_involved": [
+                    "Mr. Arthur Pendelton"
+                ],
+                "location": "Lord Finch's Study",
+                "time": "Immediately after the crime, approximately 11:10 PM - 11:25 PM",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "Fingerprints from various household members (Lord Finch, Miss Clara Thorne, Mr. Silas Blackwood) on the scattered papers and furniture, consistent with their daily activities, but a distinct lack of any clear, identifiable 'intruder' prints on these items, save for Pendelton's on the weapon."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "The valuable antique snuff box, conspicuously untouched on the mantelpiece, appearing out of place amidst the manufactured chaos."
+                    }
+                ]
+            },
+            {
+                "type": "Cover-up",
+                "description": "Mr. Arthur Pendelton makes a hasty escape through the secret tunnel, carefully relocking the mechanism behind him. In the abandoned coach house, he quickly changes out of his blood-splattered clothes, concealing them within a forgotten, damp alcove. He then returns to the Blackwood Club, feigning a sudden, hurried reappearance and concluding his 'deal' with an exaggerated sigh of relief, attempting to reinforce his alibi.",
+                "actors_involved": [
+                    "Mr. Arthur Pendelton"
+                ],
+                "location": "Secret tunnel, abandoned coach house, The Blackwood Club",
+                "time": "Shortly after the crime, approximately 11:30 PM - 12:30 AM",
+                "traces_left": [
+                    {
+                        "type": "forensic evidence",
+                        "description": "A tiny, almost imperceptible smear of Lord Finch's blood (Type A+) on the interior surface of the secret tunnel's entrance panel, missed by Pendelton in his haste."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "The discarded, blood-stained garments, including a tailored waistcoat and cravat, later discovered by a persistent search within the abandoned coach house's hidden alcove."
+                    },
+                    {
+                        "type": "witness",
+                        "description": "The head bartender at the Blackwood Club recalling a distinct, earthy smell emanating from Mr. Pendelton's coat upon his late-night return, despite his claims of being at a 'private meeting'."
+                    }
+                ]
+            }
+        ]
+    },
+    "model": "gemini-2.5-flash",
+    "system_instruction": "You are constructing the objective crime timeline for a detective story.\nThis is the ground truth of what actually happened. Ensure that the timeline is consistent with the provided input data and with common conventions of detective stories.\nAlso ensure logical consistency within the timeline itself and causality, e.g., the preparation for the crime must happen before the execution of the crime, the decision to commit the crime must happen before the preparation and execution, etc.\n\nGenerate events that describe the crime, the events leading up to the crime, and the events immediately following the crime.\nThe events should describe:\n- Decision: any decision made by any actor that is relevant to the crime, e.g., the decision to commit the crime itself, the decision to choose a specific method for committing the crime, the decision to target a specific victim, the decision to frame someone else for the crime, etc., including the motivations behind those decisions\n- Preparation: any preparation made for the crime, e.g., buying a weapon, researching the victim's schedule, acquiring a key to the victim's house, ensuring an alibi for the time of the crime\n- Execution: the execution of the crime itself, e.g., the act of poisoning the victim's drink, the act of shooting the victim, the act of breaking into the house to commit the crime\n- Cover-up: any action taken to cover up the crime, e.g., cleaning up the crime scene, moving the body, staging the crime scene to look like a burglary, deleting digital evidence, persuading witnesses to lie\n\nEach event can leave behind crime traces, that migh be discovered by the detective during the investigation and help solve the crime.\n\nUses concrete and specific descriptions for the crime events and crime traces, avoid vague or generic descriptions. For example, instead of saying \"the suspect prepared for the crime\", say \"the suspect bought a bottle of arsenic from the local pharmacy\",\nor instead of saying \"the suspect left behind evidence at the crime scene\", say \"the suspect left fingerprints on the glass used for poisoning\".\nTry to be creative and imaginative with the crime events and crime traces to provide an engaging and intriguing crime timeline.\n",
+    "generation_params": {
+        "temperature": 1.0,
+        "do_sample": true,
+        "top_p": 0.9,
+        "top_k": 5,
+        "max_tokens": 10000,
+        "repetition_penalty": 0,
+        "response_type": "application/json",
+        "response_schema": {
+            "$defs": {
+                "CrimeEvent": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime event, e.g., decision, preparation, execution or cover-up",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime event, e.g., 'The suspect poisoned the victim's drink at the party', 'The suspect gained access to the victim's house by persuading the maid to let them in', 'The suspect bought a gun.'",
+                            "title": "Description",
+                            "type": "string"
+                        },
+                        "actors_involved": {
+                            "description": "List of actor ids involved in the crime event, e.g., ['victim_id', 'suspect_id1']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Actors Involved",
+                            "type": "array"
+                        },
+                        "location": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Location where the crime event takes place, if relevant",
+                            "title": "Location"
+                        },
+                        "time": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Time when the crime event takes place relative to the crime itself, e.g., 'two days before the crime', 'the night of the crime', if relevant",
+                            "title": "Time"
+                        },
+                        "traces_left": {
+                            "description": "List of crime traces left by this crime event, e.g., fingerprints, witnesses, forensic evidence, digital evidence",
+                            "items": {
+                                "$ref": "#/$defs/CrimeTrace"
+                            },
+                            "title": "Traces Left",
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description",
+                        "actors_involved",
+                        "location",
+                        "time",
+                        "traces_left"
+                    ],
+                    "title": "CrimeEvent",
+                    "type": "object"
+                },
+                "CrimeTrace": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime trace, e.g., physical evidence, witness, forensic evidence, digital evidence",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime trace, e.g., 'Fingeprints on the glass used for poisoning', 'A witness saw the suspect arguing with the victim', 'Missing gun from the victim's collection', 'Toxicology report showing presence of poison in the victim's system'",
+                            "title": "Description",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description"
+                    ],
+                    "title": "CrimeTrace",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "crime_events": {
+                    "description": "List of crime events that make up the crime, including the crime itself and any relevant events leading up to or following the crime",
+                    "items": {
+                        "$ref": "#/$defs/CrimeEvent"
+                    },
+                    "title": "Crime Events",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "crime_events"
+            ],
+            "title": "CrimeGraph",
+            "type": "object"
+        },
+        "extras": null
+    }
+}

@@ -1,0 +1,247 @@
+{
+    "prompt": "Based on the following input data and provided actor pool, generate a structured crime graph that describes the objective crime timeline for a detective story.\n\nInput data:\ntitle=None genre='detective story' theme='mystery, deception, intrigue' core_idea='A brilliant but eccentric detective and his loyal assistant investigate a mysterious murder in a grand Victorian mansion, uncovering twists and turns.' setting=SettingData(location='Victorian London', time_period='Victorian', atmosphere='dark and atmospheric', isolation_level='isolated mansion') crime=CrimeData(crime_type='murder', method='shot through the eye', motive=None, specifications='The victim should be shot through the eye.') characters=CharactersData(detective_type='eccentric detective', detective_specifications='brilliant but eccentric', sidekick_type='loyal assistant', sidekick_specifications='loyal', suspect_count=None, culprit_specifications='The killer should be the gardener.') structure=StructureData(length=None, complexity='complex', twist_specifications='plenty of twists and turns to keep readers guessing until the very end.', red_herring_specifications=None)\n\nActor pool:\nvictim=Victim(id='Lord Alistair Finch', relationships={'Silas Blackwood': ['employer', 'object of his resentment'], 'Mr. Edgar Thorne': ['employer', 'object of his suspicion'], 'Lady Isabella Finch': ['uncle', 'financial controller'], 'Mr. Alaric Caldwell': ['business rival', 'enemy']}) suspects=[Suspect(id='Silas Blackwood', relationships={'Lord Alistair Finch': ['resentful employee', 'enemy'], 'Mr. Edgar Thorne': ['colleague'], 'Lady Isabella Finch': ['servant'], 'Mr. Alaric Caldwell': ['unaware of']}, occupation='Head Gardener', motive='Revenge for a past injustice and fear of Lord Finch exposing a deep secret that would ruin his life and livelihood.', crime_relevant_traits=['resentful', 'secretive', 'resourceful', 'observant'], possible_alibis=['Was tending to the orchids in the conservatory', 'Was in the secluded potting shed working late', 'Claimed to be walking the grounds to check on the night frost'], possible_means=['Has access to an old hunting rifle kept on the estate', 'Familiar with the isolated parts of the mansion grounds for hiding a weapon and approaching unseen', 'Skilled with tools that could be adapted or used to conceal the crime'], culprit=True), Suspect(id='Mr. Edgar Thorne', relationships={'Lord Alistair Finch': ['employer', 'victim of his embezzlement'], 'Silas Blackwood': ['colleague', 'overseer'], 'Lady Isabella Finch': ['household staff', 'confidant for gossip'], 'Mr. Alaric Caldwell': [\"acquaintance through Lord Finch's business\"]}, occupation='Butler', motive='Lord Finch was on the verge of discovering his long-running embezzlement scheme, which would have led to his ruin and public disgrace.', crime_relevant_traits=['calculating', 'deceitful', 'opportunistic', 'meticulous'], possible_alibis=['Was performing late-night duties in the pantry', \"Was preparing Lord Finch's study for the morning\", 'Claimed to be in his private quarters reviewing household accounts'], possible_means=[\"Has unrestricted access to all areas of the mansion, including Lord Finch's private study\", 'Could have secretly acquired a small pistol for personal protection or illicit dealings', \"Possesses intimate knowledge of the household's routines and security measures\"], culprit=False), Suspect(id='Lady Isabella Finch', relationships={'Lord Alistair Finch': ['uncle', 'source of income', 'oppressor'], 'Silas Blackwood': ['household staff'], 'Mr. Edgar Thorne': ['household staff', 'source of information'], 'Mr. Alaric Caldwell': ['acquaintance from society events']}, occupation='Socialite', motive='Lord Finch was threatening to disinherit her due to her extravagant spending and a secret gambling addiction, leaving her financially destitute.', crime_relevant_traits=['impulsive', 'desperate', 'reckless', 'spoiled'], possible_alibis=['Was in her boudoir preparing for bed', 'Claimed to be writing letters in the library', 'Stated she was suffering from a migraine in her room'], possible_means=['Might possess a small, easily concealed derringer for self-defense or as a family heirloom', 'Could have access to a hidden firearm within the mansion, known only to family members', 'Familiar with the layout of the mansion, allowing for discreet movement'], culprit=False), Suspect(id='Mr. Alaric Caldwell', relationships={'Lord Alistair Finch': ['business rival', 'bitter enemy'], 'Silas Blackwood': ['unaware of'], 'Mr. Edgar Thorne': ['acquaintance from business dealings'], 'Lady Isabella Finch': ['acquaintance from society events']}, occupation='Wealthy Industrialist', motive=\"Lord Finch had sabotaged Caldwell's most recent industrial venture, leading to significant financial losses and public humiliation, pushing Caldwell to the brink of ruin.\", crime_relevant_traits=['ruthless', 'vengeful', 'ambitious', 'unscrupulous'], possible_alibis=['Was attending a late-night private club in London', 'Claimed to be meeting with business associates at a discreet location', 'Stated he was travelling back from a distant business trip'], possible_means=['Is known to be a collector of antique firearms, some of which are functional', 'Has the financial means to acquire a sophisticated weapon or hire an accomplice (though acted alone)', 'Could have a hunting lodge nearby where firearms are stored and could have been accessed'], culprit=False)]\n",
+    "response": {
+        "crime_events": [
+            {
+                "type": "decision",
+                "description": "Silas Blackwood, seething with a deep-seated resentment and fearing Lord Alistair Finch's imminent exposure of a life-ruining secret, resolves that the only way to protect himself and exact revenge is to murder his employer.",
+                "actors_involved": [
+                    "Silas Blackwood",
+                    "Lord Alistair Finch"
+                ],
+                "location": "Silas Blackwood's secluded gardener's cottage on the estate",
+                "time": "One week before the crime",
+                "traces_left": [
+                    {
+                        "type": "witness",
+                        "description": "A fellow servant, Mrs. Higgins the cook, observed Silas Blackwood's increasingly withdrawn and agitated demeanor in the days leading up to the murder, muttering to himself in the kitchen garden."
+                    }
+                ]
+            },
+            {
+                "type": "preparation",
+                "description": "Silas Blackwood retrieves an old, British Army-issue hunting rifle, long forgotten, from a locked, dusty cabinet in the estate's disused gamekeeper's lodge. He meticulously cleans and loads it, ensuring it is ready for use.",
+                "actors_involved": [
+                    "Silas Blackwood"
+                ],
+                "location": "Disused gamekeeper's lodge on the estate grounds",
+                "time": "Three days before the crime",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A faint but distinct disturbance of dust on the padlock and cabinet handle in the gamekeeper's lodge, suggesting recent tampering."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A subtle scent of aged gun oil lingering in the air within the small, enclosed lodge."
+                    }
+                ]
+            },
+            {
+                "type": "preparation",
+                "description": "Over two consecutive nights, Silas Blackwood covertly observes Lord Finch's late-night habits, noting his routine of retiring to his study for a final brandy and often leaving the study window slightly ajar on mild evenings. He also maps out a secluded, overgrown path through the grounds to approach the study undetected.",
+                "actors_involved": [
+                    "Silas Blackwood",
+                    "Lord Alistair Finch"
+                ],
+                "location": "Mansion grounds, perimeter of Lord Finch's study",
+                "time": "Two days before the crime",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "Fresh, distinct muddy boot prints (matching a gardener's heavy work boots) found on a seldom-used path leading towards the rear of the mansion, near Lord Finch's study window."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "Several broken twigs and crushed foliage along the less-frequented approach route, indicating recent passage."
+                    }
+                ]
+            },
+            {
+                "type": "execution",
+                "description": "Under the cloak of a moonless night, Silas Blackwood stealthily approaches Lord Finch's study from the gardens. Finding the window ajar, he carefully aims the hunting rifle through the gap and fires a single, precise shot, striking Lord Alistair Finch directly through the left eye as he reads at his mahogany desk.",
+                "actors_involved": [
+                    "Silas Blackwood",
+                    "Lord Alistair Finch"
+                ],
+                "location": "Lord Alistair Finch's private study, Victorian mansion",
+                "time": "The night of the crime, approximately 11:30 PM",
+                "traces_left": [
+                    {
+                        "type": "forensic evidence",
+                        "description": "A clean, fatal bullet entry wound precisely through Lord Alistair Finch's left eye, indicating a direct shot from an elevated or specific angle."
+                    },
+                    {
+                        "type": "forensic evidence",
+                        "description": "Microscopic gunpowder residue detected on the exterior sill and lower frame of the study window, consistent with a shot fired from outside."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A single, spent brass rifle casing found partially buried beneath a rose bush directly below the study window, camouflaged by fallen leaves."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A distinct impression of a heavy, muddy work boot on the soft soil of the flowerbed directly beneath the study window, partially obscured by the disturbed rose bush."
+                    },
+                    {
+                        "type": "witness",
+                        "description": "Mrs. Jenkins, the night maid, reported hearing a 'sharp crack, like a branch snapping' from the garden sometime late in the evening, but dismissed it at the time."
+                    }
+                ]
+            },
+            {
+                "type": "cover-up",
+                "description": "Immediately after the shot, Silas Blackwood swiftly retreats from the mansion. He dismantles the hunting rifle into several pieces and buries them, along with the cleaning cloth and any remaining ammunition, deep within the waterlogged, neglected marshland at the farthest reaches of the estate, a place rarely, if ever, frequented.",
+                "actors_involved": [
+                    "Silas Blackwood"
+                ],
+                "location": "Neglected marshland on the estate grounds",
+                "time": "Shortly after the crime (approx. 11:50 PM, night of the crime)",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A small, recently disturbed patch of muddy soil and matted reeds in a highly remote section of the marshland, suggesting an attempt to conceal something."
+                    },
+                    {
+                        "type": "forensic evidence",
+                        "description": "Minute metallic filings and traces of gun oil found embedded in the tread of Silas Blackwood's work boots, consistent with handling a firearm and digging in marshy ground."
+                    }
+                ]
+            },
+            {
+                "type": "cover-up",
+                "description": "Silas Blackwood returns to the conservatory, where he had been 'tending to the orchids' earlier that evening. He deliberately leaves his muddy gardening gloves on a potting bench and a partially watered orchid to suggest he had been interrupted or was present all evening, reinforcing his intended alibi, before retiring to his cottage.",
+                "actors_involved": [
+                    "Silas Blackwood"
+                ],
+                "location": "Conservatory, Victorian mansion",
+                "time": "One hour after the crime (approx. 12:30 AM, night of the crime)",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A pair of muddy gardening gloves found in the conservatory, with soil residue that, upon forensic analysis, matches the distinctive marshland soil."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A specific orchid plant shows signs of having been partially watered, with a nearby watering can, suggesting an activity abruptly halted or staged."
+                    }
+                ]
+            }
+        ]
+    },
+    "model": "gemini-2.5-flash",
+    "system_instruction": "You are constructing the objective crime timeline for a detective story.\nThis is the ground truth of what actually happened. Ensure that the timeline is consistent with the provided input data and with common conventions of detective stories.\nAlso ensure logical consistency within the timeline itself and causality, e.g., the preparation for the crime must happen before the execution of the crime, the decision to commit the crime must happen before the preparation and execution, etc.\n\nGenerate events that describe the crime, the events leading up to the crime, and the events immediately following the crime.\nThe events should describe:\n- Decision: any decision made by any actor that is relevant to the crime, e.g., the decision to commit the crime\n- Preparation: any preparation made for the crime, e.g., buying a weapon, researching the victim's schedule, acquiring a key to the victim's house, ensuring an alibi for the time of the crime\n- Execution: the execution of the crime itself, e.g., the act of poisoning the victim's drink, the act of shooting the victim, the act of breaking into the house to commit the crime\n- Cover-up: any action taken to cover up the crime, e.g., cleaning up the crime scene, moving the body, staging the crime scene to look like a burglary, deleting digital evidence, persuading witnesses to lie\n\nEach event can leave behind crime traces, that migh be discovered by the detective during the investigation and help solve the crime.\n\nUses concrete and specific descriptions for the crime events and crime traces, avoid vague or generic descriptions. For example, instead of saying \"the suspect prepared for the crime\", say \"the suspect bought a bottle of arsenic from the local pharmacy\",\nor instead of saying \"the suspect left behind evidence at the crime scene\", say \"the suspect left fingerprints on the glass used for poisoning\".\nTry to be creative and imaginative with the crime events and crime traces to provide an engaging and intriguing crime timeline.\n",
+    "generation_params": {
+        "temperature": 1.0,
+        "do_sample": true,
+        "top_p": 0.9,
+        "top_k": 5,
+        "max_tokens": 10000,
+        "repetition_penalty": 0,
+        "response_type": "application/json",
+        "response_schema": {
+            "$defs": {
+                "CrimeEvent": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime event, e.g., decision, preparation, execution or cover-up",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime event, e.g., 'The suspect poisoned the victim's drink at the party', 'The suspect gained access to the victim's house by persuading the maid to let them in', 'The suspect bought a gun.'",
+                            "title": "Description",
+                            "type": "string"
+                        },
+                        "actors_involved": {
+                            "description": "List of actor ids involved in the crime event, e.g., ['victim_id', 'suspect_id1']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Actors Involved",
+                            "type": "array"
+                        },
+                        "location": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Location where the crime event takes place, if relevant",
+                            "title": "Location"
+                        },
+                        "time": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Time when the crime event takes place relative to the crime itself, e.g., 'two days before the crime', 'the night of the crime', if relevant",
+                            "title": "Time"
+                        },
+                        "traces_left": {
+                            "description": "List of crime traces left by this crime event, e.g., fingerprints, witnesses, forensic evidence, digital evidence",
+                            "items": {
+                                "$ref": "#/$defs/CrimeTrace"
+                            },
+                            "title": "Traces Left",
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description",
+                        "actors_involved",
+                        "location",
+                        "time",
+                        "traces_left"
+                    ],
+                    "title": "CrimeEvent",
+                    "type": "object"
+                },
+                "CrimeTrace": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime trace, e.g., physical evidence, witness, forensic evidence, digital evidence",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime trace, e.g., 'Fingeprints on the glass used for poisoning', 'A witness saw the suspect arguing with the victim', 'Missing gun from the victim's collection', 'Toxicology report showing presence of poison in the victim's system'",
+                            "title": "Description",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description"
+                    ],
+                    "title": "CrimeTrace",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "crime_events": {
+                    "description": "List of crime events that make up the crime, including the crime itself and any relevant events leading up to or following the crime",
+                    "items": {
+                        "$ref": "#/$defs/CrimeEvent"
+                    },
+                    "title": "Crime Events",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "crime_events"
+            ],
+            "title": "CrimeGraph",
+            "type": "object"
+        },
+        "extras": null
+    }
+}

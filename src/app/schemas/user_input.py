@@ -26,6 +26,7 @@ class CharactersData(BaseModel):
     sidekick_type: Optional[str] = Field(description="Type of sidekick (e.g., loyal friend, comic relief, reluctant partner)")
     sidekick_specifications: Optional[str] = Field(description="Any specific constraints or requirements related to the sidekick")
     suspect_count: Optional[int] = Field(description="Number of suspects in the story (3-6 suspects scaling with complexity)")
+    culprit_specifications: Optional[str] = Field(description="Any specific constraints or requirements related to the culprit, e.g., the culprit must be a family member, the culprit must have a specific occupation, etc., if no specific requirements are given, set to No specific requirements")
     
 class InputData(BaseModel):
     title: Optional[str] = Field(description="Title of the story")

@@ -7,6 +7,7 @@ Rules:
 - Ensure that any filled-in details are consistent with the provided information and with common conventions of detective stories.
 - Be creative and use your knowledge of storytelling to make choices that enhance the potential for an engaging and coherent story.
 - Do not introduce any supernatural elements unless they are explicitly supported by the existing data. The story should remain grounded in the detective genre.
+- If some fields are specifically set to "No specific requirements", leave them as is, as this indicates that there are no constraints for those aspects of the story.
 """
 
 PROMPT_TEMPLATE = """Fill in the missing details in the following InputData JSON. 

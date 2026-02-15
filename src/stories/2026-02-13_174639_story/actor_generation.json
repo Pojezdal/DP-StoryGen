@@ -1,0 +1,303 @@
+{
+    "prompt": "Based on the following input data in JSON format, generate a structured actor pool for a detective fiction story.\n\ntitle=None genre='detective story' theme='mystery, deception, intrigue' core_idea='A brilliant but eccentric detective and his loyal assistant investigate a mysterious murder in a grand Victorian mansion, uncovering twists and turns.' setting=SettingData(location='Victorian London', time_period='Victorian', atmosphere='dark and atmospheric', isolation_level='isolated mansion') crime=CrimeData(crime_type='murder', method='shot through the eye', motive=None, specifications='The victim should be shot through the eye.') characters=CharactersData(detective_type='eccentric detective', detective_specifications='brilliant but eccentric', sidekick_type='loyal assistant', sidekick_specifications='loyal', suspect_count=None, culprit_specifications='The killer should be the gardener.') structure=StructureData(length=None, complexity='complex', twist_specifications='plenty of twists and turns to keep readers guessing until the very end.', red_herring_specifications=None)\n",
+    "response": {
+        "victim": {
+            "id": "Lord Alistair Finch",
+            "relationships": {
+                "Silas Blackwood": [
+                    "employer",
+                    "object of his resentment"
+                ],
+                "Mr. Edgar Thorne": [
+                    "employer",
+                    "object of his suspicion"
+                ],
+                "Lady Isabella Finch": [
+                    "uncle",
+                    "financial controller"
+                ],
+                "Mr. Alaric Caldwell": [
+                    "business rival",
+                    "enemy"
+                ]
+            }
+        },
+        "suspects": [
+            {
+                "id": "Silas Blackwood",
+                "relationships": {
+                    "Lord Alistair Finch": [
+                        "resentful employee",
+                        "enemy"
+                    ],
+                    "Mr. Edgar Thorne": [
+                        "colleague"
+                    ],
+                    "Lady Isabella Finch": [
+                        "servant"
+                    ],
+                    "Mr. Alaric Caldwell": [
+                        "unaware of"
+                    ]
+                },
+                "occupation": "Head Gardener",
+                "motive": "Revenge for a past injustice and fear of Lord Finch exposing a deep secret that would ruin his life and livelihood.",
+                "crime_relevant_traits": [
+                    "resentful",
+                    "secretive",
+                    "resourceful",
+                    "observant"
+                ],
+                "possible_alibis": [
+                    "Was tending to the orchids in the conservatory",
+                    "Was in the secluded potting shed working late",
+                    "Claimed to be walking the grounds to check on the night frost"
+                ],
+                "possible_means": [
+                    "Has access to an old hunting rifle kept on the estate",
+                    "Familiar with the isolated parts of the mansion grounds for hiding a weapon and approaching unseen",
+                    "Skilled with tools that could be adapted or used to conceal the crime"
+                ],
+                "culprit": true
+            },
+            {
+                "id": "Mr. Edgar Thorne",
+                "relationships": {
+                    "Lord Alistair Finch": [
+                        "employer",
+                        "victim of his embezzlement"
+                    ],
+                    "Silas Blackwood": [
+                        "colleague",
+                        "overseer"
+                    ],
+                    "Lady Isabella Finch": [
+                        "household staff",
+                        "confidant for gossip"
+                    ],
+                    "Mr. Alaric Caldwell": [
+                        "acquaintance through Lord Finch's business"
+                    ]
+                },
+                "occupation": "Butler",
+                "motive": "Lord Finch was on the verge of discovering his long-running embezzlement scheme, which would have led to his ruin and public disgrace.",
+                "crime_relevant_traits": [
+                    "calculating",
+                    "deceitful",
+                    "opportunistic",
+                    "meticulous"
+                ],
+                "possible_alibis": [
+                    "Was performing late-night duties in the pantry",
+                    "Was preparing Lord Finch's study for the morning",
+                    "Claimed to be in his private quarters reviewing household accounts"
+                ],
+                "possible_means": [
+                    "Has unrestricted access to all areas of the mansion, including Lord Finch's private study",
+                    "Could have secretly acquired a small pistol for personal protection or illicit dealings",
+                    "Possesses intimate knowledge of the household's routines and security measures"
+                ],
+                "culprit": false
+            },
+            {
+                "id": "Lady Isabella Finch",
+                "relationships": {
+                    "Lord Alistair Finch": [
+                        "uncle",
+                        "source of income",
+                        "oppressor"
+                    ],
+                    "Silas Blackwood": [
+                        "household staff"
+                    ],
+                    "Mr. Edgar Thorne": [
+                        "household staff",
+                        "source of information"
+                    ],
+                    "Mr. Alaric Caldwell": [
+                        "acquaintance from society events"
+                    ]
+                },
+                "occupation": "Socialite",
+                "motive": "Lord Finch was threatening to disinherit her due to her extravagant spending and a secret gambling addiction, leaving her financially destitute.",
+                "crime_relevant_traits": [
+                    "impulsive",
+                    "desperate",
+                    "reckless",
+                    "spoiled"
+                ],
+                "possible_alibis": [
+                    "Was in her boudoir preparing for bed",
+                    "Claimed to be writing letters in the library",
+                    "Stated she was suffering from a migraine in her room"
+                ],
+                "possible_means": [
+                    "Might possess a small, easily concealed derringer for self-defense or as a family heirloom",
+                    "Could have access to a hidden firearm within the mansion, known only to family members",
+                    "Familiar with the layout of the mansion, allowing for discreet movement"
+                ],
+                "culprit": false
+            },
+            {
+                "id": "Mr. Alaric Caldwell",
+                "relationships": {
+                    "Lord Alistair Finch": [
+                        "business rival",
+                        "bitter enemy"
+                    ],
+                    "Silas Blackwood": [
+                        "unaware of"
+                    ],
+                    "Mr. Edgar Thorne": [
+                        "acquaintance from business dealings"
+                    ],
+                    "Lady Isabella Finch": [
+                        "acquaintance from society events"
+                    ]
+                },
+                "occupation": "Wealthy Industrialist",
+                "motive": "Lord Finch had sabotaged Caldwell's most recent industrial venture, leading to significant financial losses and public humiliation, pushing Caldwell to the brink of ruin.",
+                "crime_relevant_traits": [
+                    "ruthless",
+                    "vengeful",
+                    "ambitious",
+                    "unscrupulous"
+                ],
+                "possible_alibis": [
+                    "Was attending a late-night private club in London",
+                    "Claimed to be meeting with business associates at a discreet location",
+                    "Stated he was travelling back from a distant business trip"
+                ],
+                "possible_means": [
+                    "Is known to be a collector of antique firearms, some of which are functional",
+                    "Has the financial means to acquire a sophisticated weapon or hire an accomplice (though acted alone)",
+                    "Could have a hunting lodge nearby where firearms are stored and could have been accessed"
+                ],
+                "culprit": false
+            }
+        ]
+    },
+    "model": "gemini-2.5-flash",
+    "system_instruction": "You are designing a structural actor pool for a detective fiction story.\nYour task is to generate:\n- One victim\n- N suspects (based on the input data, or if missing use a reasonable number between 3 and 6)\n\nRules:\n- The generated actors should be consistent with the provided input data and with common conventions of detective stories.\n- Details not included in the input data should be filled in creatively, but must still fit within the detective genre and the specific subgenre if one is provided.\n- The cuprit should not be specified unless explicitly mentioned in the input data.\n- All suspects should have plausible motives, means, and opportunities for committing the crime, even if they are not the cuprit.\n- The relationships between the actors should be coherent and should reflect common dynamics found in detective stories, such as friendships, rivalries, family ties, or professional relationships.\n- The relationships do not need to be symmetric, e.g., actor A can consider B a friend while B considers A an enemy. Symetiric relationships should be specified in both actors' relationship fields.\n- The relationships should be only between the specified actors (victim and suspects), do not introduce additional actors for the relationships.\n",
+    "generation_params": {
+        "temperature": 1.0,
+        "do_sample": true,
+        "top_p": 0.9,
+        "top_k": 5,
+        "max_tokens": 10000,
+        "repetition_penalty": 0,
+        "response_type": "application/json",
+        "response_schema": {
+            "$defs": {
+                "Suspect": {
+                    "properties": {
+                        "id": {
+                            "description": "Unique identifier for the actor",
+                            "title": "Id",
+                            "type": "string"
+                        },
+                        "relationships": {
+                            "additionalProperties": true,
+                            "description": "Relationships with other actors, e.g., {'friend': ['actor_id1', 'actor_id2'], 'enemy': ['actor_id3']}, the relationships do not need to be symmetric, e.g., actor A can consider B a friend while B considers A an enemy",
+                            "title": "Relationships",
+                            "type": "object"
+                        },
+                        "occupation": {
+                            "description": "Occupation of the suspect",
+                            "title": "Occupation",
+                            "type": "string"
+                        },
+                        "motive": {
+                            "description": "Specific motive for commiting the crime based on the input data.",
+                            "title": "Motive",
+                            "type": "string"
+                        },
+                        "crime_relevant_traits": {
+                            "description": "List of traits that are relevant to the crime, e.g., ['greedy', 'jealous']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Crime Relevant Traits",
+                            "type": "array"
+                        },
+                        "possible_alibis": {
+                            "description": "List of possible alibis for the suspect, e.g., ['was at the pub', 'was out of town']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Possible Alibis",
+                            "type": "array"
+                        },
+                        "possible_means": {
+                            "description": "List of possible means for committing the crime, e.g., if the crime is poisoning, possible means could be ['is pharmacist'] or ['prepares food'], if the crime is shooting, possible means could be ['is a hunter'] or ['has a history of violence']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Possible Means",
+                            "type": "array"
+                        },
+                        "culprit": {
+                            "description": "Whether the suspect is the culprit of the crime or not, leave false unless the culprit is explicitly specified in the input data, in which case set to true",
+                            "title": "Culprit",
+                            "type": "boolean"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "relationships",
+                        "occupation",
+                        "motive",
+                        "crime_relevant_traits",
+                        "possible_alibis",
+                        "possible_means",
+                        "culprit"
+                    ],
+                    "title": "Suspect",
+                    "type": "object"
+                },
+                "Victim": {
+                    "properties": {
+                        "id": {
+                            "description": "Unique identifier for the actor",
+                            "title": "Id",
+                            "type": "string"
+                        },
+                        "relationships": {
+                            "additionalProperties": true,
+                            "description": "Relationships with other actors, e.g., {'friend': ['actor_id1', 'actor_id2'], 'enemy': ['actor_id3']}, the relationships do not need to be symmetric, e.g., actor A can consider B a friend while B considers A an enemy",
+                            "title": "Relationships",
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "relationships"
+                    ],
+                    "title": "Victim",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "victim": {
+                    "$ref": "#/$defs/Victim",
+                    "description": "The victim of the crime"
+                },
+                "suspects": {
+                    "description": "List of suspects in the story",
+                    "items": {
+                        "$ref": "#/$defs/Suspect"
+                    },
+                    "title": "Suspects",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "victim",
+                "suspects"
+            ],
+            "title": "ActorPool",
+            "type": "object"
+        },
+        "extras": null
+    }
+}

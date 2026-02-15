@@ -1,0 +1,229 @@
+{
+    "prompt": "Based on the following input data and provided actor pool, generate a structured crime graph that describes the objective crime timeline for a detective story.\n\nInput data:\ntitle=None genre='Detective' theme='Mystery and Intrigue' core_idea='A brilliant but eccentric detective and his loyal assistant investigate a mysterious murder in a grand mansion in Victorian London, uncovering secrets and twists among intriguing suspects.' setting=SettingData(location='Victorian London', time_period='Victorian Era', atmosphere='Dark and atmospheric', isolation_level='Isolated grand mansion') crime=CrimeData(crime_type='Murder', method=None, motive=None, specifications='Mysterious circumstances') characters=CharactersData(detective_type='Eccentric Detective', detective_specifications='Brilliant and eccentric', sidekick_type='Loyal Assistant', sidekick_specifications='Loyal', suspect_count=None, culprit_specifications='No specific requirements') structure=StructureData(length=None, complexity='Complex', twist_specifications='Plenty of twists and turns to keep readers guessing until the very end', red_herring_specifications='Multiple red herrings to mislead the reader')\n\nActor pool:\nvictim=Victim(id='Lord Alistair Ashworth', relationships=[Relationship(type='estranged uncle', to='Lady Beatrice Thorne'), Relationship(type='patient', to='Dr. Elias Finch'), Relationship(type='employer', to='Mr. Silas Blackwood'), Relationship(type='employer', to='Mrs. Elara Vance')]) suspects=[Suspect(id='Lady Beatrice Thorne', relationships=[Relationship(type='estranged niece', to='Lord Alistair Ashworth'), Relationship(type='distant acquaintance', to='Dr. Elias Finch'), Relationship(type='views as subservient', to='Mr. Silas Blackwood'), Relationship(type='views as a servant', to='Mrs. Elara Vance')], occupation='Unemployed socialite', motive=\"Financial desperation and resentment over a meager allowance, fueled by the desire to inherit Lord Ashworth's vast estate.\", crime_relevant_traits=['greedy', 'manipulative', 'desperate', 'resentful'], possible_alibis=['claims she was in her private sitting room, reading, and heard nothing'], possible_means=[\"intimate knowledge of the mansion's layout and routines\", 'potential access to a hidden family heirloom used as a weapon', 'opportunity due to free movement within the house'], culprit=False), Suspect(id='Dr. Elias Finch', relationships=[Relationship(type='physician', to='Lord Alistair Ashworth'), Relationship(type='professional acquaintance', to='Lady Beatrice Thorne'), Relationship(type='professional rival/dislikes', to='Mr. Silas Blackwood'), Relationship(type='indifferent', to='Mrs. Elara Vance')], occupation='Personal Physician', motive=\"Potential blackmail, as he possessed intimate knowledge of Lord Ashworth's scandalous medical condition and illicit activities, which Ashworth was about to expose.\", crime_relevant_traits=['secretive', 'ambitious', 'morally ambiguous', 'calculating'], possible_alibis=[\"claims he was preparing Lord Ashworth's nightly tonic in the study at the time of the murder\"], possible_means=['medical knowledge of poisons or subtle methods of dispatch', \"unrestricted access to Lord Ashworth's private chambers and medications\"], culprit=False), Suspect(id='Mr. Silas Blackwood', relationships=[Relationship(type='private secretary', to='Lord Alistair Ashworth'), Relationship(type='secretly resents', to='Lady Beatrice Thorne'), Relationship(type='dislikes', to='Dr. Elias Finch'), Relationship(type='colleague/confidante', to='Mrs. Elara Vance')], occupation='Private Secretary', motive=\"Years of overworked, underpaid service and humiliation by Lord Ashworth, coupled with discovering Ashworth's plans to disinherit him from a promised legacy.\", crime_relevant_traits=['resentful', 'meticulous', 'observant', 'bitter'], possible_alibis=['claims he was sorting documents in the library late into the night, a routine task'], possible_means=[\"intimate knowledge of the mansion's hidden passages and daily routines\", \"access to Lord Ashworth's personal effects and a heavy letter opener\"], culprit=False), Suspect(id='Mrs. Elara Vance', relationships=[Relationship(type='head housekeeper', to='Lord Alistair Ashworth'), Relationship(type='servant to', to='Lady Beatrice Thorne'), Relationship(type='professional interaction', to='Dr. Elias Finch'), Relationship(type='colleague/confidante', to='Mr. Silas Blackwood')], occupation='Head Housekeeper', motive='Protecting a dark family secret Lord Ashworth threatened to expose, which would ruin the reputation of a person she deeply cared for, or a vendetta for a past wrong committed by Ashworth against her own family.', crime_relevant_traits=['protective', 'observant', 'stern', 'loyal (to others, not Ashworth)'], possible_alibis=[\"claims she was conducting her nightly rounds of the servants' quarters and checking the security of the lower floors\"], possible_means=['unrestricted access to all parts of the mansion at any hour', 'familiarity with household tools that could be used as weapons', 'knowledge of all staff movements'], culprit=False)]\n",
+    "response": {
+        "crime_events": [
+            {
+                "type": "decision",
+                "description": "Mr. Silas Blackwood, having endured years of Lord Ashworth's tyrannical demands and humiliating insults, discovers a draft of a new will that completely disinherits him from a promised legacy. Fueled by a potent mix of resentment and desperation, he decides to murder Lord Ashworth before the new will can be finalized and enacted.",
+                "actors_involved": [
+                    "Mr. Silas Blackwood",
+                    "Lord Alistair Ashworth"
+                ],
+                "location": "Lord Ashworth's private study",
+                "time": "Three weeks before the crime",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A crumpled draft of a will, later found by the detective during investigation, showing Blackwood's name crossed out and replaced with a distant charity."
+                    }
+                ]
+            },
+            {
+                "type": "preparation",
+                "description": "Over the following weeks, Mr. Blackwood meticulously observes Lord Ashworth's nightly routine, noting his habit of reading in his study late into the night before retiring to his bedroom. He also familiarizes himself with the less-used servant passages connecting the library to Ashworth's private quarters, ensuring an unseen approach. He selects an antique silver letter opener, a heavy and sharp implement from Ashworth's own desk, as his weapon, planning to return it after cleaning.",
+                "actors_involved": [
+                    "Mr. Silas Blackwood",
+                    "Lord Alistair Ashworth"
+                ],
+                "location": "Ashworth Mansion (various parts: study, library, servant passages)",
+                "time": "Two weeks to one day before the crime",
+                "traces_left": [
+                    {
+                        "type": "digital evidence",
+                        "description": "His personal diary, kept secret, contains cryptic entries about 'final solutions' and 'a deserved end,' along with sketches of the mansion's floor plan highlighting specific routes (discovered later)."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "Minor scuff marks on the baseboards of a rarely-used servant's passage, indicating recent traffic, which would be unusual."
+                    }
+                ]
+            },
+            {
+                "type": "cover-up",
+                "description": "The night before the crime, Mr. Blackwood subtly 'borrows' a small, ornate silver locket, a family heirloom, from Lady Beatrice Thorne's dressing table while she is out for dinner, intending to plant it at the crime scene to implicate her.",
+                "actors_involved": [
+                    "Mr. Silas Blackwood",
+                    "Lady Beatrice Thorne"
+                ],
+                "location": "Lady Beatrice Thorne's bedroom in Ashworth Mansion",
+                "time": "The night before the crime",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A single, faint fingerprint belonging to Mr. Blackwood found on the edge of Lady Beatrice's dressing table mirror, partially obscured."
+                    },
+                    {
+                        "type": "witness",
+                        "description": "Lady Beatrice herself, who later mentions to the detective that she noticed her locket missing, but dismissed it as misplacement."
+                    }
+                ]
+            },
+            {
+                "type": "execution",
+                "description": "In the late hours of the night, after ensuring the household was asleep and Lord Ashworth was alone in his study, Mr. Blackwood silently traversed the hidden servant passage. He entered the study, where Ashworth was dozing in his armchair. Blackwood struck Lord Ashworth twice with the heavy silver letter opener, aiming for the head, then smothered him with a velvet cushion to ensure silence and finality.",
+                "actors_involved": [
+                    "Mr. Silas Blackwood",
+                    "Lord Alistair Ashworth"
+                ],
+                "location": "Lord Ashworth's private study",
+                "time": "The night of the crime, around 2:00 AM",
+                "traces_left": [
+                    {
+                        "type": "forensic evidence",
+                        "description": "A faint, distinct pattern of fibers from a velvet cushion found on Lord Ashworth's face, indicating asphyxiation after initial trauma."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "Two precise, deep lacerations on the back of Lord Ashworth's head, consistent with the antique letter opener, but initially obscured by blood and his position."
+                    },
+                    {
+                        "type": "forensic evidence",
+                        "description": "Microscopic traces of silver polish residue on the wounds, transferred from the letter opener."
+                    }
+                ]
+            },
+            {
+                "type": "cover-up",
+                "description": "Immediately after the murder, Mr. Blackwood carefully wiped the letter opener clean of blood and fingerprints, then returned it to its stand on Ashworth's desk, making it appear untouched. He then placed Lady Beatrice's silver locket under Ashworth's outstretched hand, making it seem as if it fell during a struggle or was clutched by the victim. To further mislead, he slightly disturbed a stack of papers on Ashworth's desk, and subtly jimmied a window latch, making it seem like a forced entry or a hasty exit. He then retreated through the servant passage, returning to the library to complete his 'routine tasks.'",
+                "actors_involved": [
+                    "Mr. Silas Blackwood"
+                ],
+                "location": "Lord Ashworth's private study",
+                "time": "Immediately after the crime, 2:15 AM",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "Lady Beatrice Thorne's silver locket found clutched in Lord Ashworth's hand, bearing only the victim's fingerprints."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "The antique silver letter opener on the desk, wiped clean, but upon meticulous forensic examination, a minute speck of blood is found in an intricate crevice of the handle."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A subtly jimmied window latch, showing no obvious forced entry from outside, but a slight recent disturbance to the interior mechanism."
+                    },
+                    {
+                        "type": "forensic evidence",
+                        "description": "A single, faint, partial shoeprint in the dust of the rarely-used servant passage, matching Mr. Blackwood's shoe size, but distinct from general household staff."
+                    }
+                ]
+            }
+        ]
+    },
+    "model": "gemini-2.5-flash",
+    "system_instruction": "You are constructing the objective crime timeline for a detective story.\nThis is the ground truth of what actually happened. Ensure that the timeline is consistent with the provided input data and with common conventions of detective stories.\nAlso ensure logical consistency within the timeline itself and causality, e.g., the preparation for the crime must happen before the execution of the crime, the decision to commit the crime must happen before the preparation and execution, etc.\n\nGenerate events that describe the crime, the events leading up to the crime, and the events immediately following the crime.\nThe events should describe:\n- Decision: any decision made by any actor that is relevant to the crime, e.g., the decision to commit the crime itself, the decision to choose a specific method for committing the crime, the decision to target a specific victim, the decision to frame someone else for the crime, etc., including the motivations behind those decisions\n- Preparation: any preparation made for the crime, e.g., buying a weapon, researching the victim's schedule, acquiring a key to the victim's house, ensuring an alibi for the time of the crime\n- Execution: the execution of the crime itself, e.g., the act of poisoning the victim's drink, the act of shooting the victim, the act of breaking into the house to commit the crime\n- Cover-up: any action taken to cover up the crime, e.g., cleaning up the crime scene, moving the body, staging the crime scene to look like a burglary, deleting digital evidence, persuading witnesses to lie\n\nEach event can leave behind crime traces, that migh be discovered by the detective during the investigation and help solve the crime.\n\nUses concrete and specific descriptions for the crime events and crime traces, avoid vague or generic descriptions. For example, instead of saying \"the suspect prepared for the crime\", say \"the suspect bought a bottle of arsenic from the local pharmacy\",\nor instead of saying \"the suspect left behind evidence at the crime scene\", say \"the suspect left fingerprints on the glass used for poisoning\".\nTry to be creative and imaginative with the crime events and crime traces to provide an engaging and intriguing crime timeline.\n",
+    "generation_params": {
+        "temperature": 1.0,
+        "do_sample": true,
+        "top_p": 0.9,
+        "top_k": 5,
+        "max_tokens": 10000,
+        "repetition_penalty": 0,
+        "response_type": "application/json",
+        "response_schema": {
+            "$defs": {
+                "CrimeEvent": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime event, e.g., decision, preparation, execution or cover-up",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime event, e.g., 'The suspect poisoned the victim's drink at the party', 'The suspect gained access to the victim's house by persuading the maid to let them in', 'The suspect bought a gun.'",
+                            "title": "Description",
+                            "type": "string"
+                        },
+                        "actors_involved": {
+                            "description": "List of actor ids involved in the crime event, e.g., ['victim_id', 'suspect_id1']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Actors Involved",
+                            "type": "array"
+                        },
+                        "location": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Location where the crime event takes place, if relevant",
+                            "title": "Location"
+                        },
+                        "time": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Time when the crime event takes place relative to the crime itself, e.g., 'two days before the crime', 'the night of the crime', if relevant",
+                            "title": "Time"
+                        },
+                        "traces_left": {
+                            "description": "List of crime traces left by this crime event, e.g., fingerprints, witnesses, forensic evidence, digital evidence",
+                            "items": {
+                                "$ref": "#/$defs/CrimeTrace"
+                            },
+                            "title": "Traces Left",
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description",
+                        "actors_involved",
+                        "location",
+                        "time",
+                        "traces_left"
+                    ],
+                    "title": "CrimeEvent",
+                    "type": "object"
+                },
+                "CrimeTrace": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime trace, e.g., physical evidence, witness, forensic evidence, digital evidence",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime trace, e.g., 'Fingeprints on the glass used for poisoning', 'A witness saw the suspect arguing with the victim', 'Missing gun from the victim's collection', 'Toxicology report showing presence of poison in the victim's system'",
+                            "title": "Description",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description"
+                    ],
+                    "title": "CrimeTrace",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "crime_events": {
+                    "description": "List of crime events that make up the crime, including the crime itself and any relevant events leading up to or following the crime",
+                    "items": {
+                        "$ref": "#/$defs/CrimeEvent"
+                    },
+                    "title": "Crime Events",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "crime_events"
+            ],
+            "title": "CrimeGraph",
+            "type": "object"
+        },
+        "extras": null
+    }
+}

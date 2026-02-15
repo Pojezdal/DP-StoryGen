@@ -1,0 +1,222 @@
+{
+    "prompt": "Based on the following input data and provided actor pool, generate a structured crime graph that describes the objective crime timeline for a detective story.\n\nInput data:\ntitle=None genre='Detective Fiction' theme='Mystery and Intrigue' core_idea='A brilliant but eccentric detective and his loyal assistant investigate a mysterious murder in a grand Victorian mansion.' setting=SettingData(location='Victorian London', time_period='Victorian Era', atmosphere='Dark and atmospheric', isolation_level='Isolated mansion') crime=CrimeData(crime_type='Murder', method='Shot through the eye', motive=None, specifications='Victim is found in a grand mansion') characters=CharactersData(detective_type='Brilliant but eccentric detective', detective_specifications=None, sidekick_type='Loyal assistant', sidekick_specifications=None, suspect_count=None, culprit_specifications='The gardener') structure=StructureData(length=None, complexity='Complex', twist_specifications='Plenty of twists and turns', red_herring_specifications=None)\n\nActor pool:\nvictim=Victim(id='lord_ashworth', relationships={'owner_of': ['victorian_mansion']}) suspects=[Suspect(id='lady_beatrice', relationships={'wife_of': ['lord_ashworth'], 'rival_of': ['mr_higgins']}, occupation='Lady of the Manor', motive='Inheritance and freedom from a loveless marriage.', crime_relevant_traits=['ambitious', 'cold', 'calculating'], possible_alibis=['was in her chambers reading', 'claims to have been asleep'], possible_means=[\"access to firearms through her husband's collection\", \"knowledge of the mansion's layout\"], culprit=False), Suspect(id='mr_higgins', relationships={'business_rival_of': ['lord_ashworth'], 'rival_of': ['lady_beatrice']}, occupation='Business Rival', motive='Financial ruin and revenge for a past business deal gone wrong.', crime_relevant_traits=['greedy', 'resentful', 'hot-tempered'], possible_alibis=['was in the city on business', 'claims to have been at his club'], possible_means=['hired thugs', 'personal animosity could lead to direct confrontation'], culprit=False), Suspect(id='miss_evangeline', relationships={'ward_of': ['lord_ashworth'], 'secret_lover_of': ['lord_ashworth']}, occupation='Ward', motive='Fear of being disinherited and desperation to maintain her comfortable lifestyle.', crime_relevant_traits=['secretive', 'anxious', 'desperate'], possible_alibis=['was in the garden', 'claims to have been practicing piano'], possible_means=[\"access to the victim's private quarters\", 'knowledge of his habits'], culprit=False), Suspect(id='mr_perkins', relationships={'gardener_for': ['lord_ashworth']}, occupation='Gardener', motive='Disgruntled employee, possibly involved in a secret dispute or blackmail.', crime_relevant_traits=['resentful', 'observant', 'stoic'], possible_alibis=['was tending to the greenhouses', 'claims to have been in his cottage'], possible_means=['access to tools that could be used as weapons', 'intimate knowledge of the mansion grounds and potential hiding places'], culprit=True)]\n",
+    "response": {
+        "crime_events": [
+            {
+                "type": "decision",
+                "description": "Mr. Perkins decides to murder Lord Ashworth due to a dispute or blackmail.",
+                "actors_involved": [
+                    "mr_perkins",
+                    "lord_ashworth"
+                ],
+                "location": "Victorian London",
+                "time": "Several days before the crime",
+                "traces_left": []
+            },
+            {
+                "type": "preparation",
+                "description": "Mr. Perkins acquires a firearm, likely from Lord Ashworth's collection or through other means, to use as the murder weapon.",
+                "actors_involved": [
+                    "mr_perkins"
+                ],
+                "location": "Victorian London",
+                "time": "Days before the crime",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "Potential traces of Mr. Perkins's fingerprints on a missing firearm from Lord Ashworth's collection."
+                    }
+                ]
+            },
+            {
+                "type": "preparation",
+                "description": "Mr. Perkins researches Lord Ashworth's routine to find the opportune moment for the murder.",
+                "actors_involved": [
+                    "mr_perkins",
+                    "lord_ashworth"
+                ],
+                "location": "Victorian Mansion",
+                "time": "Days before the crime",
+                "traces_left": [
+                    {
+                        "type": "witness",
+                        "description": "A servant might have noticed Mr. Perkins unusually observing Lord Ashworth's movements."
+                    }
+                ]
+            },
+            {
+                "type": "execution",
+                "description": "Mr. Perkins shoots Lord Ashworth through the eye in the grand mansion.",
+                "actors_involved": [
+                    "mr_perkins",
+                    "lord_ashworth"
+                ],
+                "location": "Victorian Mansion",
+                "time": "The night of the crime",
+                "traces_left": [
+                    {
+                        "type": "forensic evidence",
+                        "description": "The body of Lord Ashworth, showing the fatal gunshot wound to the eye."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A bullet fragment found at the crime scene."
+                    },
+                    {
+                        "type": "witness",
+                        "description": "A staff member or other resident might have heard the gunshot."
+                    }
+                ]
+            },
+            {
+                "type": "cover-up",
+                "description": "Mr. Perkins attempts to stage the scene to appear as if it was a robbery or an accident, or simply leaves the scene without cleaning up thoroughly.",
+                "actors_involved": [
+                    "mr_perkins"
+                ],
+                "location": "Victorian Mansion",
+                "time": "Immediately after the execution",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "Disturbed objects at the crime scene that do not align with a natural robbery."
+                    },
+                    {
+                        "type": "forensic evidence",
+                        "description": "Potential for Mr. Perkins's trace evidence (e.g., soil from the garden) at the crime scene if not properly cleaned."
+                    }
+                ]
+            },
+            {
+                "type": "cover-up",
+                "description": "Mr. Perkins disposes of the murder weapon, possibly by hiding it on the mansion grounds or discarding it elsewhere.",
+                "actors_involved": [
+                    "mr_perkins"
+                ],
+                "location": "Victorian Mansion grounds or surrounding area",
+                "time": "After the murder",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "The missing murder weapon, if found, could link Mr. Perkins to the crime."
+                    }
+                ]
+            }
+        ]
+    },
+    "model": "gemini-2.5-flash-lite",
+    "system_instruction": "You are constructing the objective crime timeline for a detective story.\nThis is the ground truth of what actually happened. Ensure that the timeline is consistent with the provided input data and with common conventions of detective stories.\nAlso ensure logical consistency within the timeline itself and causality, e.g., the preparation for the crime must happen before the execution of the crime, the decision to commit the crime must happen before the preparation and execution, etc.\n\nGenerate events that describe the crime, the events leading up to the crime, and the events immediately following the crime.\nThe events should describe:\n- Decision: any decision made by any actor that is relevant to the crime, e.g., the decision to commit the crime\n- Preparation: any preparation made for the crime, e.g., buying a weapon, researching the victim's schedule, acquiring a key to the victim's house, ensuring an alibi for the time of the crime\n- Execution: the execution of the crime itself, e.g., the act of poisoning the victim's drink, the act of shooting the victim, the act of breaking into the house to commit the crime\n- Cover-up: any action taken to cover up the crime, e.g., cleaning up the crime scene, moving the body, staging the crime scene to look like a burglary, deleting digital evidence, persuading witnesses to lie\n\nEach event can leave behind crime traces, that migh be discovered by the detective during the investigation and help solve the crime.\n",
+    "generation_params": {
+        "temperature": 1.0,
+        "do_sample": true,
+        "top_p": 0.9,
+        "top_k": 5,
+        "max_tokens": 10000,
+        "repetition_penalty": 0,
+        "response_type": "application/json",
+        "response_schema": {
+            "$defs": {
+                "CrimeEvent": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime event, e.g., decision, preparation, execution or cover-up",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime event, e.g., 'The suspect poisoned the victim's drink at the party', 'The suspect gained access to the victim's house by persuading the maid to let them in', 'The suspect bought a gun.'",
+                            "title": "Description",
+                            "type": "string"
+                        },
+                        "actors_involved": {
+                            "description": "List of actor ids involved in the crime event, e.g., ['victim_id', 'suspect_id1']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Actors Involved",
+                            "type": "array"
+                        },
+                        "location": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Location where the crime event takes place, if relevant",
+                            "title": "Location"
+                        },
+                        "time": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Time when the crime event takes place relative to the crime itself, e.g., 'two days before the crime', 'the night of the crime', if relevant",
+                            "title": "Time"
+                        },
+                        "traces_left": {
+                            "description": "List of crime traces left by this crime event, e.g., fingerprints, witnesses, forensic evidence, digital evidence",
+                            "items": {
+                                "$ref": "#/$defs/CrimeTrace"
+                            },
+                            "title": "Traces Left",
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description",
+                        "actors_involved",
+                        "location",
+                        "time",
+                        "traces_left"
+                    ],
+                    "title": "CrimeEvent",
+                    "type": "object"
+                },
+                "CrimeTrace": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime trace, e.g., physical evidence, witness, forensic evidence, digital evidence",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime trace, e.g., 'Fingeprints on the glass used for poisoning', 'A witness saw the suspect arguing with the victim', 'Missing gun from the victim's collection', 'Toxicology report showing presence of poison in the victim's system'",
+                            "title": "Description",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description"
+                    ],
+                    "title": "CrimeTrace",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "crime_events": {
+                    "description": "List of crime events that make up the crime, including the crime itself and any relevant events leading up to or following the crime",
+                    "items": {
+                        "$ref": "#/$defs/CrimeEvent"
+                    },
+                    "title": "Crime Events",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "crime_events"
+            ],
+            "title": "CrimeGraph",
+            "type": "object"
+        },
+        "extras": null
+    }
+}
