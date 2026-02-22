@@ -1,0 +1,263 @@
+{
+    "prompt": "Based on the following input data and provided actor pool, generate a structured crime graph that describes the objective crime timeline for a detective story.\n\nInput data:\ntitle=None genre='detective story' theme='Dark and atmospheric tone' core_idea='A mysterious murder in a grand mansion with plenty of twists and turns to keep readers guessing until the very end.' setting=SettingData(location='Victorian London', time_period='Victorian era', atmosphere='dark and atmospheric', isolation_level='isolated mansion') crime=CrimeData(crime_type='murder', method=None, motive=None, specifications='mysterious murder') characters=CharactersData(detective_type='eccentric detective', detective_specifications='brilliant but eccentric', sidekick_type='loyal assistant', sidekick_specifications='loyal', suspect_count=None, culprit_specifications='No specific requirements') structure=StructureData(length=None, complexity='complex', twist_specifications='plenty of twists and turns to keep readers guessing until the very end', red_herring_specifications=None)\n\nActor pool:\nvictim=Victim(id='sir_alistair_finch', relationships=[Relationship(type='husband', to='lady_beatrice_finch'), Relationship(type='business partner', to='mr_elias_thorne'), Relationship(type='employer', to='mrs_agatha_croft'), Relationship(type='rival', to='dr_julian_blackwood'), Relationship(type='employer', to='miss_eleanor_vance'), Relationship(type='blackmailer', to='miss_eleanor_vance')]) suspects=[Suspect(id='lady_beatrice_finch', relationships=[Relationship(type='wife', to='sir_alistair_finch')], occupation='Society Lady', motive=\"To inherit Sir Alistair's vast fortune and escape a loveless, suffocating marriage, potentially to be with a secret lover.\", crime_relevant_traits=['calculating', 'resentful', 'scheming'], possible_alibi='Claimed to be in her boudoir, preparing for bed, citing a migraine.', possible_method=\"Administered a slow-acting poison, disguised as a tonic, into Sir Alistair's evening brandy.\", possible_means=[\"access to victim's food and drink\", 'knowledge of household routines', 'possesses a private collection of medicinal herbs'], culprit=False), Suspect(id='mr_elias_thorne', relationships=[Relationship(type='business partner', to='sir_alistair_finch')], occupation='Industrial Magnate', motive=\"Sir Alistair's reckless and unethical investments threatened to bankrupt their joint enterprise, and Thorne desired sole control of the company.\", crime_relevant_traits=['ruthless', 'ambitious', 'volatile'], possible_alibi='Was supposedly working late at his city office, but no independent witnesses can confirm his presence.', possible_method='Strangled Sir Alistair in a fit of rage during a heated argument over their business affairs.', possible_means=['strong physique', 'direct access to victim for business discussions', 'history of aggressive negotiation tactics'], culprit=True), Suspect(id='mrs_agatha_croft', relationships=[Relationship(type='employee', to='sir_alistair_finch'), Relationship(type='loyalist to old family', to='dr_julian_blackwood')], occupation='Head Housekeeper of Blackwood Manor', motive='Believed Sir Alistair was desecrating the Blackwood family legacy and exploiting a dark secret from her own past, which he held over her.', crime_relevant_traits=['stern', 'observant', 'fiercely protective'], possible_alibi=\"Was meticulously tidying the servants' quarters, a routine task she performs nightly, claiming she heard nothing amiss.\", possible_method='Struck Sir Alistair with a heavy, blunt object, such as a brass fireplace poker, from behind while he was distracted in his study.', possible_means=[\"intimate knowledge of the mansion's layout and daily routines\", 'access to household items', 'unseen presence within the manor'], culprit=False), Suspect(id='dr_julian_blackwood', relationships=[Relationship(type='distant relative', to='sir_alistair_finch'), Relationship(type='hates', to='sir_alistair_finch')], occupation='Disgraced Physician, Amateur Botanist', motive=\"Sought revenge for Sir Alistair's perceived role in his family's ruin and the scandalous acquisition of Blackwood Manor; also believed Sir Alistair possessed a Blackwood family heirloom he desperately coveted.\", crime_relevant_traits=['brooding', 'intelligent', 'resentful', 'obsessive'], possible_alibi='Claimed to be conducting isolated research in his secluded laboratory outside the city, far from Blackwood Manor.', possible_method=\"Injected Sir Alistair with a fast-acting, untraceable toxin derived from rare plants he cultivated, administered discreetly during a 'friendly' visit.\", possible_means=['medical knowledge', 'access to obscure poisons and chemicals', \"familiarity with the manor's hidden passages from his youth\"], culprit=False), Suspect(id='miss_eleanor_vance', relationships=[Relationship(type='personal secretary', to='sir_alistair_finch'), Relationship(type='victim of blackmail', to='sir_alistair_finch')], occupation='Personal Secretary to Sir Alistair Finch', motive='Sir Alistair was relentlessly blackmailing her over a devastating secret from her past, and she feared imminent exposure that would utterly ruin her reputation and family.', crime_relevant_traits=['nervous', 'meticulous', 'secretive', 'desperate'], possible_alibi='Was meticulously filing documents in the study and left just before Sir Alistair was found, stating she heard him cough just before she departed.', possible_method=\"Overdosed Sir Alistair's regular nightly sedative, knowing his delicate heart condition, causing an apparent natural death.\", possible_means=[\"access to Sir Alistair's personal effects and medical prescriptions\", 'intimate knowledge of his daily habits and vulnerabilities', 'perceived innocence and unassuming demeanor'], culprit=False)]\n",
+    "response": {
+        "crime_events": [
+            {
+                "type": "decision",
+                "description": "Mr. Elias Thorne discovers the catastrophic extent of Sir Alistair Finch's speculative investments, realizing their joint enterprise is on the brink of ruin and his own fortune will be decimated. Driven by ambition and fear of destitution, Thorne decides Sir Alistair must be eliminated for him to seize sole control and salvage his empire.",
+                "actors_involved": [
+                    "mr_elias_thorne",
+                    "sir_alistair_finch"
+                ],
+                "location": "Mr. Elias Thorne's private study at his city office",
+                "time": "Three weeks before the crime",
+                "traces_left": [
+                    {
+                        "type": "digital evidence",
+                        "description": "Highly sensitive financial ledgers and correspondence detailing Sir Alistair's unauthorized and disastrous investments, found on Thorne's encrypted personal drive."
+                    }
+                ]
+            },
+            {
+                "type": "preparation",
+                "description": "Mr. Elias Thorne sends a coded message to Sir Alistair, arranging an urgent, highly confidential late-night meeting at Blackwood Manor to discuss an 'irrevocable business crisis.' He also dismisses his personal chauffeur early for the evening, instructing him not to return until morning, to ensure no witness to his travel to the manor.",
+                "actors_involved": [
+                    "mr_elias_thorne",
+                    "sir_alistair_finch"
+                ],
+                "location": "Mr. Elias Thorne's city office",
+                "time": "The day of the crime, late afternoon",
+                "traces_left": [
+                    {
+                        "type": "digital evidence",
+                        "description": "A cryptic telegram sent from Thorne to Sir Alistair, discovered in Sir Alistair's study, referencing an urgent 'matter of utmost discretion.'"
+                    },
+                    {
+                        "type": "witness",
+                        "description": "Mr. Davies, Thorne's chauffeur, confirms he was dismissed unusually early and did not drive Thorne home or anywhere else that evening."
+                    }
+                ]
+            },
+            {
+                "type": "preparation",
+                "description": "Before departing for Blackwood Manor, Mr. Elias Thorne makes a show of 'working late' at his city office. He sends several non-urgent, time-stamped emails to various subordinates and leaves his office lights conspicuously on, ensuring that his junior clerks and night watchman perceive him to be present for the entire evening.",
+                "actors_involved": [
+                    "mr_elias_thorne"
+                ],
+                "location": "Mr. Elias Thorne's city office",
+                "time": "The night of the crime, early evening",
+                "traces_left": [
+                    {
+                        "type": "digital evidence",
+                        "description": "Several late-night business emails sent from Thorne's office computer, timestamped between 7:00 PM and 9:00 PM, though their content is largely inconsequential."
+                    },
+                    {
+                        "type": "witness",
+                        "description": "Testimony from junior clerks and the night watchman confirming they saw Thorne's office lights on and assumed he was working late into the night."
+                    }
+                ]
+            },
+            {
+                "type": "execution",
+                "description": "Mr. Elias Thorne gains entry to Blackwood Manor through a less-used servants' entrance, which he was familiar with from frequent business visits. He confronts Sir Alistair in his study, where a furious argument erupts over the disastrous investments. Sir Alistair's dismissive arrogance pushes Thorne into a homicidal rage. Thorne violently strangles Sir Alistair to death.",
+                "actors_involved": [
+                    "mr_elias_thorne",
+                    "sir_alistair_finch"
+                ],
+                "location": "Sir Alistair's study, Blackwood Manor",
+                "time": "The night of the crime, around 10:30 PM",
+                "traces_left": [
+                    {
+                        "type": "forensic evidence",
+                        "description": "Deep ligature marks and petechial hemorrhages consistent with manual strangulation found on Sir Alistair Finch's neck during autopsy."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "Faint scuff marks on the flagstones near the servants' entrance, suggesting recent use, inconsistent with daily manor routines."
+                    }
+                ]
+            },
+            {
+                "type": "unforeseen event",
+                "description": "As Mr. Elias Thorne is about to leave the study, Miss Eleanor Vance, having returned to retrieve some vital documents she forgot, enters the antechamber directly outside Sir Alistair's study. She hears a faint, choked gurgle followed by a heavy thud from within the study. Panicked, and not seeing anyone, she immediately retreats without entering the study itself.",
+                "actors_involved": [
+                    "miss_eleanor_vance",
+                    "mr_elias_thorne"
+                ],
+                "location": "Antechamber to Sir Alistair's study, Blackwood Manor",
+                "time": "The night of the crime, immediately after the murder (approx. 10:35 PM)",
+                "traces_left": [
+                    {
+                        "type": "witness",
+                        "description": "Miss Eleanor Vance's statement claiming she heard Sir Alistair 'coughing' just before she left, which she later describes as a faint, struggling sound."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A delicate, embroidered handkerchief belonging to Miss Eleanor Vance, found on the floor of the antechamber, suggesting she dropped it in haste."
+                    }
+                ]
+            },
+            {
+                "type": "cover-up",
+                "description": "Realizing his departure was almost compromised, Mr. Elias Thorne quickly attempts to stage the scene to suggest a struggle with an intruder. He deliberately overturns Sir Alistair's antique inkwell, scatters papers across the desk, and pulls a heavy velvet curtain askew. He then picks up an ornamental letter opener from the desk, attempting to place it in Sir Alistair's hand to suggest a weapon, but in his haste, he nicks his own palm on its sharp edge, leaving a small, unnoticed cut.",
+                "actors_involved": [
+                    "mr_elias_thorne"
+                ],
+                "location": "Sir Alistair's study, Blackwood Manor",
+                "time": "The night of the crime, immediately after Miss Vance's departure",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "An antique inkwell overturned, scattering dried ink and papers across the desk, but forensic analysis shows no other signs of a violent struggle beyond the immediate vicinity of the victim."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "Mr. Elias Thorne's latent fingerprints, overlaid with Sir Alistair's, on the handle of the ornamental letter opener found near the victim's hand."
+                    },
+                    {
+                        "type": "forensic evidence",
+                        "description": "A minute trace of Type A blood (matching Thorne's blood type) found on the decorative silver pommel of the letter opener, mixed with Sir Alistair's blood, indicating a recent injury to the perpetrator."
+                    }
+                ]
+            },
+            {
+                "type": "cover-up",
+                "description": "Mr. Elias Thorne uses a discarded silk scarf, possibly Miss Vance's, to wipe down any surfaces he touched, including the door handle and parts of the desk. He pockets the scarf, intending to dispose of it later, and then quietly exits Blackwood Manor, returning to his city office to ensure his false alibi is maintained.",
+                "actors_involved": [
+                    "mr_elias_thorne"
+                ],
+                "location": "Sir Alistair's study and Blackwood Manor grounds",
+                "time": "The night of the crime, after staging the scene",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "Absence of clear fingerprints on most surfaces in the study, indicating a deliberate wipe-down."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "No forced entry found at the manor, despite the staged struggle, suggesting the killer had legitimate access or was let in."
+                    },
+                    {
+                        "type": "witness",
+                        "description": "The night watchman at Thorne's city office reports seeing Thorne emerge from his office around midnight, looking somewhat dishevelled but claiming to have just finished a long night of work."
+                    }
+                ]
+            }
+        ]
+    },
+    "model": "gemini-2.5-flash",
+    "system_instruction": "You are constructing the objective crime timeline for a detective story.\nThis is the ground truth of what actually happened. Ensure that the timeline is consistent with the provided input data and with common conventions of detective stories.\nAlso ensure logical consistency within the timeline itself and causality, e.g., the preparation for the crime must happen before the execution of the crime, the decision to commit the crime must happen before the preparation and execution, etc.\n\nGenerate events that describe the crime, the events leading up to the crime, and the events immediately following the crime.\nThe events should describe:\n- Decision: any decision made by any actor that is relevant to the crime, e.g., the decision to commit the crime itself, the decision to choose a specific method for committing the crime, the decision to target a specific victim, the decision to frame someone else for the crime, etc., including the motivations behind those decisions\n- Preparation: any preparation made for the crime, e.g., buying a weapon, researching the victim's schedule, acquiring a key to the victim's house, ensuring an alibi for the time of the crime\n- Execution: the execution of the crime itself, e.g., the act of poisoning the victim's drink, the act of shooting the victim, the act of breaking into the house to commit the crime\n- Cover-up: any action taken to cover up the crime, e.g., cleaning up the crime scene, moving the body, staging the crime scene to look like a burglary, deleting digital evidence, persuading witnesses to lie\n\nEach event can leave behind crime traces, that migh be discovered by the detective during the investigation and help solve the crime.\n\nUses concrete and specific descriptions for the crime events and crime traces, avoid vague or generic descriptions. For example, instead of saying \"the suspect prepared for the crime\", say \"the suspect bought a bottle of arsenic from the local pharmacy\",\nor instead of saying \"the suspect left behind evidence at the crime scene\", say \"the suspect left fingerprints on the glass used for poisoning\".\nTry to be creative and imaginative with the crime events and crime traces to provide an engaging and intriguing crime timeline.\nThis crime should be narratively elaborate and structurally layered, with possible misdirections and red herrings, to provide an interesting and challenging mystery for the detective to solve.\nUnforseen events might happen during the crime, e.g., an unexpected witness might show up during the execution of the crime, forcing the culprit to improvise and change their plans on the spot, which might lead to leaving behind unexpected crime traces.\nThe crime may be unnecessarily complex if it enhances dramatic tension, it does not need to be the most efficient way to commit the crime, it just needs to be a plausible way to commit the crime that fits with the characters, setting and tone of the story as described in the input data.\n",
+    "generation_params": {
+        "temperature": 1.0,
+        "do_sample": true,
+        "top_p": 0.9,
+        "top_k": 5,
+        "max_tokens": 10000,
+        "repetition_penalty": 0,
+        "response_type": "application/json",
+        "response_schema": {
+            "$defs": {
+                "CrimeEvent": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime event, e.g., decision, preparation, execution or cover-up",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime event, e.g., 'The suspect poisoned the victim's drink at the party', 'The suspect gained access to the victim's house by persuading the maid to let them in', 'The suspect bought a gun.'",
+                            "title": "Description",
+                            "type": "string"
+                        },
+                        "actors_involved": {
+                            "description": "List of actor ids involved in the crime event, e.g., ['victim_id', 'suspect_id1']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Actors Involved",
+                            "type": "array"
+                        },
+                        "location": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Location where the crime event takes place, if relevant",
+                            "title": "Location"
+                        },
+                        "time": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Time when the crime event takes place relative to the crime itself, e.g., 'two days before the crime', 'the night of the crime', if relevant",
+                            "title": "Time"
+                        },
+                        "traces_left": {
+                            "description": "List of crime traces left by this crime event, e.g., fingerprints, witnesses, forensic evidence, digital evidence",
+                            "items": {
+                                "$ref": "#/$defs/CrimeTrace"
+                            },
+                            "title": "Traces Left",
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description",
+                        "actors_involved",
+                        "location",
+                        "time",
+                        "traces_left"
+                    ],
+                    "title": "CrimeEvent",
+                    "type": "object"
+                },
+                "CrimeTrace": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime trace, e.g., physical evidence, witness, forensic evidence, digital evidence",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime trace, e.g., 'Fingeprints on the glass used for poisoning', 'A witness saw the suspect arguing with the victim', 'Missing gun from the victim's collection', 'Toxicology report showing presence of poison in the victim's system'",
+                            "title": "Description",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description"
+                    ],
+                    "title": "CrimeTrace",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "crime_events": {
+                    "description": "List of crime events that make up the crime, including the crime itself and any relevant events leading up to or following the crime",
+                    "items": {
+                        "$ref": "#/$defs/CrimeEvent"
+                    },
+                    "title": "Crime Events",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "crime_events"
+            ],
+            "title": "CrimeGraph",
+            "type": "object"
+        },
+        "extras": null
+    }
+}

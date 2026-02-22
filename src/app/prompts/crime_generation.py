@@ -7,14 +7,18 @@ Generate events that describe the crime, the events leading up to the crime, and
 The events should describe:
 - Decision: any decision made by any actor that is relevant to the crime, e.g., the decision to commit the crime itself, the decision to choose a specific method for committing the crime, the decision to target a specific victim, the decision to frame someone else for the crime, etc., including the motivations behind those decisions
 - Preparation: any preparation made for the crime, e.g., buying a weapon, researching the victim's schedule, acquiring a key to the victim's house, ensuring an alibi for the time of the crime
+- Access: any action taken to gain access to the crime scene or the victim, e.g., breaking into the victim's house, sneaking into the victim's office, luring the victim to a specific location, etc.
 - Execution: the execution of the crime itself, e.g., the act of poisoning the victim's drink, the act of shooting the victim, the act of breaking into the house to commit the crime
 - Cover-up: any action taken to cover up the crime, e.g., cleaning up the crime scene, moving the body, staging the crime scene to look like a burglary, deleting digital evidence, persuading witnesses to lie
+- Complication: any unforeseen event that may happens during the previous stages, e.g., the victim unexpectedly coming home early, a witness unexpectedly showing up at the crime scene, the weapon malfunctioning during the execution of the crime, etc.
 
 Each event can leave behind crime traces, that migh be discovered by the detective during the investigation and help solve the crime.
 
 Uses concrete and specific descriptions for the crime events and crime traces, avoid vague or generic descriptions. For example, instead of saying "the suspect prepared for the crime", say "the suspect bought a bottle of arsenic from the local pharmacy",
 or instead of saying "the suspect left behind evidence at the crime scene", say "the suspect left fingerprints on the glass used for poisoning".
 Try to be creative and imaginative with the crime events and crime traces to provide an engaging and intriguing crime timeline.
+This crime should be narratively elaborate and structurally layered, with possible misdirections and red herrings, or multiple stages that need to fit together to complete the crime.
+The crime may be unnecessarily complex if it enhances dramatic tension, it does not need to be the most efficient way to commit the crime, it just needs to be a plausible way to commit the crime that fits with the characters, setting and tone of the story as described in the input data.
 """
 
 PROMPT_TEMPLATE = """Based on the following input data and provided actor pool, generate a structured crime graph that describes the objective crime timeline for a detective story.

@@ -3,7 +3,7 @@ from typing import Optional
 
 class Relationship(BaseModel):
     type: str = Field(description="Type of relationship, e.g., friend, enemy, family, colleague")
-    to: str = Field(description="ID of the other actor in the relationship")
+    target: str = Field(description="ID of the other actor that this relationship is with")
 
 class Actor(BaseModel):
     id: str = Field(description="Unique identifier for the actor")

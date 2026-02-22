@@ -9,7 +9,7 @@ from typing import Iterable, Iterator, List, Optional, Sequence, Union, Dict, An
 class GoogleLLM(LLM):
     def __init__(self, model_id: str, api_key: str):
         super().__init__(model_id)
-        self.client = genai.Client(api_key=api_key)
+        self.client = genai.Client(api_key=api_key, http_options={"timeout": 1000 * 600}) # timeout is in miliseconds, setting for 10 minutes to allow for long generations
 
 
     def generate(self, prompt: str, system_instruction: Optional[str] = None, generation_params: Optional[GenerationParams] = None) -> GenerationResult:
@@ -22,6 +22,7 @@ class GoogleLLM(LLM):
             top_k=generation_params.top_k,
             response_mime_type=generation_params.response_type,
             response_json_schema=generation_params.response_schema.model_json_schema() if generation_params.response_schema else None,
+            thinking_config=types.ThinkingConfig(thinking_budget=generation_params.thinking_budget, include_thoughts=generation_params.include_thoughts)
         )
 
         response = self.client.models.generate_content(
@@ -30,20 +31,27 @@ class GoogleLLM(LLM):
             config=gen_config,
         )
         
+        
+        thoughts = None
+        output = None
+        for part in response.parts:
+            if part.thought:
+                thoughts = part.text
+            else:
+                output = part.text
+        
         if generation_params.response_schema:
             try:
-                output = generation_params.response_schema.model_validate_json(response.text)
+                output = generation_params.response_schema.model_validate_json(output)
             except Exception as e:
                 print("Error parsing LLM response with schema:", e)
-                output = response.text
-        else:
-            output = response.text
 
         return GenerationResult(
             output=output,
             token_count=response.usage_metadata.candidates_token_count,
             prompt_token_count=response.usage_metadata.prompt_token_count,
-            finish_reason=response.candidates[0].finish_reason
+            finish_reason=response.candidates[0].finish_reason,
+            thoughts=thoughts
         )
 
     def generate_stream(self, prompt: str, system_instruction: Optional[str] = None, generation_params: Optional[GenerationParams] = None, print_output: bool = False) -> GenerationResult:

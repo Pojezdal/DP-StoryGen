@@ -17,6 +17,8 @@ class GenerationParams:
     repetition_penalty: float = 1.0
     response_type: str = "text/plain"
     response_schema: Optional[BaseModel] = None
+    include_thoughts: bool = False
+    thinking_budget: Optional[int] = -1 # -1 for dynamic according to the gemini docs
     # allow passthrough extras
     extras: Dict[str, Any] = None
 
@@ -27,6 +29,7 @@ class GenerationResult:
     token_count: Optional[int] = None
     prompt_token_count: Optional[int] = None
     finish_reason: Optional[str] = None
+    thoughts: Optional[str] = None
 
 
 class LLM(ABC):

@@ -1,0 +1,934 @@
+{
+    "prompt": "Based on the input data, actor pool, and crime graph below, generate the investigation graph.\n\nInput data:\ntitle=None genre='detective story' theme=None core_idea='An old retired detective, planning a quiet holiday, gets drawn into solving an elaborate and complex murder in a small country English town.' setting=SettingData(location='small country english town', time_period='turn of the 20th and 21st century', atmosphere='somewhat lighter atmosphere, with some comedic elements', isolation_level='remote village') crime=CrimeData(crime_type='murder', method='elaborate and complex', motive=None, specifications='The murder itself is caused by an unknowing third party. The local church and a post in an old local newspaper should play an important role in the investigation.') characters=CharactersData(detective_type='retired detective', detective_specifications='An old retired detective who was just planning a quiet holiday in the countryside, but then gets drawn into solving a crime that happens in the town.', sidekick_type=None, sidekick_specifications=None, suspect_count=None, culprit_specifications='No specific requirements') structure=StructureData(length=None, complexity='complex', twist_specifications='A surprising twist with the murder itself being caused by an unknowing third party.', red_herring_specifications=None)\n\nActor pool:\nvictim=Victim(id='Eleanor_Finch', relationships=[Relationship(type='aunt', target='Arthur_Pendleton'), Relationship(type='patron', target='Reverend_Michael_Sterling'), Relationship(type='rival', target='Beatrice_Fairfax'), Relationship(type='employer', target='Thomas_Grimes')]) suspects=[Suspect(id='Arthur_Pendleton', relationships=[Relationship(type='nephew', target='Eleanor_Finch'), Relationship(type='acquaintance', target='Reverend_Michael_Sterling'), Relationship(type='disliked acquaintance', target='Beatrice_Fairfax'), Relationship(type='superior', target='Thomas_Grimes')], occupation='Unemployed Gentleman', motive='Inheritance and financial desperation, as Eleanor controlled his allowance and threatened to cut him off.', crime_relevant_traits=['greedy', 'entitled', 'short-tempered', 'financially irresponsible'], possible_alibi=\"Claimed to be drinking heavily at The Old Boar's Head pub until closing, but no one can definitively confirm his presence for the entire evening.\", possible_method='Strangled Eleanor Finch in a fit of drunken rage during an argument over her will and his allowance.', possible_means=['physical strength', 'history of volatile arguments', \"access to the victim's home\"], culprit=False), Suspect(id='Reverend_Michael_Sterling', relationships=[Relationship(type='benefactor', target='Eleanor_Finch'), Relationship(type='parishioner', target='Arthur_Pendleton'), Relationship(type='colleague', target='Beatrice_Fairfax'), Relationship(type='parishioner', target='Thomas_Grimes')], occupation=\"Vicar of St. Jude's Church\", motive=\"Eleanor was threatening to expose a financial impropriety or a secret from his past that would ruin his reputation and the church's standing in the community.\", crime_relevant_traits=['pious', 'secretive', 'ambitious', 'protective of reputation'], possible_alibi='Was alone in the church vestry, meticulously preparing his sermon and arranging floral displays, a task he often undertook late at night.', possible_method='Administered a potent, fast-acting sedative or poison disguised as a soothing herbal tea during a private evening meeting at the rectory.', possible_means=['access to various tinctures and remedies in the rectory', \"knowledge of Eleanor's habits and routines\", 'trusted position within the community'], culprit=False), Suspect(id='Beatrice_Fairfax', relationships=[Relationship(type='rival', target='Eleanor_Finch'), Relationship(type='annoying acquaintance', target='Arthur_Pendleton'), Relationship(type='colleague', target='Reverend_Michael_Sterling'), Relationship(type='acquaintance', target='Thomas_Grimes')], occupation='Retired Schoolmistress and Local Historian', motive=\"Eleanor was actively suppressing Beatrice's research into a scandalous historical truth involving Eleanor's prominent family, which Beatrice intended to publish.\", crime_relevant_traits=['meticulous', 'stubborn', 'intelligent', 'holds grudges'], possible_alibi='Spent the evening in the archives of the old local newspaper office, poring over dusty records for her research, claiming to be alone.', possible_method=\"Manipulated a piece of Eleanor's antique furniture or a floorboard in her study, causing her to fall and suffer a fatal head injury during her nightly routine.\", possible_means=[\"extensive knowledge of Eleanor's daily habits and the layout of her house\", 'access to old records and blueprints of local properties', 'intelligence to plan a complex trap'], culprit=True), Suspect(id='Thomas_Grimes', relationships=[Relationship(type='employee', target='Eleanor_Finch'), Relationship(type='superior', target='Arthur_Pendleton'), Relationship(type='vicar', target='Reverend_Michael_Sterling'), Relationship(type='acquaintance', target='Beatrice_Fairfax')], occupation='Gardener and Handyman', motive='Years of harsh treatment, underpayment, and a recent threat of dismissal by Eleanor, which would leave him destitute.', crime_relevant_traits=['resentful', 'stoic', 'physically strong', 'hard-working'], possible_alibi=\"Was working late in Eleanor's greenhouse, tending to exotic orchids, after a heated argument with her earlier in the day.\", possible_method='Struck Eleanor Finch with a heavy, blunt garden tool, such as a spade or a mallet, during a confrontation in the garden or a secluded part of the estate.', possible_means=['physical strength', 'access to numerous heavy garden tools', \"intimate knowledge of the estate's grounds and hidden paths\"], culprit=False)]\n\nCrime graph:\ncrime_events=[CrimeEvent(type='Decision', description=\"Beatrice Fairfax decides to orchestrate Eleanor Finch's death to prevent Eleanor from permanently suppressing her historical research, which exposed a scandalous truth about the Finch family. Beatrice meticulously plans an elaborate 'accident' involving an unknowing third party to avoid direct suspicion.\", actors_involved=['Beatrice_Fairfax', 'Eleanor_Finch'], location=\"Beatrice Fairfax's home study\", time='Several weeks before the crime', traces_left=[CrimeTrace(type='digital evidence', description=\"Numerous historical documents and genealogical charts related to the Finch family, with Beatrice's handwritten annotations, stored on her personal computer and in physical files.\")]), CrimeEvent(type='Preparation', description=\"Beatrice spends weeks meticulously observing Eleanor's nightly routines, especially her habit of checking the antique grandfather clock in her study before bed. She also researches old blueprints and structural plans of Finch Manor, accessible through local archives, to understand potential weak points.\", actors_involved=['Beatrice_Fairfax', 'Eleanor_Finch'], location='Finch Manor (observation), Old Local Newspaper Archives (research)', time='Two weeks before the crime', traces_left=[CrimeTrace(type='witness', description='The elderly archivist at the local newspaper office recalls Beatrice Fairfax making frequent and prolonged visits, poring over old architectural plans and local historical records, often asking specific questions about the Finch family estate.'), CrimeTrace(type='physical evidence', description='Faint smudges of graphite on several archived blueprints of Finch Manor, indicating Beatrice used a pencil to trace or mark areas of interest.')]), CrimeEvent(type='Preparation', description=\"Under the guise of discussing local history and offering to help organize some antique books, Beatrice gains access to Eleanor's study. During this visit, she discreetly makes a wax impression of the study door key. Later, she acquires specialized tools, including a fine-toothed saw and a drill with narrow bits, from a hardware store in a neighboring town, paying in cash.\", actors_involved=['Beatrice_Fairfax', 'Eleanor_Finch'], location='Finch Manor Study, Hardware store in a neighboring town', time='One week before the crime', traces_left=[CrimeTrace(type='physical evidence', description=\"A faint, unusual waxy residue found near the study door's keyhole, consistent with a key impression being made.\"), CrimeTrace(type='witness', description=\"A hardware store clerk in a nearby town remembers selling specific, unusual woodworking tools to a woman matching Beatrice's description, noting her insistence on paying in cash and her somewhat hurried demeanor.\")]), CrimeEvent(type='Access', description='Beatrice uses the duplicated key to secretly enter Finch Manor while Eleanor is out attending her weekly bridge club. She ensures no visible signs of forced entry are left.', actors_involved=['Beatrice_Fairfax'], location='Finch Manor', time='Three days before the crime', traces_left=[CrimeTrace(type='physical evidence', description='A microscopic scratch on the internal locking mechanism of the study door, suggesting a slightly imperfect duplicate key was used.')]), CrimeEvent(type='Execution', description='While inside the study, Beatrice carefully and discreetly weakens a specific floorboard directly in front of the antique grandfather clock. She saws partially through supporting joists and wedges small, brittle shims beneath the floorboard, making it structurally unstable but not visibly damaged. She then meticulously sweeps up any wood dust.', actors_involved=['Beatrice_Fairfax'], location='Finch Manor Study', time='Three days before the crime', traces_left=[CrimeTrace(type='forensic evidence', description=\"Minute, almost invisible wood fibers found embedded in the carpet near the weakened floorboard, not matching the natural wear and tear of the room's timber.\"), CrimeTrace(type='physical evidence', description='The compromised floorboard, upon closer inspection, reveals precise, almost surgical cuts and scorch marks from friction, consistent with deliberate weakening rather than natural decay.')]), CrimeEvent(type='Preparation', description=\"Beatrice subtly suggests to Thomas Grimes, the gardener/handyman, that Eleanor had mentioned an old, heavy antique grandfather clock in the drawing-room might 'look rather splendid' in the study. She frames it as a casual thought from Eleanor, knowing Thomas is always eager to please his employer.\", actors_involved=['Beatrice_Fairfax', 'Thomas_Grimes', 'Eleanor_Finch'], location='Finch Manor grounds', time='Two days before the crime', traces_left=[CrimeTrace(type='witness', description=\"Thomas Grimes's recollection of a seemingly innocuous conversation with Beatrice Fairfax, where she 'casually' passed on Eleanor's supposed wish to move the antique clock.\")]), CrimeEvent(type='Execution', description=\"Thomas Grimes, believing he is fulfilling Eleanor's wishes, painstakingly moves the incredibly heavy antique grandfather clock from the drawing-room and places it precisely over the weakened floorboard in Eleanor's study, unknowingly applying immense stress to the already compromised structure.\", actors_involved=['Thomas_Grimes'], location='Finch Manor Study', time='The day before the crime', traces_left=[CrimeTrace(type='physical evidence', description='Deep indentations on the carpet and faint scuff marks on the polished floorboards leading from the drawing-room to the study, consistent with a heavy object being dragged.'), CrimeTrace(type='witness', description=\"Thomas Grimes can confirm he moved the antique clock into the study at Eleanor's 'request' (as relayed by Beatrice).\")]), CrimeEvent(type='Execution', description=\"Late at night, following her established routine, Eleanor Finch enters her study to wind and check the antique grandfather clock. As she steps onto the weakened floorboard, the combined weight of the clock and her own causes the floorboard to give way beneath her. Eleanor loses her balance, falls heavily, and strikes her head fatally against the sharp, ornate corner of the heavy antique clock's base.\", actors_involved=['Eleanor_Finch'], location='Finch Manor Study', time='The night of the crime', traces_left=[CrimeTrace(type='physical evidence', description=\"The collapsed floorboard revealing its deliberate weakening, a pool of blood and impact marks on the carpet, and a noticeable dent with traces of hair and blood on the antique clock's brass corner.\"), CrimeTrace(type='forensic evidence', description=\"Medical examiner's report indicating fatal blunt force trauma to the head, consistent with a fall and impact against a hard, angular object like the clock's base.\")]), CrimeEvent(type='Cover-up', description=\"At the approximate time of Eleanor's death, Beatrice Fairfax is at the old local newspaper archives, poring over dusty records for her historical research. She engages the elderly archivist, Mrs. Gable, in a brief conversation upon entering and ensures her signature is prominently placed in the sign-in ledger, establishing a seemingly solid alibi.\", actors_involved=['Beatrice_Fairfax', 'Mrs._Gable'], location='Old Local Newspaper Archives', time='The night of the crime', traces_left=[CrimeTrace(type='witness', description=\"Mrs. Gable, the archivist, provides a detailed account of Beatrice's presence at the archives, including the specific time she arrived and left, providing Beatrice with a strong alibi.\"), CrimeTrace(type='digital evidence', description=\"The sign-in ledger at the archives, bearing Beatrice's clear signature and time stamps for her visit.\")]), CrimeEvent(type='Complication', description=\"The following morning, Thomas Grimes, arriving for his daily duties, discovers Eleanor Finch's body in the study, lying near the antique grandfather clock with a severe head injury and the collapsed floorboard. He immediately raises the alarm, unknowingly bringing the intricate crime to light.\", actors_involved=['Thomas_Grimes', 'Eleanor_Finch'], location='Finch Manor Study', time='The morning after the crime', traces_left=[CrimeTrace(type='witness', description=\"Thomas Grimes's initial, distressed account of finding the body and his detailed description of the scene before any intervention.\")])]\n",
+    "response": {
+        "clues": [
+            {
+                "id": "C1",
+                "source": {
+                    "event_index": 0,
+                    "trace_index": 0,
+                    "trace_type": "digital evidence",
+                    "trace_description": "Numerous historical documents and genealogical charts related to the Finch family, with Beatrice's handwritten annotations, stored on her personal computer and in physical files."
+                },
+                "observation": "Beatrice Fairfax possesses extensive historical documents and genealogical charts related to the Finch family, with her own annotations.",
+                "interpretation": "Beatrice Fairfax has a significant interest in the Finch family's history, possibly researching something specific or scandalous.",
+                "correctness": "correct",
+                "reliability": "high",
+                "points_to": [
+                    "Beatrice_Fairfax",
+                    "Eleanor_Finch"
+                ],
+                "ambiguity": null
+            },
+            {
+                "id": "C2",
+                "source": {
+                    "event_index": 1,
+                    "trace_index": 0,
+                    "trace_type": "witness",
+                    "trace_description": "The elderly archivist at the local newspaper office recalls Beatrice Fairfax making frequent and prolonged visits, poring over old architectural plans and local historical records, often asking specific questions about the Finch family estate."
+                },
+                "observation": "The archivist remembers Beatrice Fairfax frequently visiting the local newspaper archives, studying old architectural plans and historical records of the Finch family estate.",
+                "interpretation": "Beatrice Fairfax was investigating the physical structure and history of Finch Manor.",
+                "correctness": "correct",
+                "reliability": "high",
+                "points_to": [
+                    "Beatrice_Fairfax",
+                    "Eleanor_Finch"
+                ],
+                "ambiguity": null
+            },
+            {
+                "id": "C3",
+                "source": {
+                    "event_index": 1,
+                    "trace_index": 1,
+                    "trace_type": "physical evidence",
+                    "trace_description": "Faint smudges of graphite on several archived blueprints of Finch Manor, indicating Beatrice used a pencil to trace or mark areas of interest."
+                },
+                "observation": "Faint graphite smudges were found on archived blueprints of Finch Manor.",
+                "interpretation": "Someone used a pencil to mark or trace parts of the Finch Manor blueprints, consistent with Beatrice's reported activity at the archives.",
+                "correctness": "correct",
+                "reliability": "medium",
+                "points_to": [
+                    "Beatrice_Fairfax"
+                ],
+                "ambiguity": "While consistent with Beatrice's presence, the smudges themselves don't definitively prove she made them."
+            },
+            {
+                "id": "C4",
+                "source": {
+                    "event_index": 2,
+                    "trace_index": 0,
+                    "trace_type": "physical evidence",
+                    "trace_description": "A faint, unusual waxy residue found near the study door's keyhole, consistent with a key impression being made."
+                },
+                "observation": "A faint, unusual waxy residue was found near the keyhole of Eleanor Finch's study door.",
+                "interpretation": "Someone made a key impression of the study door lock.",
+                "correctness": "correct",
+                "reliability": "high",
+                "points_to": [],
+                "ambiguity": "The residue doesn't identify who made the impression or when."
+            },
+            {
+                "id": "C5",
+                "source": {
+                    "event_index": 2,
+                    "trace_index": 1,
+                    "trace_type": "witness",
+                    "trace_description": "A hardware store clerk in a nearby town remembers selling specific, unusual woodworking tools to a woman matching Beatrice's description, noting her insistence on paying in cash and her somewhat hurried demeanor."
+                },
+                "observation": "A hardware store clerk sold unusual woodworking tools to a woman resembling Beatrice Fairfax, who paid in cash and seemed hurried.",
+                "interpretation": "A woman matching Beatrice's description acquired specialized tools that could be used for precise structural alteration.",
+                "correctness": "correct",
+                "reliability": "medium",
+                "points_to": [
+                    "Beatrice_Fairfax"
+                ],
+                "ambiguity": "The identification is based on a description, not definitive proof of identity, and the tools' purpose is speculative."
+            },
+            {
+                "id": "C6",
+                "source": {
+                    "event_index": 3,
+                    "trace_index": 0,
+                    "trace_type": "physical evidence",
+                    "trace_description": "A microscopic scratch on the internal locking mechanism of the study door, suggesting a slightly imperfect duplicate key was used."
+                },
+                "observation": "A microscopic scratch was found on the internal locking mechanism of the study door.",
+                "interpretation": "The scratch indicates that a slightly imperfect duplicate key was used to unlock the study door.",
+                "correctness": "correct",
+                "reliability": "high",
+                "points_to": [],
+                "ambiguity": "The scratch does not identify who used the key or when."
+            },
+            {
+                "id": "C7",
+                "source": {
+                    "event_index": 4,
+                    "trace_index": 0,
+                    "trace_type": "forensic evidence",
+                    "trace_description": "Minute, almost invisible wood fibers found embedded in the carpet near the weakened floorboard, not matching the natural wear and tear of the room's timber."
+                },
+                "observation": "Minute, unusual wood fibers were found embedded in the carpet near the collapsed floorboard, not matching the room's existing timber.",
+                "interpretation": "Foreign wood material was introduced to the area of the collapsed floorboard, suggesting external alteration.",
+                "correctness": "correct",
+                "reliability": "high",
+                "points_to": [],
+                "ambiguity": "The origin of the wood fibers is unknown."
+            },
+            {
+                "id": "C8",
+                "source": {
+                    "event_index": 4,
+                    "trace_index": 1,
+                    "trace_type": "physical evidence",
+                    "trace_description": "The compromised floorboard, upon closer inspection, reveals precise, almost surgical cuts and scorch marks from friction, consistent with deliberate weakening rather than natural decay."
+                },
+                "observation": "The collapsed floorboard shows precise, 'surgical' cuts and scorch marks, indicating deliberate weakening.",
+                "interpretation": "The floorboard was intentionally compromised, not broken by accident or decay.",
+                "correctness": "correct",
+                "reliability": "high",
+                "points_to": [],
+                "ambiguity": "The evidence does not directly point to who performed the weakening."
+            },
+            {
+                "id": "C9",
+                "source": {
+                    "event_index": 5,
+                    "trace_index": 0,
+                    "trace_type": "witness",
+                    "trace_description": "Thomas Grimes's recollection of a seemingly innocuous conversation with Beatrice Fairfax, where she 'casually' passed on Eleanor's supposed wish to move the antique clock."
+                },
+                "observation": "Thomas Grimes recalls Beatrice Fairfax 'casually' telling him that Eleanor Finch wished for the antique clock to be moved to the study.",
+                "interpretation": "Beatrice Fairfax conveyed instructions to Thomas Grimes regarding the antique clock's placement, purportedly from Eleanor.",
+                "correctness": "correct",
+                "reliability": "medium",
+                "points_to": [
+                    "Beatrice_Fairfax",
+                    "Thomas_Grimes",
+                    "Eleanor_Finch"
+                ],
+                "ambiguity": "Thomas's recollection could be a misunderstanding, or he could be trying to shift responsibility if he felt implicated."
+            },
+            {
+                "id": "C10",
+                "source": {
+                    "event_index": 6,
+                    "trace_index": 0,
+                    "trace_type": "physical evidence",
+                    "trace_description": "Deep indentations on the carpet and faint scuff marks on the polished floorboards leading from the drawing-room to the study, consistent with a heavy object being dragged."
+                },
+                "observation": "Deep indentations and scuff marks are visible on the floor leading from the drawing-room to the study.",
+                "interpretation": "A heavy object was recently moved from the drawing-room into the study.",
+                "correctness": "correct",
+                "reliability": "high",
+                "points_to": [],
+                "ambiguity": "The marks confirm movement of a heavy object, but not definitively who moved it or what object it was, though the clock is a strong candidate."
+            },
+            {
+                "id": "C11",
+                "source": {
+                    "event_index": 6,
+                    "trace_index": 1,
+                    "trace_type": "witness",
+                    "trace_description": "Thomas Grimes can confirm he moved the antique clock into the study at Eleanor's 'request' (as relayed by Beatrice)."
+                },
+                "observation": "Thomas Grimes confirms he moved the antique clock into the study, believing it was Eleanor's request relayed by Beatrice.",
+                "interpretation": "Thomas Grimes moved the heavy antique clock into the study, placing it where Eleanor subsequently died.",
+                "correctness": "correct",
+                "reliability": "high",
+                "points_to": [
+                    "Thomas_Grimes"
+                ],
+                "ambiguity": "Thomas believes he was fulfilling a request, unaware of any malicious intent."
+            },
+            {
+                "id": "C12",
+                "source": {
+                    "event_index": 7,
+                    "trace_index": 0,
+                    "trace_type": "physical evidence",
+                    "trace_description": "The collapsed floorboard revealing its deliberate weakening, a pool of blood and impact marks on the carpet, and a noticeable dent with traces of hair and blood on the antique clock's brass corner."
+                },
+                "observation": "The scene shows a collapsed, deliberately weakened floorboard, a pool of blood, impact marks on the carpet, and a dent with hair and blood on the antique clock's corner.",
+                "interpretation": "Eleanor Finch suffered a fatal injury consistent with falling onto the clock after the floorboard gave way.",
+                "correctness": "correct",
+                "reliability": "high",
+                "points_to": [
+                    "Eleanor_Finch"
+                ],
+                "ambiguity": null
+            },
+            {
+                "id": "C13",
+                "source": {
+                    "event_index": 7,
+                    "trace_index": 1,
+                    "trace_type": "forensic evidence",
+                    "trace_description": "Medical examiner's report indicating fatal blunt force trauma to the head, consistent with a fall and impact against a hard, angular object like the clock's base."
+                },
+                "observation": "The medical examiner's report indicates fatal blunt force trauma to the head, consistent with a fall and impact against a hard, angular object.",
+                "interpretation": "Eleanor Finch's death was caused by a fall resulting in a head injury against an object like the clock.",
+                "correctness": "correct",
+                "reliability": "high",
+                "points_to": [
+                    "Eleanor_Finch"
+                ],
+                "ambiguity": null
+            },
+            {
+                "id": "C14",
+                "source": {
+                    "event_index": 8,
+                    "trace_index": 0,
+                    "trace_type": "witness",
+                    "trace_description": "Mrs. Gable, the archivist, provides a detailed account of Beatrice's presence at the archives, including the specific time she arrived and left, providing Beatrice with a strong alibi."
+                },
+                "observation": "Mrs. Gable, the archivist, provides a detailed account of Beatrice Fairfax's presence at the archives, including arrival and departure times, covering the time of Eleanor's death.",
+                "interpretation": "Beatrice Fairfax has a strong alibi for the time of Eleanor Finch's death.",
+                "correctness": "correct",
+                "reliability": "high",
+                "points_to": [
+                    "Beatrice_Fairfax"
+                ],
+                "ambiguity": "While detailed, the exact moment of death might have some leeway, or the alibi could be carefully constructed."
+            },
+            {
+                "id": "C15",
+                "source": {
+                    "event_index": 8,
+                    "trace_index": 1,
+                    "trace_type": "digital evidence",
+                    "trace_description": "The sign-in ledger at the archives, bearing Beatrice's clear signature and time stamps for her visit."
+                },
+                "observation": "The sign-in ledger at the archives contains Beatrice Fairfax's clear signature and timestamps for her visit, corroborating her presence during the time of Eleanor's death.",
+                "interpretation": "The ledger provides documentary evidence supporting Beatrice Fairfax's alibi.",
+                "correctness": "correct",
+                "reliability": "high",
+                "points_to": [
+                    "Beatrice_Fairfax"
+                ],
+                "ambiguity": "Like the witness account, the exact timing of death and the possibility of a manipulated alibi could be considered."
+            },
+            {
+                "id": "C16",
+                "source": {
+                    "event_index": 9,
+                    "trace_index": 0,
+                    "trace_type": "witness",
+                    "trace_description": "Thomas Grimes's initial, distressed account of finding the body and his detailed description of the scene before any intervention."
+                },
+                "observation": "Thomas Grimes provided a distressed and detailed account of finding Eleanor's body and the crime scene.",
+                "interpretation": "Thomas Grimes was the first to discover the body and appears genuinely shocked, suggesting he was not the direct perpetrator.",
+                "correctness": "correct",
+                "reliability": "high",
+                "points_to": [
+                    "Thomas_Grimes"
+                ],
+                "ambiguity": "While distressed, an experienced actor could feign shock. However, the details provided align with the scene."
+            }
+        ],
+        "inferences": [
+            {
+                "id": "I1",
+                "derived_from_clue_ids": [
+                    "C1",
+                    "C2"
+                ],
+                "derived_from_inference_ids": [],
+                "reasoning": "Clue C1 shows Beatrice's deep interest in Finch family history, and C2 indicates she was actively researching Finch Manor's structural plans at the archives. This suggests her research goes beyond general local history and targets Eleanor's family and home specifically.",
+                "conclusion": "Beatrice Fairfax was conducting specific, targeted research into the Finch family's history and the architecture of Finch Manor.",
+                "correctness": "correct",
+                "points_to": [
+                    "Beatrice_Fairfax",
+                    "Eleanor_Finch"
+                ],
+                "ambiguity": null
+            },
+            {
+                "id": "I2",
+                "derived_from_clue_ids": [
+                    "C4",
+                    "C6"
+                ],
+                "derived_from_inference_ids": [],
+                "reasoning": "The waxy residue (C4) is consistent with making a key impression, and the microscopic scratch (C6) suggests an imperfect duplicate key was used. Combined, this strongly indicates unauthorized entry into the study via a copied key.",
+                "conclusion": "Eleanor Finch's study was secretly accessed using a duplicate key, which was likely made from an impression.",
+                "correctness": "correct",
+                "points_to": [],
+                "ambiguity": "The inference establishes the *method* of access but does not identify the *person* responsible for making or using the key."
+            },
+            {
+                "id": "I3",
+                "derived_from_clue_ids": [
+                    "C7",
+                    "C8"
+                ],
+                "derived_from_inference_ids": [],
+                "reasoning": "The presence of unusual, non-matching wood fibers (C7) and the 'surgical' cuts and scorch marks on the collapsed floorboard (C8) are clear indications of deliberate, precise alteration, not natural wear or accidental breakage.",
+                "conclusion": "The floorboard collapse was not accidental but the result of deliberate and skilled weakening.",
+                "correctness": "correct",
+                "points_to": [],
+                "ambiguity": "This inference confirms the intentional nature of the floorboard's weakening but does not identify the perpetrator."
+            },
+            {
+                "id": "I4",
+                "derived_from_clue_ids": [
+                    "C5"
+                ],
+                "derived_from_inference_ids": [
+                    "I1",
+                    "I3"
+                ],
+                "reasoning": "Beatrice Fairfax was researching Finch Manor's structure (I1) and a woman matching her description bought unusual woodworking tools (C5). These tools could be consistent with the precise cuts observed on the weakened floorboard (I3). This connects Beatrice to the means of deliberate weakening.",
+                "conclusion": "Beatrice Fairfax is a strong suspect for deliberately weakening the floorboard using specialized tools.",
+                "correctness": "correct",
+                "points_to": [
+                    "Beatrice_Fairfax"
+                ],
+                "ambiguity": "The connection is circumstantial; 'matching description' isn't definitive proof, and the tools' intended use is inferred."
+            },
+            {
+                "id": "I5",
+                "derived_from_clue_ids": [
+                    "C9",
+                    "C11"
+                ],
+                "derived_from_inference_ids": [
+                    "I6"
+                ],
+                "reasoning": "Thomas Grimes confirmed he moved the heavy antique clock into the study (C11), and he claims Beatrice Fairfax relayed Eleanor's 'request' for this (C9). The physical evidence (C10) supports that a heavy object was indeed moved. This indicates Beatrice's direct involvement in orchestrating the clock's placement.",
+                "conclusion": "Beatrice Fairfax manipulated Thomas Grimes into moving the heavy antique clock into the study, placing it over the deliberately weakened floorboard.",
+                "correctness": "correct",
+                "points_to": [
+                    "Beatrice_Fairfax",
+                    "Thomas_Grimes"
+                ],
+                "ambiguity": "Thomas's testimony relies on his understanding of Beatrice's words, which she could deny."
+            },
+            {
+                "id": "I6",
+                "derived_from_clue_ids": [
+                    "C10"
+                ],
+                "derived_from_inference_ids": [],
+                "reasoning": "Deep indentations and scuff marks (C10) indicate a heavy object was moved into the study. This aligns with Thomas Grimes's testimony (C11) that he moved the antique clock.",
+                "conclusion": "The antique clock was indeed moved into the study, as corroborated by physical evidence and Thomas Grimes's statement.",
+                "correctness": "correct",
+                "points_to": [
+                    "Thomas_Grimes"
+                ],
+                "ambiguity": null
+            },
+            {
+                "id": "I7",
+                "derived_from_clue_ids": [
+                    "C12",
+                    "C13"
+                ],
+                "derived_from_inference_ids": [
+                    "I3"
+                ],
+                "reasoning": "The medical examiner confirmed fatal blunt force trauma from a fall against a hard, angular object (C13), consistent with the dent, hair, and blood on the antique clock's corner (C12). The collapsed floorboard (C12) was deliberately weakened (I3). This directly links the floorboard failure, the fall, and the fatal injury.",
+                "conclusion": "Eleanor Finch's death was caused by falling onto the antique clock after the deliberately weakened floorboard collapsed beneath her.",
+                "correctness": "correct",
+                "points_to": [
+                    "Eleanor_Finch"
+                ],
+                "ambiguity": null
+            },
+            {
+                "id": "I8",
+                "derived_from_clue_ids": [],
+                "derived_from_inference_ids": [
+                    "I4",
+                    "I5",
+                    "I7"
+                ],
+                "reasoning": "Beatrice Fairfax likely weakened the floorboard (I4), then manipulated Thomas Grimes to place the heavy clock over it (I5). The floorboard subsequently collapsed, causing Eleanor's fatal fall onto the clock (I7). This sequence of events points to a carefully orchestrated 'accident'.",
+                "conclusion": "Eleanor Finch's death was not an accident but a meticulously planned and executed murder, designed to look like a fall.",
+                "correctness": "correct",
+                "points_to": [
+                    "Beatrice_Fairfax",
+                    "Eleanor_Finch"
+                ],
+                "ambiguity": "While strong, it still relies on linking several circumstantial inferences."
+            },
+            {
+                "id": "I9",
+                "derived_from_clue_ids": [
+                    "C14",
+                    "C15"
+                ],
+                "derived_from_inference_ids": [],
+                "reasoning": "Both the archivist's testimony (C14) and the signed ledger (C15) confirm Beatrice Fairfax's presence at the archives, with specific times that cover the period of Eleanor's death.",
+                "conclusion": "Beatrice Fairfax has a verified, strong alibi for the exact time Eleanor Finch died.",
+                "correctness": "correct",
+                "points_to": [
+                    "Beatrice_Fairfax"
+                ],
+                "ambiguity": "The alibi is strong, but given the elaborate nature of the crime, the possibility of manipulation (e.g., miscalculation of death time, setting up the alibi to cover the *discovery* rather than the *act*) should be considered."
+            },
+            {
+                "id": "I10",
+                "derived_from_clue_ids": [
+                    "C16"
+                ],
+                "derived_from_inference_ids": [
+                    "I5"
+                ],
+                "reasoning": "Thomas Grimes's distressed reaction upon finding the body (C16) and his role as an unknowing participant in moving the clock (I5) suggest he was not aware of the murder plot.",
+                "conclusion": "Thomas Grimes was an unknowing participant in the events leading to Eleanor's death and is unlikely to be the primary culprit.",
+                "correctness": "correct",
+                "points_to": [
+                    "Thomas_Grimes"
+                ],
+                "ambiguity": "While his distress seems genuine, it's not absolute proof he's innocent of everything, but rather of orchestrating the complex murder."
+            },
+            {
+                "id": "I11",
+                "derived_from_clue_ids": [],
+                "derived_from_inference_ids": [
+                    "I4",
+                    "I5",
+                    "I8",
+                    "I9"
+                ],
+                "reasoning": "Inferences I4, I5, and I8 strongly implicate Beatrice Fairfax in planning and executing the elaborate murder. However, Inference I9 provides her with a seemingly solid alibi. This creates a significant contradiction that needs to be resolved.",
+                "conclusion": "Despite a strong alibi, Beatrice Fairfax remains highly suspicious due to the intricate planning and manipulation that points directly to her.",
+                "correctness": "correct",
+                "points_to": [
+                    "Beatrice_Fairfax"
+                ],
+                "ambiguity": "The contradiction between strong evidence of involvement and a strong alibi suggests either the alibi is false, the timeline is misjudged, or she had an accomplice."
+            }
+        ],
+        "hypotheses": [
+            {
+                "id": "H1",
+                "suspect_id": "Beatrice_Fairfax",
+                "claim": "Beatrice Fairfax meticulously planned and orchestrated Eleanor Finch's death to prevent the suppression of her historical research. She deliberately weakened a floorboard and manipulated Thomas Grimes into moving a heavy antique clock over it, causing Eleanor to fall and strike her head. She then established a false alibi at the archives.",
+                "supporting_clue_ids": [
+                    "C1",
+                    "C2",
+                    "C3",
+                    "C4",
+                    "C5",
+                    "C6",
+                    "C7",
+                    "C8",
+                    "C9",
+                    "C10",
+                    "C11",
+                    "C12",
+                    "C13"
+                ],
+                "supporting_inference_ids": [
+                    "I1",
+                    "I2",
+                    "I3",
+                    "I4",
+                    "I5",
+                    "I6",
+                    "I7",
+                    "I8",
+                    "I11"
+                ],
+                "contradicting_clue_ids": [
+                    "C14",
+                    "C15"
+                ],
+                "contradicting_inference_ids": [
+                    "I9"
+                ],
+                "derived_from_hypothesis_ids": [],
+                "confidence": 0.85,
+                "correctness": "correct"
+            },
+            {
+                "id": "H2",
+                "suspect_id": "Thomas_Grimes",
+                "claim": "Thomas Grimes, though present and involved in moving the clock, was an unknowing participant. He may have inadvertently contributed to Eleanor's death by placing the heavy clock on an already weakened floorboard, but he did not deliberately cause her death. He found the body and raised the alarm.",
+                "supporting_clue_ids": [
+                    "C9",
+                    "C10",
+                    "C11",
+                    "C16"
+                ],
+                "supporting_inference_ids": [
+                    "I5",
+                    "I6",
+                    "I10"
+                ],
+                "contradicting_clue_ids": [
+                    "C7",
+                    "C8"
+                ],
+                "contradicting_inference_ids": [
+                    "I3",
+                    "I4",
+                    "I8"
+                ],
+                "derived_from_hypothesis_ids": [],
+                "confidence": 0.6,
+                "correctness": "partial"
+            },
+            {
+                "id": "H3",
+                "suspect_id": "Arthur_Pendleton",
+                "claim": "Arthur Pendleton, driven by financial desperation and anger over his allowance, confronted Eleanor Finch. In a fit of rage, he physically attacked her, causing her to fall and hit her head on the antique clock. He then attempted to stage the scene to look like an accident involving the floorboard.",
+                "supporting_clue_ids": [
+                    "C12",
+                    "C13"
+                ],
+                "supporting_inference_ids": [
+                    "I7"
+                ],
+                "contradicting_clue_ids": [
+                    "C4",
+                    "C5",
+                    "C6",
+                    "C7",
+                    "C8",
+                    "C9",
+                    "C10",
+                    "C11"
+                ],
+                "contradicting_inference_ids": [
+                    "I1",
+                    "I2",
+                    "I3",
+                    "I4",
+                    "I5",
+                    "I6",
+                    "I8",
+                    "I11"
+                ],
+                "derived_from_hypothesis_ids": [],
+                "confidence": 0.15,
+                "correctness": "incorrect"
+            },
+            {
+                "id": "H4",
+                "suspect_id": "Reverend_Michael_Sterling",
+                "claim": "Reverend Michael Sterling administered a sedative or poison to Eleanor Finch during a private meeting to prevent her from exposing a secret. This substance caused her to lose balance and fall, hitting her head fatally on the antique clock. He then may have subtly altered the scene to make it appear as an accident.",
+                "supporting_clue_ids": [
+                    "C13"
+                ],
+                "supporting_inference_ids": [
+                    "I7"
+                ],
+                "contradicting_clue_ids": [
+                    "C4",
+                    "C5",
+                    "C6",
+                    "C7",
+                    "C8",
+                    "C9",
+                    "C10",
+                    "C11"
+                ],
+                "contradicting_inference_ids": [
+                    "I1",
+                    "I2",
+                    "I3",
+                    "I4",
+                    "I5",
+                    "I6",
+                    "I8",
+                    "I11"
+                ],
+                "derived_from_hypothesis_ids": [],
+                "confidence": 0.1,
+                "correctness": "incorrect"
+            }
+        ],
+        "leading_hypothesis_id": "H1",
+        "notes": "The strongest evidence points to Beatrice Fairfax, but her alibi (I9) needs to be thoroughly re-examined. The timeline of death or the possibility of an accomplice should be investigated further to reconcile her alibi with the overwhelming evidence of her involvement in the elaborate setup."
+    },
+    "model": "gemini-2.5-flash",
+    "system_instruction": "You are building the investigation layer for a detective story.\nYour task is to create a three-stage reasoning chain: Clues → Inferences → Hypotheses.\n\nRules:\n- Clues: create a base clue for each trace in the CrimeGraph. Clues are direct observations from traces.\n  - One trace can lead to multiple clues if it can be observed or interpreted in different ways, but avoid duplicates.\n  - Mark correctness as 'correct', 'partial', or 'misleading' relative to the ground-truth crime graph.\n  - Mark reliability as 'low', 'medium', or 'high' based on how reliable the clue appears to the detective.\n  \n- Inferences: combine 2+ clues (or other inferences) to form logical conclusions.\n  - Each inference must have clear reasoning that connects the source clues/inferences to the conclusion.\n  - Inferences can chain: new inferences can build on previous inferences.\n  - Mark correctness as 'correct', 'partial', or 'misleading'.\n  \n- Hypotheses: form 2 to 4 complete suspect theories using clues and inferences.\n  - Each hypothesis targets one suspect and explains how/why they committed the crime.\n  - Can be supported or contradicted by both clues and inferences.\n  - Mark correctness as 'correct', 'partial', or 'incorrect' based on whether it matches the actual culprit.\n  - Hypotheses can refine previous hypotheses by listing them in 'derived_from_hypothesis_ids'.\n  \n- Use actor ids from the ActorPool when pointing to suspects or other actors.\n- Do not add twists or deliberate red herrings in this stage.\n- Output must strictly follow the provided JSON schema.\n",
+    "generation_params": {
+        "temperature": 1.0,
+        "do_sample": true,
+        "top_p": 0.9,
+        "top_k": 5,
+        "max_tokens": 20000,
+        "repetition_penalty": 0,
+        "response_type": "application/json",
+        "response_schema": {
+            "$defs": {
+                "Clue": {
+                    "properties": {
+                        "id": {
+                            "description": "Unique identifier for the clue",
+                            "title": "Id",
+                            "type": "string"
+                        },
+                        "source": {
+                            "$ref": "#/$defs/ClueSource",
+                            "description": "Reference to the trace this clue is based on"
+                        },
+                        "observation": {
+                            "description": "What the detective notices or learns from the trace",
+                            "title": "Observation",
+                            "type": "string"
+                        },
+                        "interpretation": {
+                            "description": "Interpretation of the observation",
+                            "title": "Interpretation",
+                            "type": "string"
+                        },
+                        "correctness": {
+                            "description": "Correctness relative to ground truth: correct, partial, or misleading",
+                            "title": "Correctness",
+                            "type": "string"
+                        },
+                        "reliability": {
+                            "description": "Perceived reliability from detective's perspective: low, medium, or high",
+                            "title": "Reliability",
+                            "type": "string"
+                        },
+                        "points_to": {
+                            "description": "Actor ids this clue seems to implicate or connect to",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Points To",
+                            "type": "array"
+                        },
+                        "ambiguity": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "default": null,
+                            "description": "Why this clue could be misleading, incomplete, or uncertain",
+                            "title": "Ambiguity"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "source",
+                        "observation",
+                        "interpretation",
+                        "correctness",
+                        "reliability",
+                        "points_to"
+                    ],
+                    "title": "Clue",
+                    "type": "object"
+                },
+                "ClueSource": {
+                    "properties": {
+                        "event_index": {
+                            "description": "Zero-based index of the crime event in CrimeGraph.crime_events",
+                            "title": "Event Index",
+                            "type": "integer"
+                        },
+                        "trace_index": {
+                            "description": "Zero-based index of the trace in the event's traces_left",
+                            "title": "Trace Index",
+                            "type": "integer"
+                        },
+                        "trace_type": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Type of the trace, copied from the source trace",
+                            "title": "Trace Type"
+                        },
+                        "trace_description": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Description of the trace, copied or paraphrased from the source trace",
+                            "title": "Trace Description"
+                        }
+                    },
+                    "required": [
+                        "event_index",
+                        "trace_index",
+                        "trace_type",
+                        "trace_description"
+                    ],
+                    "title": "ClueSource",
+                    "type": "object"
+                },
+                "Hypothesis": {
+                    "properties": {
+                        "id": {
+                            "description": "Unique identifier for the hypothesis",
+                            "title": "Id",
+                            "type": "string"
+                        },
+                        "suspect_id": {
+                            "description": "Actor id of the suspect this hypothesis targets",
+                            "title": "Suspect Id",
+                            "type": "string"
+                        },
+                        "claim": {
+                            "description": "Concise hypothesis statement about how and why the suspect committed the crime",
+                            "title": "Claim",
+                            "type": "string"
+                        },
+                        "supporting_clue_ids": {
+                            "default": [],
+                            "description": "Clue ids that support this hypothesis",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Supporting Clue Ids",
+                            "type": "array"
+                        },
+                        "supporting_inference_ids": {
+                            "default": [],
+                            "description": "Inference ids that support this hypothesis",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Supporting Inference Ids",
+                            "type": "array"
+                        },
+                        "contradicting_clue_ids": {
+                            "default": [],
+                            "description": "Clue ids that weaken this hypothesis, if any",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Contradicting Clue Ids",
+                            "type": "array"
+                        },
+                        "contradicting_inference_ids": {
+                            "default": [],
+                            "description": "Inference ids that weaken this hypothesis, if any",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Contradicting Inference Ids",
+                            "type": "array"
+                        },
+                        "derived_from_hypothesis_ids": {
+                            "default": [],
+                            "description": "Hypothesis ids this hypothesis refines or builds upon. Empty if this is an initial hypothesis.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Derived From Hypothesis Ids",
+                            "type": "array"
+                        },
+                        "confidence": {
+                            "description": "Confidence score from 0.0 to 1.0",
+                            "title": "Confidence",
+                            "type": "number"
+                        },
+                        "correctness": {
+                            "description": "Correctness relative to ground truth: correct, partial, or incorrect",
+                            "title": "Correctness",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "suspect_id",
+                        "claim",
+                        "confidence",
+                        "correctness"
+                    ],
+                    "title": "Hypothesis",
+                    "type": "object"
+                },
+                "Inference": {
+                    "properties": {
+                        "id": {
+                            "description": "Unique identifier for the inference",
+                            "title": "Id",
+                            "type": "string"
+                        },
+                        "derived_from_clue_ids": {
+                            "description": "Clue ids this inference is logically derived from",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Derived From Clue Ids",
+                            "type": "array"
+                        },
+                        "derived_from_inference_ids": {
+                            "default": [],
+                            "description": "Inference ids this inference builds upon, if any",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Derived From Inference Ids",
+                            "type": "array"
+                        },
+                        "reasoning": {
+                            "description": "Logical reasoning that connects the source clues to this conclusion",
+                            "title": "Reasoning",
+                            "type": "string"
+                        },
+                        "conclusion": {
+                            "description": "The conclusion drawn from combining the clues",
+                            "title": "Conclusion",
+                            "type": "string"
+                        },
+                        "correctness": {
+                            "description": "Correctness relative to ground truth: correct, partial, or misleading",
+                            "title": "Correctness",
+                            "type": "string"
+                        },
+                        "points_to": {
+                            "description": "Actor ids this inference seems to implicate or connect to",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Points To",
+                            "type": "array"
+                        },
+                        "ambiguity": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "default": null,
+                            "description": "Why this inference could be uncertain or lead to wrong conclusions",
+                            "title": "Ambiguity"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "derived_from_clue_ids",
+                        "reasoning",
+                        "conclusion",
+                        "correctness",
+                        "points_to"
+                    ],
+                    "title": "Inference",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "clues": {
+                    "description": "Base clues derived directly from traces in the crime graph",
+                    "items": {
+                        "$ref": "#/$defs/Clue"
+                    },
+                    "title": "Clues",
+                    "type": "array"
+                },
+                "inferences": {
+                    "description": "Logical conclusions drawn from combining clues or other inferences",
+                    "items": {
+                        "$ref": "#/$defs/Inference"
+                    },
+                    "title": "Inferences",
+                    "type": "array"
+                },
+                "hypotheses": {
+                    "description": "Complete suspect theories formed from clues and inferences",
+                    "items": {
+                        "$ref": "#/$defs/Hypothesis"
+                    },
+                    "title": "Hypotheses",
+                    "type": "array"
+                },
+                "leading_hypothesis_id": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Id of the currently strongest hypothesis",
+                    "title": "Leading Hypothesis Id"
+                },
+                "notes": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Any brief notes about investigative direction",
+                    "title": "Notes"
+                }
+            },
+            "required": [
+                "clues",
+                "inferences",
+                "hypotheses"
+            ],
+            "title": "InvestigationGraph",
+            "type": "object"
+        },
+        "include_thoughts": true,
+        "thinking_budget": 24576,
+        "extras": null
+    },
+    "thoughts": "**JSON Generation - Investigation Graph**\n\nAlright, let's get down to brass tacks. The objective is clear: construct a JSON representation of an investigation graph, meticulously structured around Clues, Inferences, and Hypotheses. This needs to be a rigorous, defensible model based on the provided text, and it needs to align with the schema. I will approach this systematically, treating each stage as a critical building block in a detective's process.\n\nFirst, the `Clues`.  I'll methodically extract and distill each piece of evidence from the crime events into distinct `clue` objects. I'm going to pay close attention to the source of each clue (witness statements, physical evidence, etc.), and assess their *relative* reliability and correctness. The \"relative\" piece is key here, looking at it as a detective would – is the witness reliable, is the evidence tampered with, etc. Ambiguity is also important to note, because that's where the investigation often goes awry. The `points_to` field will link clues to specific individuals where possible.\n\nNext, I'll build the `Inferences`.  This is where I'll chain together those clues, connecting the dots and crafting logical conclusions. Each inference should be derived from one or more clues (or even other inferences), providing a clear \"reasoning\" section to justify the conclusion. I'll need to judge the correctness of each inference, being realistic about the uncertainties inherent in detective work, and note any inherent ambiguity or potential pitfalls. I'm imagining how a detective might approach this.\n\nFinally, the `Hypotheses`.  I'll generate these specifically for each suspect.  Each hypothesis will be a concise, defensible claim. The supporting and contradicting clues and inferences will need to be clearly identified. These relationships will be pivotal in evaluating the strength of each hypothesis. The correctness of the hypothesis will be determined based on the ground truth (who actually did it).  I'll be careful to reflect the strength of each hypothesis through a confidence score, where Beatrice will logically have the highest confidence based on the body of evidence.\n\n**Iterative Refinement and Key Considerations:**\n\n*   **Detective's Perspective:**  I need to constantly ask: \"What does this evidence *really* tell us?\" and \"What potential biases are at play?\"\n*   **Chaining Logic:** Inferences need to build on each other, creating a coherent investigative narrative.\n*   **Ambiguity:** Recognizing potential for misinterpretation is critical. A good investigation considers all angles.\n*   **Schema Adherence:**  Strictly follow the JSON schema.\n*   **Ground Truth:**  I'll compare my deductions back to the ground truth to evaluate my performance.\n\n**Clue Analysis:**\n\nI've carefully dissected the events and the provided \"traces\" into distinct `clues`. I've made sure to include ambiguity where it exists.\n\n**Inference Analysis:**\n\nI've assembled the inferences, taking the clues and, starting from the most certain (for an investigator), I've derived what *could* have happened.\n\n**Hypothesis Analysis:**\n\nI've formulated hypotheses, using all the clues and inferences.\n"
+}

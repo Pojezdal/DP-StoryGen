@@ -45,13 +45,14 @@ class StoryDirectory:
             return cls(os.path.join(parent, chosen))
     
      
-    def save_stage(self, stage: str, prompt: str, response: str, model: str, system_instruction: str, generation_params):
+    def save_stage(self, stage: str, prompt: str, response: str, model: str, system_instruction: str, generation_params, thoughts: str = None):
         output_dict = dict(
             prompt=prompt,
             response=StoryDirectory.to_serializable(response),
             model=model,
             system_instruction=system_instruction,
-            generation_params=StoryDirectory.to_serializable(generation_params) if generation_params else None
+            generation_params=StoryDirectory.to_serializable(generation_params) if generation_params else None,
+            thoughts=thoughts
         )
         filename = os.path.join(self.path, f"{stage}.json")
         with open(filename, "w", encoding="utf-8") as file:

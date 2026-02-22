@@ -1,0 +1,297 @@
+{
+    "prompt": "Based on the following input data and provided actor pool, generate a structured crime graph that describes the objective crime timeline for a detective story.\n\nInput data:\ntitle=None genre='detective story' theme='mystery' core_idea='A mysterious murder in a grand mansion with intriguing suspects, featuring plenty of twists and turns to keep readers guessing.' setting=SettingData(location='Victorian London', time_period='Victorian', atmosphere='dark and atmospheric', isolation_level='isolated mansion') crime=CrimeData(crime_type='murder', method=None, motive=None, specifications='mysterious murder') characters=CharactersData(detective_type='eccentric detective', detective_specifications='brilliant but eccentric', sidekick_type='loyal assistant', sidekick_specifications='loyal', suspect_count=None, culprit_specifications='No specific requirements') structure=StructureData(length=None, complexity='complex', twist_specifications='plenty of twists and turns', red_herring_specifications=None)\n\nActor pool:\nvictim=Victim(id='LordAlistairFinchHatton', relationships=[Relationship(type='uncle_of', to='EleanorFinchHatton'), Relationship(type='employer_of', to='MrHumphrey'), Relationship(type='business_rival_of', to='LadyCordeliaBlackwood'), Relationship(type='former_employer_of', to='DrEliasThorne')]) suspects=[Suspect(id='EleanorFinchHatton', relationships=[Relationship(type='niece_of', to='LordAlistairFinchHatton'), Relationship(type='mistress_of_house_to', to='MrHumphrey'), Relationship(type='social_acquaintance_of', to='LadyCordeliaBlackwood')], occupation='Socialite and aspiring artist', motive=\"Financial desperation to fund her artistic ambitions and escape her uncle's controlling influence over her inheritance, which he threatened to disinherit her from.\", crime_relevant_traits=['ambitious', 'resentful', 'cunning', 'secretive'], possible_alibi='Claims she was in her private studio within the mansion, engrossed in a painting, and was not seen by anyone else during the critical time.', possible_method=\"Administered a slow-acting, undetectable poison into Lord Alistair's nightly tonic, which she had access to.\", possible_means=[\"access to victim's personal chambers and habits\", \"knowledge of victim's routines\", 'ability to procure rare substances discreetly'], culprit=False), Suspect(id='MrHumphrey', relationships=[Relationship(type='butler_to', to='LordAlistairFinchHatton'), Relationship(type='servant_to', to='EleanorFinchHatton'), Relationship(type='former_colleague_with', to='DrEliasThorne')], occupation='Long-serving butler of the Finch-Hatton estate', motive='Deep-seated resentment over years of thankless service and minimal reward, compounded by discovering a scandalous secret Lord Alistair was hiding, which he planned to use for blackmail.', crime_relevant_traits=['observant', 'secretive', 'bitter', 'proud', 'disciplined'], possible_alibi='States he was overseeing the kitchen staff preparing the late supper, but no specific individual can confirm his exact whereabouts for the entire critical period.', possible_method='Struck Lord Alistair on the head with a heavy, ornate bronze paperweight from his study during a heated argument about the secret.', possible_means=['intimate knowledge of mansion layout and routines', 'access to all rooms of the house', 'physical strength'], culprit=False), Suspect(id='LadyCordeliaBlackwood', relationships=[Relationship(type='fierce_rival_of', to='LordAlistairFinchHatton'), Relationship(type='social_acquaintance_of', to='EleanorFinchHatton')], occupation='Wealthy heiress and prominent art patron', motive='Lord Alistair recently outmaneuvered her in acquiring a priceless ancient artifact and sabotaged a crucial business deal, costing her a significant fortune and public humiliation.', crime_relevant_traits=['ruthless', 'competitive', 'elegant', 'manipulative', 'vengeful'], possible_alibi='Claims she was attending a late-night opera across town, but her coachman later confesses to a brief, unscheduled detour near the Finch-Hatton estate.', possible_method='Used a small, silver-handled stiletto, a decorative accessory she often carried, to inflict a quick, precise stab wound to the victim during a confrontation.', possible_means=['significant financial resources to arrange discretion', 'known to carry a concealed weapon', 'physical agility and composure under pressure'], culprit=True), Suspect(id='DrEliasThorne', relationships=[Relationship(type='bitter_enemy_of', to='LordAlistairFinchHatton'), Relationship(type='former_colleague_with', to='MrHumphrey')], occupation=\"Unemployed physician, formerly Lord Alistair's private doctor\", motive='Lord Alistair had publicly dismissed Dr. Thorne for a perceived medical error or breach of confidence, completely destroying his professional reputation and livelihood. Dr. Thorne sought ultimate revenge.', crime_relevant_traits=['obsessive', 'vindictive', 'intelligent', 'disgraced', 'calculating'], possible_alibi='Maintains he was at a secluded coaching inn several miles outside London, drinking heavily, but no inn staff can conclusively verify his presence during the exact time of the murder.', possible_method='Injected Lord Alistair with a fast-acting, obscure poison using a hypodermic syringe, making it appear as if he succumbed to a sudden illness.', possible_means=['extensive medical knowledge of poisons and anatomy', 'access to medical instruments and substances', \"familiarity with the victim's health and routines\"], culprit=False)]\n",
+    "response": {
+        "crime_events": [
+            {
+                "type": "decision",
+                "description": "Lady Cordelia Blackwood, infuriated by Lord Alistair's recent financial maneuvers that cost her a priceless ancient artifact and sabotaged a crucial business deal, decides to eliminate him. Her motive is deeply rooted in vengeance and a ruthless desire to protect her reputation and wealth.",
+                "actors_involved": [
+                    "LadyCordeliaBlackwood",
+                    "LordAlistairFinchHatton"
+                ],
+                "location": "Lady Cordelia's private study at her estate",
+                "time": "One week before the crime",
+                "traces_left": [
+                    {
+                        "type": "digital evidence",
+                        "description": "A series of aggressive, unsent draft letters to Lord Alistair found on Lady Cordelia's desk, expressing her fury over the business dealings."
+                    }
+                ]
+            },
+            {
+                "type": "preparation",
+                "description": "Lady Cordelia initiates discreet research into Lord Alistair's nightly routines, specifically his habit of having a late-night brandy in his study. She also subtly questions Eleanor Finch-Hatton about the household's staffing and security arrangements during a social call, feigning general interest in the Finch-Hatton estate's upkeep.",
+                "actors_involved": [
+                    "LadyCordeliaBlackwood",
+                    "LordAlistairFinchHatton",
+                    "EleanorFinchHatton"
+                ],
+                "location": "Lady Cordelia's estate and the Finch-Hatton mansion (during a social call)",
+                "time": "Three days before the crime",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A discarded, meticulously hand-drawn sketch of the Finch-Hatton ground floor layout found in Lady Cordelia's wastepaper basket, with specific annotations regarding the study and servant entrances."
+                    }
+                ]
+            },
+            {
+                "type": "preparation",
+                "description": "Lady Cordelia meticulously plans her alibi, purchasing a prominent box at the Royal Opera House for the night of the crime. To sow a red herring, she anonymously sends Lord Alistair a cryptic, hand-written note, warning him of Dr. Elias Thorne's 'desperate schemes and unusual medical curiosities,' hoping to draw suspicion towards Thorne should anything untoward happen.",
+                "actors_involved": [
+                    "LadyCordeliaBlackwood",
+                    "DrEliasThorne",
+                    "LordAlistairFinchHatton"
+                ],
+                "location": "Lady Cordelia's estate, Royal Opera House booking office",
+                "time": "Two days before the crime",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "An anonymous, unsigned note, written on expensive, cream-colored stationery with a distinctive, floral-embossed wax seal, found among Lord Alistair's unopened correspondence."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "An opera ticket stub for a private box, dated the night of the crime, found in Lady Cordelia's evening bag."
+                    }
+                ]
+            },
+            {
+                "type": "execution",
+                "description": "On the night of the opera, Lady Cordelia instructs her coachman to take a 'brief, unscheduled detour' near the Finch-Hatton estate. At a secluded point on the lane, she disembarks, using her knowledge of the grounds to bypass the main entrance and access the mansion through an unlocked, rarely used side gate and a concealed servant's door. She finds Lord Alistair alone in his study, poring over ancient texts.",
+                "actors_involved": [
+                    "LadyCordeliaBlackwood",
+                    "LordAlistairFinchHatton"
+                ],
+                "location": "Finch-Hatton Estate grounds, Lord Alistair's study",
+                "time": "The night of the crime, just before the murder",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A faint, expensive shoe print (size 4, consistent with women's elegant footwear) in a patch of soft earth near the side gate, distinct from any household staff's boots."
+                    },
+                    {
+                        "type": "witness",
+                        "description": "Lady Cordelia's coachman's later testimony regarding the unusual, unscheduled detour he was instructed to take."
+                    }
+                ]
+            },
+            {
+                "type": "complication",
+                "description": "As Lady Cordelia confronts Lord Alistair, their argument quickly escalates. Mr. Humphrey, the butler, passes by the study door on his routine late-night rounds, checking the house. He distinctly overhears Lord Alistair's agitated voice and a sharp, unfamiliar female retort, but attributes it to Lord Alistair's usual temper with guests and continues his rounds without investigating, only pausing briefly.",
+                "actors_involved": [
+                    "LadyCordeliaBlackwood",
+                    "LordAlistairFinchHatton",
+                    "MrHumphrey"
+                ],
+                "location": "Outside Lord Alistair's study door, Finch-Hatton Estate",
+                "time": "The night of the crime, moments before the murder",
+                "traces_left": [
+                    {
+                        "type": "witness",
+                        "description": "Mr. Humphrey's later testimony about hearing raised voices and an unfamiliar female voice near the study, but dismissing it at the time."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A small, silver-plated button from Mr. Humphrey's livery, dislodged and found under the study door mat, suggesting he lingered there briefly."
+                    }
+                ]
+            },
+            {
+                "type": "execution",
+                "description": "In the height of their confrontation, Lady Cordelia swiftly draws her small, silver-handled stiletto from her corsage. With a precise, practiced movement, she plunges it into Lord Alistair's chest. He gasps, collapsing forward onto his heavy mahogany desk, knocking over a half-empty brandy snifter and scattering papers before falling heavily to the floor.",
+                "actors_involved": [
+                    "LadyCordeliaBlackwood",
+                    "LordAlistairFinchHatton"
+                ],
+                "location": "Lord Alistair's study, Finch-Hatton Estate",
+                "time": "The night of the crime",
+                "traces_left": [
+                    {
+                        "type": "forensic evidence",
+                        "description": "A single, precise stab wound to Lord Alistair's left pectoral, indicating the cause of death."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A small, ornate silver stiletto with a distinctive hilt design, found partially concealed under a ledger near the desk, with traces of blood on the blade and a faint scent of Lady Cordelia's expensive perfume on the handle."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "Splashes of brandy and blood spatter on the desk blotter and scattered papers."
+                    }
+                ]
+            },
+            {
+                "type": "cover-up",
+                "description": "To create misdirection and implicate other suspects, Lady Cordelia quickly stages the scene. She grabs the heavy bronze paperweight from the desk and delivers a post-mortem blow to Lord Alistair's head, hoping to suggest Mr. Humphrey's method. She then carefully places a small, empty, unlabeled glass vial, similar to a medical sample, near the body to implicate Dr. Thorne. She also notices a partial fingerprint on the brandy glass, quickly wiping it with a piece of lace from her sleeve, but misses a clear partial print. Finally, she rummages through a desk drawer, scattering papers related to Eleanor's inheritance, aiming to frame Eleanor.",
+                "actors_involved": [
+                    "LadyCordeliaBlackwood",
+                    "MrHumphrey",
+                    "DrEliasThorne",
+                    "EleanorFinchHatton"
+                ],
+                "location": "Lord Alistair's study, Finch-Hatton Estate",
+                "time": "Immediately after the murder",
+                "traces_left": [
+                    {
+                        "type": "forensic evidence",
+                        "description": "A secondary blunt force trauma to Lord Alistair's head, inconsistent with the fatal stab wound and likely inflicted post-mortem."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A small, empty, unlabeled glass vial, with faint traces of a medical preservative, found on the rug beside Lord Alistair's body."
+                    },
+                    {
+                        "type": "forensic evidence",
+                        "description": "A clear, partial fingerprint on the brandy glass, identified as belonging to Lady Cordelia Blackwood, despite attempts to wipe it clean."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "Disarranged financial documents and correspondence, specifically pertaining to Eleanor Finch-Hatton's trust fund and inheritance, scattered on the desk and floor."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "The heavy bronze paperweight found on the floor near Lord Alistair's head, bearing a faint smudge of blood."
+                    }
+                ]
+            },
+            {
+                "type": "cover-up",
+                "description": "Lady Cordelia exits the mansion through the same servant's door and side gate, rejoining her carriage. She instructs her coachman to drive directly back to the Royal Opera House, arriving just as the final curtain falls. She ensures she is seen by several prominent socialites as she exits, making a point to engage them in conversation, thus solidifying her alibi.",
+                "actors_involved": [
+                    "LadyCordeliaBlackwood"
+                ],
+                "location": "Finch-Hatton Estate grounds, Lady Cordelia's carriage, Royal Opera House",
+                "time": "Immediately after staging the scene, still the night of the crime",
+                "traces_left": [
+                    {
+                        "type": "witness",
+                        "description": "Testimonies from several socialites confirming Lady Cordelia's presence at the very end of the opera, though some recall her appearing unusually pale or flustered despite her composed demeanor."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A faint, lingering scent of pipe tobacco (consistent with Lord Alistair's brand) detected on Lady Cordelia's opera cloak when it is later examined."
+                    }
+                ]
+            }
+        ]
+    },
+    "model": "gemini-2.5-flash",
+    "system_instruction": "You are constructing the objective crime timeline for a detective story.\nThis is the ground truth of what actually happened. Ensure that the timeline is consistent with the provided input data and with common conventions of detective stories.\nAlso ensure logical consistency within the timeline itself and causality, e.g., the preparation for the crime must happen before the execution of the crime, the decision to commit the crime must happen before the preparation and execution, etc.\n\nGenerate events that describe the crime, the events leading up to the crime, and the events immediately following the crime.\nThe events should describe:\n- Decision: any decision made by any actor that is relevant to the crime, e.g., the decision to commit the crime itself, the decision to choose a specific method for committing the crime, the decision to target a specific victim, the decision to frame someone else for the crime, etc., including the motivations behind those decisions\n- Preparation: any preparation made for the crime, e.g., buying a weapon, researching the victim's schedule, acquiring a key to the victim's house, ensuring an alibi for the time of the crime\n- Execution: the execution of the crime itself, e.g., the act of poisoning the victim's drink, the act of shooting the victim, the act of breaking into the house to commit the crime\n- Complication: any unforeseen event that happens during the preparation or execution of the crime that complicates the crime, e.g., an unexpected witness shows up during the execution of the crime, forcing the culprit to improvise and change their plans on the spot, which might lead to leaving behind unexpected crime traces\n- Cover-up: any action taken to cover up the crime, e.g., cleaning up the crime scene, moving the body, staging the crime scene to look like a burglary, deleting digital evidence, persuading witnesses to lie\n\nEach event can leave behind crime traces, that migh be discovered by the detective during the investigation and help solve the crime.\n\nUses concrete and specific descriptions for the crime events and crime traces, avoid vague or generic descriptions. For example, instead of saying \"the suspect prepared for the crime\", say \"the suspect bought a bottle of arsenic from the local pharmacy\",\nor instead of saying \"the suspect left behind evidence at the crime scene\", say \"the suspect left fingerprints on the glass used for poisoning\".\nTry to be creative and imaginative with the crime events and crime traces to provide an engaging and intriguing crime timeline.\nThis crime should be narratively elaborate and structurally layered, with possible misdirections and red herrings, to provide an interesting and challenging mystery for the detective to solve.\nThe crime may be unnecessarily complex if it enhances dramatic tension, it does not need to be the most efficient way to commit the crime, it just needs to be a plausible way to commit the crime that fits with the characters, setting and tone of the story as described in the input data.\n",
+    "generation_params": {
+        "temperature": 1.0,
+        "do_sample": true,
+        "top_p": 0.9,
+        "top_k": 5,
+        "max_tokens": 10000,
+        "repetition_penalty": 0,
+        "response_type": "application/json",
+        "response_schema": {
+            "$defs": {
+                "CrimeEvent": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime event, e.g., decision, preparation, execution or cover-up",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime event, e.g., 'The suspect poisoned the victim's drink at the party', 'The suspect gained access to the victim's house by persuading the maid to let them in', 'The suspect bought a gun.'",
+                            "title": "Description",
+                            "type": "string"
+                        },
+                        "actors_involved": {
+                            "description": "List of actor ids involved in the crime event, e.g., ['victim_id', 'suspect_id1']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Actors Involved",
+                            "type": "array"
+                        },
+                        "location": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Location where the crime event takes place, if relevant",
+                            "title": "Location"
+                        },
+                        "time": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Time when the crime event takes place relative to the crime itself, e.g., 'two days before the crime', 'the night of the crime', if relevant",
+                            "title": "Time"
+                        },
+                        "traces_left": {
+                            "description": "List of crime traces left by this crime event, e.g., fingerprints, witnesses, forensic evidence, digital evidence",
+                            "items": {
+                                "$ref": "#/$defs/CrimeTrace"
+                            },
+                            "title": "Traces Left",
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description",
+                        "actors_involved",
+                        "location",
+                        "time",
+                        "traces_left"
+                    ],
+                    "title": "CrimeEvent",
+                    "type": "object"
+                },
+                "CrimeTrace": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime trace, e.g., physical evidence, witness, forensic evidence, digital evidence",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime trace, e.g., 'Fingeprints on the glass used for poisoning', 'A witness saw the suspect arguing with the victim', 'Missing gun from the victim's collection', 'Toxicology report showing presence of poison in the victim's system'",
+                            "title": "Description",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description"
+                    ],
+                    "title": "CrimeTrace",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "crime_events": {
+                    "description": "List of crime events that make up the crime, including the crime itself and any relevant events leading up to or following the crime",
+                    "items": {
+                        "$ref": "#/$defs/CrimeEvent"
+                    },
+                    "title": "Crime Events",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "crime_events"
+            ],
+            "title": "CrimeGraph",
+            "type": "object"
+        },
+        "include_thoughts": true,
+        "thinking_budget": 24576,
+        "extras": null
+    },
+    "thoughts": "**Crime Timeline Summary: Lady Cordelia Blackwood's Deception**\n\nAlright, let's lay this out. My objective is to paint a picture, a sequence of events that clearly outlines Lady Cordelia Blackwood's calculated actions, ultimately leading to Lord Alistair's demise, all while misdirecting any investigators. It's about crafting a narrative, not just a simple list of events. I want to build a structure that's got enough layers and potential false trails to satisfy the requirements, and to show off Lady Cordelia's wit.\n\nFirst, the *Decision*. This is the core of everything. Cordelia's decision to kill Alistair comes down to sheer financial ruin and public humiliation. It has to be that specific. I'll need to create something that shows the severity of the damage.\n\nNext comes *Preparation*. This is where the real work happens. I need to make her methodic, cold, and calculated. Researching Alistair’s habits, finding a way in, and setting up that alibi are key. The “gardening advice” with the former groundskeeper is brilliant - shows initiative and a sly move. The anonymous letter to Alistair is a brilliant misdirection for the doctor.\n\nThe *Execution* phase needs to be swift and ruthless. Get in, confront, stab, and then implement the initial stages of the cover-up. The detail about the \"scenic detour\" is also an important piece of the alibi.\n\nThe *Complication* event is crucial. This is where I can really add some suspense and force Lady Cordelia to adapt. Having Mr. Humphrey overhear the argument works perfectly. Cordelia's slight misstep when Mr. Humphrey pauses is perfect, and it shows her composure.\n\nFinally, the *Cover-up* is where the complexity comes in. I'm going to have to create the scene to look like multiple possibilities. The staged scene with the paperweight, the vial, the disturbed documents in the desk – all designed to cast suspicion on other parties. Smudging the fingerprints but missing a partial, that's something that only she would consider. And she needs to reinforce that alibi. That's a key part of the plan. And all the details will be important.\n"
+}

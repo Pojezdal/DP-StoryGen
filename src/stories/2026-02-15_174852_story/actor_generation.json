@@ -1,0 +1,307 @@
+{
+    "prompt": "Based on the following input data in JSON format, generate a structured actor pool for a detective fiction story.\n\ntitle=None genre='Detective story' theme='Mystery, Suspense' core_idea='A mysterious murder in a grand mansion in Victorian London, investigated by an eccentric detective, with many twists and turns to keep readers guessing.' setting=SettingData(location='Victorian London', time_period='Victorian', atmosphere='Dark and atmospheric', isolation_level='Isolated grand mansion') crime=CrimeData(crime_type='Murder', method=None, motive=None, specifications='Mysterious murder') characters=CharactersData(detective_type='Eccentric detective', detective_specifications='Brilliant but eccentric', sidekick_type='Loyal assistant', sidekick_specifications='Loyal', suspect_count=5, culprit_specifications='No specific requirements') structure=StructureData(length=None, complexity='Complex', twist_specifications='Plenty of twists and turns to keep readers guessing until the very end', red_herring_specifications='Multiple red herrings to mislead the reader')\n",
+    "response": {
+        "victim": {
+            "id": "Lord Alistair Ashworth",
+            "relationships": [
+                {
+                    "type": "Employer",
+                    "to": "Mr. Alaric Finch"
+                },
+                {
+                    "type": "Uncle",
+                    "to": "Lady Beatrice Ashworth"
+                },
+                {
+                    "type": "Patron",
+                    "to": "Captain Arthur Sterling"
+                },
+                {
+                    "type": "Business Partner",
+                    "to": "Mr. Elias Thorne"
+                },
+                {
+                    "type": "Patient",
+                    "to": "Dr. Alistair Croft"
+                }
+            ]
+        },
+        "suspects": [
+            {
+                "id": "Mr. Alaric Finch",
+                "relationships": [
+                    {
+                        "type": "Employee",
+                        "to": "Lord Alistair Ashworth"
+                    }
+                ],
+                "occupation": "Head Butler of Ashworth Manor",
+                "motive": "Deep-seated resentment for years of belittlement and Lord Ashworth's recent threat to dismiss him without pension after discovering Finch's minor embezzlement.",
+                "crime_relevant_traits": [
+                    "resentful",
+                    "meticulous",
+                    "secretive",
+                    "strong-willed"
+                ],
+                "possible_alibi": "Claimed to be locking up the downstairs parlors and checking the gas lamps, a routine duty that took him to various parts of the mansion but left him unsupervised for a crucial period.",
+                "possible_method": "Ambushed Lord Ashworth in a dimly lit corridor, striking him fatally with a heavy bronze paperweight kept on a nearby hall table.",
+                "possible_means": [
+                    "intimate knowledge of the mansion's layout and routines",
+                    "physical strength from years of service",
+                    "access to all areas of the house"
+                ],
+                "culprit": false
+            },
+            {
+                "id": "Lady Beatrice Ashworth",
+                "relationships": [
+                    {
+                        "type": "Niece",
+                        "to": "Lord Alistair Ashworth"
+                    }
+                ],
+                "occupation": "Dependent Socialite",
+                "motive": "Fear of disinheritance. Lord Ashworth was preparing to marry a much younger woman, which would have left Lady Beatrice financially destitute and stripped her of her expected inheritance.",
+                "crime_relevant_traits": [
+                    "ambitious",
+                    "desperate",
+                    "manipulative",
+                    "calculating"
+                ],
+                "possible_alibi": "Stated she was suffering from a migraine and retired to her private sitting room shortly after dinner, writing letters in the solitude.",
+                "possible_method": "Slipped a potent, fast-acting sedative into Lord Ashworth's customary pre-bedtime brandy, causing his heart to fail in his study.",
+                "possible_means": [
+                    "access to Lord Ashworth's private quarters",
+                    "knowledge of his evening routine",
+                    "a small vial of potent sedatives obtained through a discrete chemist"
+                ],
+                "culprit": false
+            },
+            {
+                "id": "Captain Arthur Sterling",
+                "relationships": [
+                    {
+                        "type": "Friend (burdened by debt)",
+                        "to": "Lord Alistair Ashworth"
+                    }
+                ],
+                "occupation": "Disgraced Military Officer, Professional Gambler",
+                "motive": "Blackmail and ruin. Lord Ashworth had discovered Captain Sterling's extensive gambling debts and was threatening to expose him publicly, which would have led to his fiancée breaking off their engagement and his social ostracization.",
+                "crime_relevant_traits": [
+                    "hot-headed",
+                    "proud",
+                    "desperate",
+                    "reckless"
+                ],
+                "possible_alibi": "Claimed to have been at his gentlemen's club until late, returning to his lodgings and arriving just after the estimated time of Lord Ashworth's demise.",
+                "possible_method": "Confronted Lord Ashworth in his study, and in a violent argument, strangled him with his own silk cravat.",
+                "possible_means": [
+                    "military training in hand-to-hand combat",
+                    "desperation leading to physical aggression",
+                    "familiarity with the manor from frequent visits"
+                ],
+                "culprit": false
+            },
+            {
+                "id": "Mr. Elias Thorne",
+                "relationships": [
+                    {
+                        "type": "Business Rival",
+                        "to": "Lord Alistair Ashworth"
+                    }
+                ],
+                "occupation": "Ruthless Industrialist",
+                "motive": "Financial sabotage. Lord Ashworth was planning to leak damaging information about Thorne's illegal business practices, which would have utterly destroyed his industrial empire and reputation.",
+                "crime_relevant_traits": [
+                    "ruthless",
+                    "ambitious",
+                    "unscrupulous",
+                    "coldly calculating"
+                ],
+                "possible_alibi": "Insisted he was working late at his private office in the City, reviewing contracts with his clerks, a claim difficult to verify definitively.",
+                "possible_method": "Used a heavy, lead-weighted letter opener from Lord Ashworth's desk to strike him repeatedly on the head during a clandestine meeting.",
+                "possible_means": [
+                    "strong physical presence",
+                    "unwavering resolve",
+                    "knowledge of Lord Ashworth's clandestine meetings and habits"
+                ],
+                "culprit": false
+            },
+            {
+                "id": "Dr. Alistair Croft",
+                "relationships": [
+                    {
+                        "type": "Personal Physician (holding a secret)",
+                        "to": "Lord Alistair Ashworth"
+                    }
+                ],
+                "occupation": "Physician with a dubious past",
+                "motive": "Revenge and self-preservation. Lord Ashworth had discovered Dr. Croft's disgraced medical past involving a malpractice case and was threatening to expose him, which would end his career and reputation in London.",
+                "crime_relevant_traits": [
+                    "reserved",
+                    "intelligent",
+                    "guarded",
+                    "vengeful"
+                ],
+                "possible_alibi": "Claimed to have been on a late-night house call to a patient suffering from a sudden illness in a remote part of Chelsea.",
+                "possible_method": "Administered a fatal overdose of a potent heart stimulant, disguised as a necessary tonic, during a routine late-evening check-up on Lord Ashworth.",
+                "possible_means": [
+                    "extensive medical knowledge",
+                    "access to controlled substances",
+                    "trusted position within the household allowing unsupervised access to the victim"
+                ],
+                "culprit": false
+            }
+        ]
+    },
+    "model": "gemini-2.5-flash",
+    "system_instruction": "You are designing a structural actor pool for a detective fiction story.\nYour task is to generate:\n- One victim\n- N suspects (based on the input data, or if missing use a reasonable number between 3 and 6)\n\nRules:\n- The generated actors should be consistent with the provided input data and with common conventions of detective stories.\n- Details not included in the input data should be filled in creatively, but must still fit within the detective genre and the specific subgenre if one is provided.\n- Details should be consistent with the setting and tone of the story as described in the input data, e.g., if the story is set in Victorian London, the actors should have names, occupations, and traits that fit that setting.\n- Technological details should be consistent with the specified time period, e.g., if the story is set in the 19th century, there should be no references to modern technology such as smartphones, cars, or modern forensic techniques.\n- The cuprit should not be specified unless explicitly mentioned in the input data.\n- All suspects should have plausible motives, means, and opportunities for committing the crime, even if they are not the cuprit.\n- The relationships between the actors should be coherent and should reflect common dynamics found in detective stories, such as friendships, rivalries, family ties, or professional relationships.\n- The relationships do not need to be symmetric, e.g., actor A can consider B a friend while B considers A an enemy. Symetiric relationships should be specified in both actors' relationship fields.\n- The relationships should be only between the specified actors (victim and suspects), do not introduce additional actors for the relationships.\n\nUse concrete and specific descriptions, avoid open-ended or vague descriptions. \n",
+    "generation_params": {
+        "temperature": 1.0,
+        "do_sample": true,
+        "top_p": 0.9,
+        "top_k": 5,
+        "max_tokens": 10000,
+        "repetition_penalty": 0,
+        "response_type": "application/json",
+        "response_schema": {
+            "$defs": {
+                "Relationship": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of relationship, e.g., friend, enemy, family, colleague",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "to": {
+                            "description": "ID of the other actor in the relationship",
+                            "title": "To",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "to"
+                    ],
+                    "title": "Relationship",
+                    "type": "object"
+                },
+                "Suspect": {
+                    "properties": {
+                        "id": {
+                            "description": "Unique identifier for the actor",
+                            "title": "Id",
+                            "type": "string"
+                        },
+                        "relationships": {
+                            "description": "List of relationships this actor has with other actors in the story, the relationships do not need to be symmetric, e.g., if actor A is a friend of actor B, it does not necessarily mean that actor B is a friend of actor A, the relationships should be based on the input data and should not be inferred based on common sense or general knowledge",
+                            "items": {
+                                "$ref": "#/$defs/Relationship"
+                            },
+                            "title": "Relationships",
+                            "type": "array"
+                        },
+                        "occupation": {
+                            "description": "Occupation of the suspect",
+                            "title": "Occupation",
+                            "type": "string"
+                        },
+                        "motive": {
+                            "description": "Specific motive for commiting the crime based on the input data.",
+                            "title": "Motive",
+                            "type": "string"
+                        },
+                        "crime_relevant_traits": {
+                            "description": "List of traits that are relevant to the crime, e.g., ['greedy', 'jealous']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Crime Relevant Traits",
+                            "type": "array"
+                        },
+                        "possible_alibi": {
+                            "description": "Possible alibi for the suspect, e.g., 'was at the pub' or 'was out of town'",
+                            "title": "Possible Alibi",
+                            "type": "string"
+                        },
+                        "possible_method": {
+                            "description": "Concreate possible method for committing the crime, if the method is explicitly specified in the input data, use that method as the possible method but concretize it, e.g., if the specified method is poisoning, a concrete possible method could be 'poisoned the victim's drink with arsenic', otherwise, if the method is not explicitly specified in the input data, infer a possible method based on the suspect's occupation, traits and motive",
+                            "title": "Possible Method",
+                            "type": "string"
+                        },
+                        "possible_means": {
+                            "description": "List of possible means for committing the crime, e.g., if the crime is poisoning, possible means could be ['is pharmacist'] or ['prepares food'], if the crime is shooting, possible means could be ['is a hunter'] or ['has a history of violence']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Possible Means",
+                            "type": "array"
+                        },
+                        "culprit": {
+                            "description": "Whether the suspect is the culprit of the crime or not, leave false unless the culprit is explicitly specified in the input data, in which case set to true",
+                            "title": "Culprit",
+                            "type": "boolean"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "relationships",
+                        "occupation",
+                        "motive",
+                        "crime_relevant_traits",
+                        "possible_alibi",
+                        "possible_method",
+                        "possible_means",
+                        "culprit"
+                    ],
+                    "title": "Suspect",
+                    "type": "object"
+                },
+                "Victim": {
+                    "properties": {
+                        "id": {
+                            "description": "Unique identifier for the actor",
+                            "title": "Id",
+                            "type": "string"
+                        },
+                        "relationships": {
+                            "description": "List of relationships this actor has with other actors in the story, the relationships do not need to be symmetric, e.g., if actor A is a friend of actor B, it does not necessarily mean that actor B is a friend of actor A, the relationships should be based on the input data and should not be inferred based on common sense or general knowledge",
+                            "items": {
+                                "$ref": "#/$defs/Relationship"
+                            },
+                            "title": "Relationships",
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "relationships"
+                    ],
+                    "title": "Victim",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "victim": {
+                    "$ref": "#/$defs/Victim",
+                    "description": "The victim of the crime"
+                },
+                "suspects": {
+                    "description": "List of suspects in the story",
+                    "items": {
+                        "$ref": "#/$defs/Suspect"
+                    },
+                    "title": "Suspects",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "victim",
+                "suspects"
+            ],
+            "title": "ActorPool",
+            "type": "object"
+        },
+        "extras": null
+    }
+}

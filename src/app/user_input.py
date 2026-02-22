@@ -14,10 +14,12 @@ def extract_input_data(llm: LLM, user_input: str, story_directory: StoryDirector
         repetition_penalty=0,
         response_type="application/json",
         response_schema=InputData,
+        include_thoughts=True,
+        thinking_budget=24576, # using maximum thinking budget
     )
     response = llm.generate(prompt, system_instruction=system_instruction, generation_params=generation_params)
         
-    story_directory.save_stage("input_extraction", prompt=prompt, response=response.output, model=llm.model_id, system_instruction=system_instruction, generation_params=generation_params)
+    story_directory.save_stage("input_extraction", prompt=prompt, response=response.output, model=llm.model_id, system_instruction=system_instruction, generation_params=generation_params, thoughts=response.thoughts)
     return response.output
 
 
@@ -30,8 +32,10 @@ def fill_missing_data(llm: LLM, input_data: InputData, story_directory: StoryDir
         top_k=5,
         response_type="application/json",
         response_schema=InputData,
+        include_thoughts=True,
+        thinking_budget=24576, # using maximum thinking budget
     )
     response = llm.generate(prompt, system_instruction=system_instruction, generation_params=generation_params)
 
-    story_directory.save_stage("data_filling", prompt=prompt, response=response.output, model=llm.model_id, system_instruction=system_instruction, generation_params=generation_params)
+    story_directory.save_stage("data_filling", prompt=prompt, response=response.output, model=llm.model_id, system_instruction=system_instruction, generation_params=generation_params, thoughts=response.thoughts)
     return response.output

@@ -1,0 +1,317 @@
+{
+    "prompt": "Based on the following input data and provided actor pool, generate a structured crime graph that describes the objective crime timeline for a detective story.\n\nInput data:\ntitle=None genre='Detective story' theme='Mystery, Suspense' core_idea='A mysterious murder in a grand mansion in Victorian London, investigated by an eccentric detective, with many twists and turns to keep readers guessing.' setting=SettingData(location='Victorian London', time_period='Victorian', atmosphere='Dark and atmospheric', isolation_level='Isolated grand mansion') crime=CrimeData(crime_type='Murder', method=None, motive=None, specifications='Mysterious murder') characters=CharactersData(detective_type='Eccentric detective', detective_specifications='Brilliant but eccentric', sidekick_type='Loyal assistant', sidekick_specifications='Loyal', suspect_count=5, culprit_specifications='No specific requirements') structure=StructureData(length=None, complexity='Complex', twist_specifications='Plenty of twists and turns to keep readers guessing until the very end', red_herring_specifications='Multiple red herrings to mislead the reader')\n\nActor pool:\nvictim=Victim(id='Lord Alistair Ashworth', relationships=[Relationship(type='Employer', to='Mr. Alaric Finch'), Relationship(type='Uncle', to='Lady Beatrice Ashworth'), Relationship(type='Patron', to='Captain Arthur Sterling'), Relationship(type='Business Partner', to='Mr. Elias Thorne'), Relationship(type='Patient', to='Dr. Alistair Croft')]) suspects=[Suspect(id='Mr. Alaric Finch', relationships=[Relationship(type='Employee', to='Lord Alistair Ashworth')], occupation='Head Butler of Ashworth Manor', motive=\"Deep-seated resentment for years of belittlement and Lord Ashworth's recent threat to dismiss him without pension after discovering Finch's minor embezzlement.\", crime_relevant_traits=['resentful', 'meticulous', 'secretive', 'strong-willed'], possible_alibi='Claimed to be locking up the downstairs parlors and checking the gas lamps, a routine duty that took him to various parts of the mansion but left him unsupervised for a crucial period.', possible_method='Ambushed Lord Ashworth in a dimly lit corridor, striking him fatally with a heavy bronze paperweight kept on a nearby hall table.', possible_means=[\"intimate knowledge of the mansion's layout and routines\", 'physical strength from years of service', 'access to all areas of the house'], culprit=False), Suspect(id='Lady Beatrice Ashworth', relationships=[Relationship(type='Niece', to='Lord Alistair Ashworth')], occupation='Dependent Socialite', motive='Fear of disinheritance. Lord Ashworth was preparing to marry a much younger woman, which would have left Lady Beatrice financially destitute and stripped her of her expected inheritance.', crime_relevant_traits=['ambitious', 'desperate', 'manipulative', 'calculating'], possible_alibi='Stated she was suffering from a migraine and retired to her private sitting room shortly after dinner, writing letters in the solitude.', possible_method=\"Slipped a potent, fast-acting sedative into Lord Ashworth's customary pre-bedtime brandy, causing his heart to fail in his study.\", possible_means=[\"access to Lord Ashworth's private quarters\", 'knowledge of his evening routine', 'a small vial of potent sedatives obtained through a discrete chemist'], culprit=False), Suspect(id='Captain Arthur Sterling', relationships=[Relationship(type='Friend (burdened by debt)', to='Lord Alistair Ashworth')], occupation='Disgraced Military Officer, Professional Gambler', motive=\"Blackmail and ruin. Lord Ashworth had discovered Captain Sterling's extensive gambling debts and was threatening to expose him publicly, which would have led to his fiancée breaking off their engagement and his social ostracization.\", crime_relevant_traits=['hot-headed', 'proud', 'desperate', 'reckless'], possible_alibi=\"Claimed to have been at his gentlemen's club until late, returning to his lodgings and arriving just after the estimated time of Lord Ashworth's demise.\", possible_method='Confronted Lord Ashworth in his study, and in a violent argument, strangled him with his own silk cravat.', possible_means=['military training in hand-to-hand combat', 'desperation leading to physical aggression', 'familiarity with the manor from frequent visits'], culprit=False), Suspect(id='Mr. Elias Thorne', relationships=[Relationship(type='Business Rival', to='Lord Alistair Ashworth')], occupation='Ruthless Industrialist', motive=\"Financial sabotage. Lord Ashworth was planning to leak damaging information about Thorne's illegal business practices, which would have utterly destroyed his industrial empire and reputation.\", crime_relevant_traits=['ruthless', 'ambitious', 'unscrupulous', 'coldly calculating'], possible_alibi='Insisted he was working late at his private office in the City, reviewing contracts with his clerks, a claim difficult to verify definitively.', possible_method=\"Used a heavy, lead-weighted letter opener from Lord Ashworth's desk to strike him repeatedly on the head during a clandestine meeting.\", possible_means=['strong physical presence', 'unwavering resolve', \"knowledge of Lord Ashworth's clandestine meetings and habits\"], culprit=False), Suspect(id='Dr. Alistair Croft', relationships=[Relationship(type='Personal Physician (holding a secret)', to='Lord Alistair Ashworth')], occupation='Physician with a dubious past', motive=\"Revenge and self-preservation. Lord Ashworth had discovered Dr. Croft's disgraced medical past involving a malpractice case and was threatening to expose him, which would end his career and reputation in London.\", crime_relevant_traits=['reserved', 'intelligent', 'guarded', 'vengeful'], possible_alibi='Claimed to have been on a late-night house call to a patient suffering from a sudden illness in a remote part of Chelsea.', possible_method='Administered a fatal overdose of a potent heart stimulant, disguised as a necessary tonic, during a routine late-evening check-up on Lord Ashworth.', possible_means=['extensive medical knowledge', 'access to controlled substances', 'trusted position within the household allowing unsupervised access to the victim'], culprit=True)]\n",
+    "response": {
+        "crime_events": [
+            {
+                "type": "decision",
+                "description": "Lord Alistair Ashworth confronts Dr. Alistair Croft in his private office, brandishing documents proving Croft's past medical malpractice and threatening public exposure by the end of the week. Dr. Croft, desperate to preserve his reputation and career, resolves to eliminate Lord Ashworth before he can act, fearing utter ruin.",
+                "actors_involved": [
+                    "Lord Alistair Ashworth",
+                    "Dr. Alistair Croft"
+                ],
+                "location": "Lord Ashworth's private office within Ashworth Manor",
+                "time": "Three days before the crime",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A discarded, half-burnt letter fragment from an old medical journal detailing a malpractice case, found near the fireplace in Lord Ashworth's office."
+                    },
+                    {
+                        "type": "witness",
+                        "description": "A faint argument overheard by a passing servant, though the words were indistinct."
+                    }
+                ]
+            },
+            {
+                "type": "preparation",
+                "description": "Dr. Alistair Croft, using an alias and feigning a rare cardiac condition for a fictitious patient, procures a concentrated dose of a potent, fast-acting cardiac stimulant from a discreet, less reputable apothecary located in a secluded alley off Borough Market. He ensures the stimulant is highly soluble and easily masked in liquids.",
+                "actors_involved": [
+                    "Dr. Alistair Croft"
+                ],
+                "location": "\"The Serpent's Coil\" Apothecary, Borough Market",
+                "time": "Two days before the crime",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A faint, distinct medicinal aroma on a small, empty glass vial, later found hidden within Dr. Croft's personal medical kit."
+                    },
+                    {
+                        "type": "witness",
+                        "description": "The apothecary owner's vague recollection of a reserved gentleman making an unusual purchase for a rare heart condition, noting his peculiar haste."
+                    }
+                ]
+            },
+            {
+                "type": "decision",
+                "description": "Lord Alistair Ashworth informs Lady Beatrice Ashworth during afternoon tea that his engagement to a much younger woman is imminent, and he intends to revise his will significantly, leaving Lady Beatrice with only a modest allowance, effectively stripping her of her expected inheritance and social standing. Lady Beatrice, seething with resentment and desperation, resolves to prevent this disinheritance at any cost.",
+                "actors_involved": [
+                    "Lord Alistair Ashworth",
+                    "Lady Beatrice Ashworth"
+                ],
+                "location": "The Grand Drawing Room, Ashworth Manor",
+                "time": "The day before the crime",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A partially drafted codicil to Lord Ashworth's will, found on his study desk, outlining changes detrimental to Lady Beatrice."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A crumpled, tear-stained handkerchief with a faint floral scent, found near Lady Beatrice's customary chair in the drawing room."
+                    }
+                ]
+            },
+            {
+                "type": "preparation",
+                "description": "Mr. Alaric Finch, aware that Lord Ashworth was reviewing the manor's ledgers and sensing his imminent dismissal for embezzlement, subtly shifts the heavy bronze paperweight on the hall table near the west corridor, positioning it conveniently within reach. He also makes a point of extending his nightly rounds to coincide with Lord Ashworth's usual solitary passage to his study, creating an opportunity.",
+                "actors_involved": [
+                    "Mr. Alaric Finch"
+                ],
+                "location": "West Corridor Hall Table, Ashworth Manor",
+                "time": "The evening of the crime, prior to the murder",
+                "traces_left": [
+                    {
+                        "type": "forensic evidence",
+                        "description": "Fingerprints belonging to Mr. Alaric Finch on the heavy bronze paperweight, which is found slightly askew on the hall table."
+                    },
+                    {
+                        "type": "witness",
+                        "description": "A junior footman's casual observation of Mr. Finch lingering longer than usual in the west corridor that evening."
+                    }
+                ]
+            },
+            {
+                "type": "execution",
+                "description": "Captain Arthur Sterling, desperate after losing heavily at the gambling tables and facing public disgrace, confronts Lord Ashworth in his study. He pleads for financial aid and begs against the exposure of his debts. Lord Ashworth, unyielding, reiterates his threat. In a fit of uncontrolled rage, Sterling shoves Lord Ashworth, causing him to stumble against his desk. Sterling then storms out, unknowingly leaving behind his distinctive silk cravat, which he had loosened during the heated argument.",
+                "actors_involved": [
+                    "Lord Alistair Ashworth",
+                    "Captain Arthur Sterling"
+                ],
+                "location": "Lord Ashworth's Study, Ashworth Manor",
+                "time": "The evening of the crime, approximately an hour before the murder",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "Captain Sterling's distinctive emerald-green silk cravat, found discarded near the study door."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A faint, fresh scuff mark on the antique rug near Lord Ashworth's desk, consistent with a struggle."
+                    }
+                ]
+            },
+            {
+                "type": "execution",
+                "description": "Dr. Alistair Croft performs his routine late-evening check-up on Lord Ashworth in the study. During this visit, he administers the potent cardiac stimulant, carefully disguised as a 'restorative tonic' to improve Lord Ashworth's circulation, ensuring Lord Ashworth consumes the full fatal dose.",
+                "actors_involved": [
+                    "Lord Alistair Ashworth",
+                    "Dr. Alistair Croft"
+                ],
+                "location": "Lord Ashworth's Study, Ashworth Manor",
+                "time": "The night of the crime, around 10:30 PM",
+                "traces_left": [
+                    {
+                        "type": "forensic evidence",
+                        "description": "Microscopic traces of the specific cardiac stimulant on the rim of a discarded brandy snifter on Lord Ashworth's desk, despite Croft's attempts to wipe it clean."
+                    },
+                    {
+                        "type": "witness",
+                        "description": "The kitchen maid briefly saw Dr. Croft exiting the study, looking rather pale, approximately twenty minutes before the body was discovered."
+                    }
+                ]
+            },
+            {
+                "type": "unforeseen event",
+                "description": "Shortly after Dr. Croft departs, Lord Ashworth, feeling a sudden, intense discomfort, disorientation, and chest pain from the stimulant, decides to retrieve a specific medicinal brandy from the library to self-medicate, rather than summoning Croft back. He stumbles out of his study, intending to reach the library.",
+                "actors_involved": [
+                    "Lord Alistair Ashworth"
+                ],
+                "location": "Corridor between Study and Library, Ashworth Manor",
+                "time": "The night of the crime, around 10:45 PM",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "A faint, irregular trail of scuff marks and a dropped, ornate leather bookmark belonging to Lord Ashworth, leading from the study door towards the library entrance."
+                    }
+                ]
+            },
+            {
+                "type": "execution",
+                "description": "Lord Alistair Ashworth collapses just inside the library, succumbing to the rapid and fatal effects of the cardiac stimulant, which induces a massive heart attack. He is found slumped dramatically over a chaise lounge, clutching his chest, his final moments spent trying to reach a remedy.",
+                "actors_involved": [
+                    "Lord Alistair Ashworth"
+                ],
+                "location": "The Library, Ashworth Manor",
+                "time": "The night of the crime, around 11:00 PM",
+                "traces_left": [
+                    {
+                        "type": "forensic evidence",
+                        "description": "A toxicology report later confirming the presence of a potent cardiac stimulant, consistent with an overdose, in Lord Ashworth's system."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "Lord Ashworth's body found in the library, unusually far from his study where he typically retired."
+                    },
+                    {
+                        "type": "physical evidence",
+                        "description": "A half-empty glass of medicinal brandy (a legitimate, non-toxic substance) on a nearby table, which Lord Ashworth had been about to consume, suggesting an attempt at self-treatment."
+                    }
+                ]
+            },
+            {
+                "type": "cover-up",
+                "description": "Dr. Alistair Croft activates his pre-planned alibi, making a 'late-night house call' to a fabricated patient suffering from a sudden, non-specific illness in a remote part of Chelsea. He meticulously documents a false medical record for the visit and ensures he is seen by a diligent night watchman on his way out of the manor grounds, establishing his departure time and perceived distance from the crime.",
+                "actors_involved": [
+                    "Dr. Alistair Croft"
+                ],
+                "location": "Ashworth Manor gates, then a street in Chelsea",
+                "time": "The night of the crime, starting 11:15 PM",
+                "traces_left": [
+                    {
+                        "type": "digital evidence",
+                        "description": "A meticulously fabricated entry in Dr. Croft's personal medical log, detailing a patient visit at a specific address and time in Chelsea."
+                    },
+                    {
+                        "type": "witness",
+                        "description": "A local night watchman's testimony, recalling seeing Dr. Croft's carriage leaving the manor grounds around 11:30 PM, and later another watchman seeing him in Chelsea."
+                    }
+                ]
+            },
+            {
+                "type": "discovery",
+                "description": "Mr. Alaric Finch, performing his routine final lock-up of the mansion, discovers Lord Ashworth's body slumped over a chaise lounge in the library. Shocked, he immediately raises the alarm, alerting the rest of the household staff to the grim discovery.",
+                "actors_involved": [
+                    "Mr. Alaric Finch",
+                    "Lord Alistair Ashworth"
+                ],
+                "location": "The Library, Ashworth Manor",
+                "time": "The night of the crime, around 11:45 PM",
+                "traces_left": [
+                    {
+                        "type": "physical evidence",
+                        "description": "The exact state of the library and Lord Ashworth's body as found by Mr. Finch, including the overturned book on the floor near his hand."
+                    },
+                    {
+                        "type": "witness",
+                        "description": "Mr. Finch's frantic and slightly incoherent report to the housekeeper and other staff members, detailing his discovery."
+                    }
+                ]
+            }
+        ]
+    },
+    "model": "gemini-2.5-flash",
+    "system_instruction": "You are constructing the objective crime timeline for a detective story.\nThis is the ground truth of what actually happened. Ensure that the timeline is consistent with the provided input data and with common conventions of detective stories.\nAlso ensure logical consistency within the timeline itself and causality, e.g., the preparation for the crime must happen before the execution of the crime, the decision to commit the crime must happen before the preparation and execution, etc.\n\nGenerate events that describe the crime, the events leading up to the crime, and the events immediately following the crime.\nThe events should describe:\n- Decision: any decision made by any actor that is relevant to the crime, e.g., the decision to commit the crime itself, the decision to choose a specific method for committing the crime, the decision to target a specific victim, the decision to frame someone else for the crime, etc., including the motivations behind those decisions\n- Preparation: any preparation made for the crime, e.g., buying a weapon, researching the victim's schedule, acquiring a key to the victim's house, ensuring an alibi for the time of the crime\n- Execution: the execution of the crime itself, e.g., the act of poisoning the victim's drink, the act of shooting the victim, the act of breaking into the house to commit the crime\n- Cover-up: any action taken to cover up the crime, e.g., cleaning up the crime scene, moving the body, staging the crime scene to look like a burglary, deleting digital evidence, persuading witnesses to lie\n\nEach event can leave behind crime traces, that migh be discovered by the detective during the investigation and help solve the crime.\n\nUses concrete and specific descriptions for the crime events and crime traces, avoid vague or generic descriptions. For example, instead of saying \"the suspect prepared for the crime\", say \"the suspect bought a bottle of arsenic from the local pharmacy\",\nor instead of saying \"the suspect left behind evidence at the crime scene\", say \"the suspect left fingerprints on the glass used for poisoning\".\nTry to be creative and imaginative with the crime events and crime traces to provide an engaging and intriguing crime timeline.\nThis crime should be narratively elaborate and structurally layered, with possible misdirections and red herrings, to provide an interesting and challenging mystery for the detective to solve.\nUnforseen events might happen during the crime, e.g., an unexpected witness might show up during the execution of the crime, forcing the culprit to improvise and change their plans on the spot, which might lead to leaving behind unexpected crime traces.\nThe crime may be unnecessarily complex if it enhances dramatic tension, it does not need to be the most efficient way to commit the crime, it just needs to be a plausible way to commit the crime that fits with the characters, setting and tone of the story as described in the input data.\n",
+    "generation_params": {
+        "temperature": 1.0,
+        "do_sample": true,
+        "top_p": 0.9,
+        "top_k": 5,
+        "max_tokens": 10000,
+        "repetition_penalty": 0,
+        "response_type": "application/json",
+        "response_schema": {
+            "$defs": {
+                "CrimeEvent": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime event, e.g., decision, preparation, execution or cover-up",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime event, e.g., 'The suspect poisoned the victim's drink at the party', 'The suspect gained access to the victim's house by persuading the maid to let them in', 'The suspect bought a gun.'",
+                            "title": "Description",
+                            "type": "string"
+                        },
+                        "actors_involved": {
+                            "description": "List of actor ids involved in the crime event, e.g., ['victim_id', 'suspect_id1']",
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Actors Involved",
+                            "type": "array"
+                        },
+                        "location": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Location where the crime event takes place, if relevant",
+                            "title": "Location"
+                        },
+                        "time": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Time when the crime event takes place relative to the crime itself, e.g., 'two days before the crime', 'the night of the crime', if relevant",
+                            "title": "Time"
+                        },
+                        "traces_left": {
+                            "description": "List of crime traces left by this crime event, e.g., fingerprints, witnesses, forensic evidence, digital evidence",
+                            "items": {
+                                "$ref": "#/$defs/CrimeTrace"
+                            },
+                            "title": "Traces Left",
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description",
+                        "actors_involved",
+                        "location",
+                        "time",
+                        "traces_left"
+                    ],
+                    "title": "CrimeEvent",
+                    "type": "object"
+                },
+                "CrimeTrace": {
+                    "properties": {
+                        "type": {
+                            "description": "Type of crime trace, e.g., physical evidence, witness, forensic evidence, digital evidence",
+                            "title": "Type",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the crime trace, e.g., 'Fingeprints on the glass used for poisoning', 'A witness saw the suspect arguing with the victim', 'Missing gun from the victim's collection', 'Toxicology report showing presence of poison in the victim's system'",
+                            "title": "Description",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "description"
+                    ],
+                    "title": "CrimeTrace",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "crime_events": {
+                    "description": "List of crime events that make up the crime, including the crime itself and any relevant events leading up to or following the crime",
+                    "items": {
+                        "$ref": "#/$defs/CrimeEvent"
+                    },
+                    "title": "Crime Events",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "crime_events"
+            ],
+            "title": "CrimeGraph",
+            "type": "object"
+        },
+        "extras": null
+    }
+}
