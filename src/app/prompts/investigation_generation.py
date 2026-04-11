@@ -10,6 +10,7 @@ Rules:
   - Clues from crime traces should be marked with correct correctness (correct/partial/misleading).
   - Clues from suspect background traces are innocent activities that could be misinterpreted as crime-related.
   - One trace can lead to multiple clues if it can be observed or interpreted in different ways, but avoid duplicates.
+  - Some clues might require other clues or inferences to be discovered first before they can be pursued (e.g., a hidden clue that only becomes relevant after discovering another clue).
   - Mark correctness as 'correct', 'partial', or 'misleading' relative to the ground-truth crime graph.
   - Mark reliability as 'low', 'medium', or 'high' based on how reliable the clue appears to the detective.
   

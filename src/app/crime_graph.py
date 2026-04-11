@@ -6,6 +6,7 @@ from app.schemas.user_input import InputData
 from app.schemas.crime_graph import ActorPool, CrimeGraph
 from app.schemas.investigation_graph import InvestigationGraph
 from app.schemas.suspect_backgrounds import SuspectBackgrounds
+from app.schemas.chapter_plan import ChapterPlan
 from app.prompts import builder
 
 def generate_actor_pool(llm: LLM, input_data: InputData, story_directory: StoryDirectory) -> ActorPool:
@@ -84,4 +85,22 @@ def generate_investigation_graph(llm: LLM, input_data: InputData, actor_pool: Ac
     response = llm.generate(prompt, system_instruction=system_instruction, generation_params=generation_params)
         
     story_directory.save_stage("investigation_generation", prompt=prompt, response=response.output, model=llm.model_id, system_instruction=system_instruction, generation_params=generation_params, thoughts=response.thoughts)
+    return response.output
+
+def generate_chapter_plan(llm: LLM, input_data: InputData, investigation_graph: InvestigationGraph, story_directory: StoryDirectory) -> ChapterPlan:
+    system_instruction, prompt = builder.build_prompt("chapter_planning", {"input_data": input_data, "investigation_graph": investigation_graph})    
+    generation_params = GenerationParams(
+        max_tokens=20000,
+        temperature=1.2,
+        top_p=0.9,
+        top_k=10,
+        repetition_penalty=0,
+        response_type="application/json",
+        response_schema=ChapterPlan,
+        include_thoughts=True,
+        thinking_budget=24576, # using maximum thinking budget
+    )
+    response = llm.generate(prompt, system_instruction=system_instruction, generation_params=generation_params)
+        
+    story_directory.save_stage("chapter_planning", prompt=prompt, response=response.output, model=llm.model_id, system_instruction=system_instruction, generation_params=generation_params, thoughts=response.thoughts)
     return response.output

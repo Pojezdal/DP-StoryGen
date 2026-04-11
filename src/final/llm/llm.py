@@ -3,6 +3,7 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 import random
+import re
 from typing import Iterable, Iterator, List, Optional, Sequence, Union, Dict, Any
 
 from pydantic import BaseModel
@@ -15,13 +16,12 @@ class GenerationParams:
     do_sample: bool = True
     top_p: float = 1.0
     top_k: int = 0
-    max_tokens: int = 128
-    repetition_penalty: float = 1.0
+    max_tokens: int = 1024
+    repetition_penalty: float = 0.0
     response_type: str = "text/plain"
-    response_schema: Optional[BaseModel] = None
+    response_json_schema: Optional[BaseModel] = None
     include_thoughts: bool = False
     thinking_budget: Optional[int] = -1 # -1 for dynamic according to the gemini docs
-    tools: Optional[list] = None  # provider-specific tool objects (e.g. google search grounding)
     # allow passthrough extras
     extras: Dict[str, Any] = None
 
@@ -37,6 +37,9 @@ class GenerationResult:
     time_per_total_token_sec: Optional[float] = None
     finish_reason: Optional[str] = None
     thoughts: Optional[str] = None
+    char_count: Optional[int] = None
+    word_count: Optional[int] = None
+    sentence_count: Optional[int] = None
 
 
 class LLM(ABC):
@@ -54,8 +57,8 @@ class LLM(ABC):
     def generate(
         self,
         prompt: str,
-        system_instruction: Optional[str] = None,
-        generation_params: Optional[GenerationParams] = None,
+        system_instruction: Optional[str],
+        generation_params: Optional[GenerationParams],
     ) -> GenerationResult:
         pass
 
@@ -63,8 +66,8 @@ class LLM(ABC):
     def generate_stream(
         self,
         prompt: str,
-        system_instruction: Optional[str] = None,
-        generation_params: Optional[GenerationParams] = None,
+        system_instruction: Optional[str],
+        generation_params: Optional[GenerationParams],
     ) -> Iterator[str]:
         raise NotImplementedError()
 
@@ -83,3 +86,23 @@ class LLM(ABC):
 
     def close(self) -> None:
         return None
+    
+    @staticmethod
+    def _text_stats(text: str | None) -> dict:
+        if not text:
+            return {
+                "char_count": 0,
+                "word_count": 0,
+                "sentence_count": 0,
+            }
+
+        word_count = len(re.findall(r"\S+", text))
+        sentence_count = len(re.findall(r"[^.!?\n]+[.!?]", text))
+        if sentence_count == 0 and text.strip():
+            sentence_count = 1
+
+        return {
+            "char_count": len(text),
+            "word_count": word_count,
+            "sentence_count": sentence_count,
+        }

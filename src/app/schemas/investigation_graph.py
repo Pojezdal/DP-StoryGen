@@ -12,6 +12,7 @@ class ClueSource(BaseModel):
 class Clue(BaseModel):
     id: str = Field(description="Unique identifier for the clue")
     source: ClueSource = Field(description="Reference to the trace this clue is based on")
+    requirement_for_discovery: Optional[list[str]] = Field(default=None, description="List of clues or inferences that are required to prompt the detective to pursue this clue. This is for modeling clues that are not immediately obvious and require other discoveries to lead the detective to notice or investigate them.")
     observation: str = Field(description="What the detective notices or learns from the trace")
     interpretation: str = Field(description="Interpretation of the observation")
     correctness: str = Field(description="Correctness relative to ground truth: correct, partial, or misleading")

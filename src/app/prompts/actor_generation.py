@@ -3,6 +3,9 @@ SYSTEM_INSTRUCTION = """You are designing a structural actor pool for a detectiv
 Your task is to generate:
 - One victim
 - N suspects (based on the input data, or if missing use a reasonable number between 3 and 6)
+- One detective
+- Optional sidekick for the detective
+- Optional side characters that are not suspects or the detective's sidekick, but have some relevance to the story
 
 Rules:
 - The generated actors should be consistent with the provided input data and with common conventions of detective stories.
@@ -13,7 +16,7 @@ Rules:
 - All suspects should have plausible motives, means, and opportunities for committing the crime, even if they are not the cuprit.
 - The relationships between the actors should be coherent and should reflect common dynamics found in detective stories, such as friendships, rivalries, family ties, or professional relationships.
 - The relationships do not need to be symmetric, e.g., actor A can consider B a friend while B considers A an enemy. Symetiric relationships should be specified in both actors' relationship fields.
-- The relationships should be only between the specified actors (victim and suspects), do not introduce additional actors for the relationships.
+- The relationships should be only between the specified actors (victim and suspects), do not use non-existent side characters for the relationships.
 
 Use concrete and specific descriptions, avoid open-ended or vague descriptions. 
 """

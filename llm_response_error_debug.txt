@@ -1,0 +1,87 @@
+Error parsing LLM response with schema: 1 validation error for InvestigationSynthesis
+  Invalid JSON: EOF while parsing a value at line 83 column 10 [type=json_invalid, input_value='{\n  "case_surface_model... research."\n        ],', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+Original output:
+{
+  "case_surface_model": {
+    "apparent_crime_type": "Burglary-interruption resulting in a fatal struggle and fall.",
+    "surface_facts": [
+      {
+        "fact": "Reverend Percival Thimble found dead on the stone belfry floor of St. Jude’s at 7:45 PM by Dr. Julian Thorne."
+      },
+      {
+        "fact": "Death appears to be from a broken neck following a 20-foot fall from the upper tower stairs."
+      },
+      {
+        "fact": "A section of wooden safety railing on the upper tower stairs is splintered and broken outwards directly above the body."
+      },
+      {
+        "fact": "A small wooden desk near the bell mechanism is covered in 1920s newspaper clippings soaked in overturned fountain pen ink."
+      },
+      {
+        "fact": "A silver-topped Victorian walking cane belonging to Cedric Balthazar lies on the floor near the broken railing."
+      },
+      {
+        "fact": "A brass key labeled 'Church Vestry - Spare' was found on the threshold of the tower entrance."
+      },
+      {
+        "fact": "Cedric Balthazar was seen scuttling away from the church side-door with a heavy bag at 6:25 PM."
+      },
+      {
+        "fact": "Eleanor Vance was spotted near the tower at 6:20 PM frantically scrubbing dark stains off her hands."
+      }
+    ],
+    "signature_anomaly": "The 6:00 PM 'Dead Chime': The bells rang perfectly as usual despite the Reverend being found dead at his desk, suggesting he was distracted from his manual gear adjustments by something consuming.",
+    "obvious_but_incomplete_first_explanation": "Cedric Balthazar used a stolen vestry key to enter the church to steal historical records, was interrupted by the Reverend, struck him with his cane causing the fall, and fled dropping his cane and key."
+  },
+  "initial_theory_ladder": {
+    "theories": [
+      {
+        "theory_label": "THE ANTIQUARIAN’S DESPERATION",
+        "primary_suspects": [
+          "Cedric Balthazar"
+        ],
+        "why_it_seems_plausible": {
+          "motive": "Financial trouble and a history of arguing with Thimble over ownership of parish artifacts.",
+          "means": "A heavy, silver-topped cane capable of delivering a staggering blow.",
+          "opportunity": "Seen fleeing the church with a bag shortly after the estimated time of death."
+        },
+        "supporting_surface_clues": [
+          "Victorian cane found at the scene identified as Balthazar's.",
+          "Spare vestry key found at the door is a missing item Balthazar had access to.",
+          "Brenda Mudge's eye-witness account of his suspicious exit."
+        ],
+        "what_is_still_weak": "Balthazar is not known for physical violence and it is unclear why he would leave his identifiable cane at the scene.",
+        "future_discovery_test": "A search of Balthazar’s bag or shop for the specific 1920s ledgers Thimble was studying."
+      },
+      {
+        "theory_label": "THE ARCHIVIST’S RAGE",
+        "primary_suspects": [
+          "Eleanor Vance"
+        ],
+        "why_it_seems_plausible": {
+          "motive": "Professional territory; Thimble was meddling in her archives and they had argued about the 1922 records.",
+          "means": "A sudden shove through the old, dry-rotted railing.",
+          "opportunity": "Spotted near the tower door at 6:20 PM appearing panicked."
+        },
+        "supporting_surface_clues": [
+          "Brenda Mudge's report of Vance scrubbing her hands like she was cleaning blood.",
+          "Vance's known presence in the churchyard during the time of death."
+        ],
+        "what_is_still_weak": "The presence of the cane and key do not fit Vance's MO as she has her own keys and doesn't use a stick.",
+        "future_discovery_test": "Identifying the nature of the dark stains on her hands and the contents of the papers she burned in her garden."
+      },
+      {
+        "theory_label": "THE SENSATIONALIST STAKE-OUT",
+        "primary_suspects": [
+          "Tabitha Lark"
+        ],
+        "why_it_seems_plausible": {
+          "motive": "Career resurrection; she needs a dark story like 'The Vicar’s Secret' to get her London job back.",
+          "means": "Physical confrontation or accidental trip during an unwanted interview.",
+          "opportunity": "A newcomer who spends all her time skulking around town with a recorder."
+        },
+        "supporting_surface_clues": [
+          "Eleanor Vance claims to have seen her running from the churchyard with a camera bag after 6:00 PM.",
+          "Lark's known interest in Thimble's lost history research."
+        ],
