@@ -4,250 +4,157 @@ You are generating INVESTIGATION SYNTHESIS.
 
 Earlier stages have already fixed:
 - the crime ground truth
-- suspect ground truths during the crime window
-- the surface interpretation layer
-- the character agency / post-crime dynamics layer
+- suspect briefs layer (crime-window claims, observations, oddities, suspicion anchors, and likely post-crime reactions)
 
-Your task is to synthesize the actual investigation as a chain of case-state transitions, theory shifts, clue reinterpretations, and final proof.
+Your task is to synthesize the investigation as a plausible causal narrative that gradually reshapes belief, rather than as a rigid checklist.
+The clues that drive the investigation should be directly traceable to the crime ground truth and suspect briefs, but their interpretation and impact on suspicion can be incorrect and shift over time.
+You can use traces in the crime ground truth and suspect briefs to form clues (you do not need to use every trace as a clue) or invent new clues that are consistent with ground truth and narrative flow.
 
-This is the stage where the detective story truly takes shape.
-
-═══════════════════════════════════════════════════════════
 PASS GOAL
-═══════════════════════════════════════════════════════════
-
 Build the investigation as the reader experiences it:
-- what the case seems to mean now
-- what discovery changes that meaning
-- how non-culprit agendas distort interpretation
-- how false theories rise and collapse
-- how the hidden premise is finally exposed
-- how the final proof becomes inevitable
+- first impression and early working theory
+- discoveries that arise from concrete prior triggers
+- suspect-driven distortions and wrong turns
+- failed theories that are replaced by stronger ones
+- late reframe that makes earlier clues click
+- final proof that feels inevitable, not convenient
 
-This pass MUST consume the prior layers rather than inventing a disconnected new mystery.
+This pass must consume prior layers, not invent a disconnected new mystery.
 
-═══════════════════════════════════════════════════════════
-OUTPUT SECTIONS (ONLY THESE)
-═══════════════════════════════════════════════════════════
-
-1. CLUE CHAIN MAP
-2. INVESTIGATION BEATS (CHRONOLOGICAL)
-3. HIDDEN PREMISE & FINAL SOLUTION
+OUTPUT SECTIONS (ONLY THESE):
+1. FIRST IMPRESSION SNAPSHOT
+2. INVESTIGATION FLOW (NARRATIVE CHAIN)
+3. HIDDEN PREMISE & TRUTH REFRAME
 4. FINAL PROOF / REVEAL MECHANISM
-5. CLUE COVERAGE AUDIT
+5. CLUE THREADS + UNUSED TRACES
 
-═══════════════════════════════════════════════════════════
-1. CLUE CHAIN MAP
-═══════════════════════════════════════════════════════════
+1. FIRST IMPRESSION SNAPSHOT
+Start from what investigators reasonably believe before deep digging.
 
-Identify the 3-6 major clue chains that the investigation will actually use.
+Provide:
+- Initial case framing in 4-7 sentences
+- Top 2-3 early suspect lines and why they look strong
+- Most important unknowns blocking progress
+- One early assumption that is believable but wrong
 
-For each clue chain, provide:
+Strict rule:
+- Do not reveal the true culprit as obvious at this stage.
 
-- Clue / Chain label
-- First discoverable form:
-  What investigators can first notice or learn
-- Access path:
-  How it becomes available
-- Early interpretation:
-  What it seems to mean at first
-- Later reinterpretation (if any):
-  How its meaning changes later
-- Which theory/theories it supports or distorts
-- Final role:
-  How it contributes to the true solution or final proof
+2. INVESTIGATION FLOW (NARRATIVE CHAIN)
+Write a chronological investigation flow in 3-5 phases, using prose-first style.
 
-STRICT RULE:
-- Every solution-critical clue must appear here first.
-- If a clue matters to the final proof, it must have a discoverable path.
-- If a clue cannot be plausibly discovered, replace it with a discoverable equivalent.
-- Prefer recurring clue chains over one-off clue gadgets.
+Use headings:
+### PHASE N. [Short Label]
 
-═══════════════════════════════════════════════════════════
-2. INVESTIGATION BEATS (CHRONOLOGICAL)
-═══════════════════════════════════════════════════════════
+For each phase, explain in connected prose:
+- What investigators currently believe
+- What specific trigger from the previous phase causes the next move
+- What major move they make and why that move is logical now
+- What they learn
+- How suspicion shifts across multiple suspects
+- What unresolved contradiction forces the next phase
+- What clues are revealed and how they are interpreted (including any misinterpretations)
+- What theories are strengthened or weakened
+- Include two short explicit lines at the end of each phase:
+  - Bridge reason: one sentence explaining exactly why this phase follows from the previous one.
+  - Access note: one sentence explaining how key new information was lawfully/practically obtained (consent, visible observation, routine procedure, warrant, voluntary handover, open record, etc.).
 
-Write the main investigation as a chronological sequence of 8-12 major beats.
+You may include short bullets inside a phase, but do not use rigid beat cards.
 
-Each beat is a CASE-STATE TRANSITION, not a scene summary and not a suspect action list.
+Causality rules:
+- No arbitrary checks. Every non-routine action must be justified by a concrete prior clue, statement, contradiction, or access event.
+- Do not jump from vague motive uncertainty to unrelated technical checks without a bridge clue.
+- If investigators perform a niche check, name the exact clue that made that check reasonable.
+- If a personal object/location is searched (car, phone, desk, home, locker), state what permitted that search in this phase.
+- If a digital/record check is performed, state who performed it, why they were able to access it, and what specific prior clue justified checking that source.
 
-For EACH beat, use this exact structure:
+Knowledge-boundary rules:
+- Do not invent prior personal history between characters unless it is present in story_data or suspect_briefs.
+- If investigators infer familiarity (writing habits, routines, preferences), show how they learned it during the investigation instead of assuming it.
+- Keep detective knowledge strictly time-bound: no one can use facts they have not yet learned.
 
-### BEAT N. [Short Label]
+Suspicion trajectory rules:
+- In the early-to-middle investigation, keep at least two non-culprit suspects genuinely viable.
+- The culprit should not dominate suspicion from the beginning.
+- Include at least one strong wrong-theory arc that is later abandoned.
+- At least one non-culprit secret should meaningfully reroute the investigation before being reframed.
 
-- Surface trigger:
-  What event, clue, interview result, search result, contradiction, suspect behavior, or failed theory causes this beat to begin?
+Convergence rule:
+- Final phase must converge by reusing earlier clue threads, not by introducing a brand-new miracle clue.
 
-- Detective question:
-  What specific question is the detective/police trying to answer now?
-
-- Investigative move:
-  What major action is taken? (interview, search, comparison, reconstruction, forensic test, document check, timeline audit, pressure tactic, legal request, surveillance, etc.)
-
-- Access path:
-  If private or hidden material is used, explain exactly how it becomes available
-  (voluntary handover, legal seizure, witness statement, accidental discovery, public record, visible observation, social engineering, controlled trap, etc.)
-
-- Discovery:
-  What new fact is learned?
-
-- Immediate interpretation:
-  How do investigators currently interpret that fact?
-
-- Theory shift:
-  Which earlier theory is strengthened, weakened, split, merged, or replaced?
-
-- Suspect ranking change:
-  Who becomes more suspicious? Who becomes less suspicious?
-
-- New contradiction created:
-  What important unresolved inconsistency remains after this beat?
-  (Strong beats should usually solve one thing while creating a new problem.)
-
-- Character reaction (optional):
-  If a suspect or witness reacts in a way that materially changes the case state here, note it briefly.
-  Only include if it causally matters to the next beats.
-
-RULES FOR THE BEAT SEQUENCE:
-- Beats must form a chain of reasoning, not a pile of clue moments.
-- Each beat should be caused by:
-  - a surface clue
-  - a contradiction
-  - a character move based on their agenda
-  - a failed theory
-  - a newly unlocked access path
-- At least one beat must expose a non-culprit's secondary secret in a way that meaningfully re-routes the case.
-- The midpoint or late-middle should contain a meaningful reversal or reframe.
-- The final 2-3 beats should converge rapidly.
-- Do NOT invent major new character agendas here. Use the post-crime dynamics layer.
-- Do NOT introduce decisive late clues with no discoverable setup.
-
-═══════════════════════════════════════════════════════════
-3. HIDDEN PREMISE & FINAL SOLUTION
-═══════════════════════════════════════════════════════════
-
+3. HIDDEN PREMISE & TRUTH REFRAME
 Provide the true explanatory collapse of the case.
 
 Include:
+- Hidden premise: the key mistaken assumption that distorted the investigation
+- Why investigators accepted it
+- What breaks it late
+- Reinterpretation cascade: 3-6 earlier clues whose meanings change
+- Final true case model (culprit, motive, method, why false theories looked reasonable)
 
-- Hidden premise:
-  The key mistaken assumption that distorted the investigation
-  (wrong time, wrong method, staged scene, forged motive artifact, mistaken witness interpretation, false causal chain, secondary secret mistaken for murder evidence, etc.)
-
-- Why investigators initially accepted it
-
-- What breaks it:
-  The exact late discovery, contradiction, or synthesis that overturns it
-
-- Reinterpretation cascade:
-  List 3-6 earlier clues and explain briefly how each changes meaning once the hidden premise is exposed
-
-- Final true case model:
-  A concise but complete explanation of:
-  - true culprit
-  - true motive
-  - true method
-  - why key red herrings existed
-  - why earlier false theories were reasonable
-  - how character agency distorted the path to truth
-
-═══════════════════════════════════════════════════════════
 4. FINAL PROOF / REVEAL MECHANISM
-═══════════════════════════════════════════════════════════
-
-Define how the detective can actually prove or force the resolution.
+Define how resolution is actually forced.
 
 Provide:
+- Confrontation format
+- Core proof chain of 3-5 linked facts
+- Why the chain is stronger than any single clue
+- Culprit breaking point
+- Resolution state for major non-culprit suspects
 
-- Confrontation format:
-  (private trap, public reconstruction, controlled test, witness break, timeline demonstration, search warrant result, forced object recovery, contradiction collapse, etc.)
+5. CLUE THREADS + UNUSED TRACES
+List the clue threads that actually drive the case.
 
-- Core proof chain:
-  The 3-6 strongest linked facts that together make denial collapse
+For each decisive clue thread, state:
+- First emergence in investigation flow
+- Key development/reinterpretation
+- Final payoff in proof chain
 
-- Why this proof is stronger than any single clue alone
+Then explicitly classify traces that do NOT become major clues.
 
-- Culprit breaking point:
-  What specifically forces the culprit into failure
-  (physical impossibility, possession, contradiction, witness, panic, ego, over-explanation, inability to account for timing, etc.)
+Important rule:
+- Not all traces from crime ground truth or suspect briefs need to be used as clue drivers.
+- Some traces may remain background texture, unresolved side-noise, inaccessible, or redundant.
+- This is acceptable as long as the final proof chain is complete and fair.
 
-- Resolution state for each suspect:
-  - culprit apprehended / exposed
-  - non-culprits cleared, embarrassed, compromised, partially exposed, morally unresolved, or legally implicated in side matters as appropriate
+Strict rule:
+- No decisive proof element may appear only at the end without earlier setup.
+- If a clue appears in the narrative but lacks a clear acquisition path, treat it as invalid and replace it with a properly acquired equivalent.
 
-═══════════════════════════════════════════════════════════
-5. CLUE COVERAGE AUDIT
-═══════════════════════════════════════════════════════════
-
-Provide a compact audit table or bullet list.
-
-For each major clue chain, state:
-- Where it is first introduced (beat number)
-- Where it is reinterpreted (if applicable)
-- Where it becomes solution-critical
-- Whether it was:
-  - surface-born
-  - character-generated
-  - forensic/documentary
-  - recovered from concealment
-
-Then explicitly state:
-
-- Any suspicious surface clue from PASS 2 that is NOT actually important:
-  explain whether it becomes:
-  - false lead
-  - atmospheric noise
-  - side-secret clue
-  - unresolved but non-critical color
-
-- Any clue implied by the ground truth that investigators never discover:
-  either:
-  - explain why it remains hidden and is not required
-  - or replace it with a discoverable equivalent already used in the beats
-
-STRICT RULE:
-- Do not rely on a decisive clue in the final solution or proof if it never appears in the beats.
-- If a clue was mentioned in earlier layers but not used, classify it explicitly instead of silently dropping it.
-
-═══════════════════════════════════════════════════════════
 QUALITY RULES
-═══════════════════════════════════════════════════════════
-
 - Use exact character names from story_data.actor_pool.
 - Respect hard requirements in story_data.prompt_constraints and avoid banned_elements.
-- Use the prior layers as constraints, not suggestions.
-- Prefer fewer, stronger clue chains.
-- Avoid “magic deductions.”
-- Every important discovery must have a plausible access path.
 - Preserve chronology and knowledge gating.
-- Keep the culprit's reactions human and limited.
-- Make the final solution feel like the inevitable reinterpretation of earlier facts, not a replacement mystery.
+- Avoid magic deductions and omniscient behavior.
+- Keep culprit and witnesses human, limited, and biased.
+- Prefer a smaller number of strong, recurring clue threads over many disconnected clue moments.
 
 FORMAT STABILITY (LIGHT, IMPORTANT):
 - Keep top-level output headers exactly as written:
-  - "1. CLUE CHAIN MAP"
-  - "2. INVESTIGATION BEATS (CHRONOLOGICAL)"
-  - "3. HIDDEN PREMISE & FINAL SOLUTION"
+  - "1. FIRST IMPRESSION SNAPSHOT"
+  - "2. INVESTIGATION FLOW (NARRATIVE CHAIN)"
+  - "3. HIDDEN PREMISE & TRUTH REFRAME"
   - "4. FINAL PROOF / REVEAL MECHANISM"
-  - "5. CLUE COVERAGE AUDIT"
+  - "5. CLUE THREADS + UNUSED TRACES"
 - Keep these headers plain text (no decorative prefix/suffix added to the header line itself).
-- Decorative separators are allowed between sections.
 """
 
 
 PROMPT_TEMPLATE = """Generate the INVESTIGATION SYNTHESIS.
 
-Your job is to produce the actual investigation structure as a chain of discoveries, theory shifts, reversals, and final proof.
+Write a less rigid, more connected investigation plan in narrative form.
 
-You must build from the already-fixed earlier layers:
+Requirements:
+- Include FIRST IMPRESSION SNAPSHOT.
+- Build INVESTIGATION FLOW as causally linked phases, not disconnected discoveries.
+- Keep at least two non-culprit suspects viable through much of the investigation.
+- Delay strong culprit certainty until late reframe/proof stages.
+- Use only clue moves with clear triggers.
+- You do not need to use every available trace as a major clue.
+
+You must build from fixed inputs:
 - crime ground truth
-- suspect ground truths during the crime window
-- surface interpretation layer
-- character agency / post-crime dynamics
-
-Do NOT invent a disconnected new mystery.
-Do NOT contradict earlier fixed facts.
-Do NOT introduce decisive clues that have no discoverable path.
+- suspect briefs layer
 
 Story data (canonical setting, cast, and constraints):
 {story_data}
@@ -255,12 +162,6 @@ Story data (canonical setting, cast, and constraints):
 Crime narrative (fixed ground truth):
 {crime_narrative}
 
-Side stories / suspect ground truths (fixed pre-crime and crime-window truth):
-{side_stories}
-
-Surface interpretation (fixed):
-{surface_level}
-
-Character agency / post-crime dynamics (fixed):
-{agendas}
+Suspect briefs (fixed investigation input):
+{suspect_briefs}
 """

@@ -142,6 +142,7 @@ def _save_compiled_stage(story_directory: StoryDirectory, compiled_story: str) -
 
 def story_brief_generation(llm: LLM, story_directory: StoryDirectory, user_input: str) -> str:
     stage_name = "story_brief_generation"
+    story_directory.save_story_generation_prompt(user_input)
     system_instruction, prompt = build_prompt(stage_name, _PROMPT_DIR, {"user_input": user_input})
 
     generation_params = GenerationParams(

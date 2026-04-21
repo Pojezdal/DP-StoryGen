@@ -7,9 +7,9 @@ from final.pipeline_simple import run_simple_pipeline
 from final.utils.serialization import StoryDirectory
 
 
-MODEL_ID = "gemini-2.5-flash"
+MODEL_ID = "gemini-3-flash-preview"
 STORY_TITLE = "simple_story"
-STORY_DIR_TO_OPEN = ""  # set to an existing folder under stories/ to resume
+STORY_DIR_TO_OPEN = "2026-04-12_155141_simple_story"  # set to an existing folder under stories/ to resume
 FORCE_EXECUTE_STAGES = False
 FORCE_REGENERATE_CHAPTERS = False
 
@@ -34,9 +34,9 @@ def main() -> None:
     print(f"Model loaded successfully: {MODEL_ID}")
 
     if STORY_DIR_TO_OPEN.strip():
-        story_directory = StoryDirectory.open(STORY_DIR_TO_OPEN.strip())
+        story_directory = StoryDirectory.open(STORY_DIR_TO_OPEN.strip(), "stories/simple")
     else:
-        story_directory = StoryDirectory.new(title=STORY_TITLE)
+        story_directory = StoryDirectory.new(title=STORY_TITLE, base_dir="stories/simple")
 
     result = run_simple_pipeline(
         llm=llm,

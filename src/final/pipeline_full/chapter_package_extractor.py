@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from final.utils.serialization import StoryDirectory
 
 
-SECTION_HEADER_RE = re.compile(r"(?m)^\s*(\d+)\.\s+([A-Z][A-Z0-9\s/\-&()]+)\s*$")
+SECTION_HEADER_RE = re.compile(r"(?m)^#*\s*\**(\d+)\.\s+([A-Z][A-Z0-9\s/\-&()]+)\**\s*$")
 CHAPTER_HEADER_RE = re.compile(
     r"(?m)^###\s*CHAPTER\s+(?P<number>\d+)\s*(?:(?:[:\-–—]\s*|\s+)(?P<label>.+?)\s*)?$"
 )
@@ -50,6 +50,7 @@ CLUE_FIELD_LABELS = [
 ]
 
 STATE_FIELD_LABELS = [
+    "Temporal relation to previous chapter",
     "Detective working theory",
     "Current suspicion order",
     "Key active misconception",
@@ -62,25 +63,16 @@ STATE_FIELD_LABELS = [
     "Chapter hook",
 ]
 
-SUSPECT_AGENCY_FIELD_LABELS = [
-    "Hidden truth",
-    "Private agenda after the crime",
-    "What they know",
-    "What she knows",
-    "What he knows",
-    "What they mistakenly believe",
-    "What she mistakenly believes",
-    "What he mistakenly believes",
-    "Why they appear suspicious",
-    "Why she appears suspicious",
-    "Why he appears suspicious",
-    "Role leverage during the investigation",
-    "Immediate post-crime move",
-    "Escalation move if pressured",
-    "Investigation effect",
-    "How they are eventually clarified or cracked",
-    "How they are eventually cracked",
-]
+SUSPECT_BRIEF_TITLE_TO_KEY = {
+    "wheretheyclaimtobe": "where_they_claim_to_be",
+    "whatsomeoneobserved": "what_someone_observed",
+    "oddityorinconsistency": "oddity_or_inconsistency",
+    "plausiblereasonforsuspicion": "plausible_reason_for_suspicion",
+    "whattheyknow": "what_they_know",
+    "whattheymistakenlybelieve": "what_they_mistakenly_believe",
+    "immediatepostcrimemove": "immediate_post_crime_move",
+    "likelyresponseifpressured": "likely_response_if_pressured",
+}
 
 
 @dataclass
@@ -150,6 +142,15 @@ def _to_dict(value: Any) -> Dict[str, Any]:
 
 def _normalize_key(key: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", key.lower())
+
+
+def _normalize_actor_name(name: str) -> str:
+    # Normalize punctuation/quote variants so actor names match even when
+    # one source uses 'Bea' and another uses "Bea" (or smart quotes).
+    lowered = (name or "").lower()
+    lowered = re.sub(r"[\"'`“”‘’]", "", lowered)
+    lowered = re.sub(r"[^a-z0-9]+", " ", lowered)
+    return re.sub(r"\s+", " ", lowered).strip()
 
 
 def _extract_numbered_sections(text: str) -> Dict[int, Dict[str, str]]:
@@ -521,7 +522,30 @@ def _extract_actor_context(
 
         traits = raw_actor.get("character_traits")
         if isinstance(traits, list):
-            entry["character_traits"] = [str(t) for t in traits]
+            trait_labels: list[str] = []
+            trait_facets: list[Dict[str, str]] = []
+            for t in traits:
+                if isinstance(t, dict):
+                    trait_name = str(t.get("trait", "")).strip()
+                    if trait_name:
+                        trait_labels.append(trait_name)
+
+                    facet: Dict[str, str] = {}
+                    for key in ("trait", "manifestation", "vulnerability"):
+                        value = t.get(key)
+                        if isinstance(value, str) and value.strip():
+                            facet[key] = value.strip()
+                    if facet:
+                        trait_facets.append(facet)
+                else:
+                    trait_text = str(t).strip()
+                    if trait_text:
+                        trait_labels.append(trait_text)
+
+            if trait_labels:
+                entry["character_traits"] = trait_labels
+            if trait_facets:
+                entry["trait_facets"] = trait_facets
 
         rels = _to_relationship_list(raw_actor.get("relationships"))
         if rels:
@@ -565,43 +589,75 @@ def _extract_actor_context(
     return culprit_name, victim_name, detective_name, actor_catalog
 
 
-def _extract_suspect_agency(agendas_text: Optional[str]) -> Dict[str, Dict[str, str]]:
-    if not agendas_text:
+def _extract_suspect_briefs_profiles(suspect_briefs_text: Optional[str]) -> Dict[str, Dict[str, str]]:
+    if not suspect_briefs_text:
         return {}
 
     profile_header_re = re.compile(r"(?m)^###\s*\*\*([^*]+)\*\*\s*$")
-    matches = list(profile_header_re.finditer(agendas_text))
+    section_header_re = re.compile(r"(?m)^\s*([1-8])\.\s+(.+?)\s*$")
+    matches = list(profile_header_re.finditer(suspect_briefs_text))
     profiles: Dict[str, Dict[str, str]] = {}
 
     for i, match in enumerate(matches):
         raw_name = match.group(1).strip()
         name = re.sub(r"\s*\([^)]*\)\s*$", "", raw_name).strip()
         start = match.end()
-        end = matches[i + 1].start() if i + 1 < len(matches) else len(agendas_text)
-        block = agendas_text[start:end]
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(suspect_briefs_text)
+        block = suspect_briefs_text[start:end]
 
-        fields = _parse_labeled_bullets(block, allowed_labels=SUSPECT_AGENCY_FIELD_LABELS)
-        profiles[name] = {
-            "hidden_truth": fields.get("Hidden truth", ""),
-            "private_agenda": fields.get("Private agenda after the crime", ""),
-            "what_they_know": fields.get("What they know", fields.get("What she knows", fields.get("What he knows", ""))),
-            "what_they_mistakenly_believe": fields.get("What they mistakenly believe", fields.get("What she mistakenly believes", fields.get("What he mistakenly believes", ""))),
-            "why_they_appear_suspicious": fields.get("Why they appear suspicious", fields.get("Why she appears suspicious", fields.get("Why he appears suspicious", ""))),
+        sections = list(section_header_re.finditer(block))
+        profile_data: Dict[str, str] = {
+            "where_they_claim_to_be": "",
+            "what_someone_observed": "",
+            "oddity_or_inconsistency": "",
+            "plausible_reason_for_suspicion": "",
+            "what_they_know": "",
+            "what_they_mistakenly_believe": "",
+            "immediate_post_crime_move": "",
+            "likely_response_if_pressured": "",
         }
+
+        for section_index, section_match in enumerate(sections):
+            section_title = _normalize_key(section_match.group(2))
+            key = SUSPECT_BRIEF_TITLE_TO_KEY.get(section_title)
+            if not key:
+                continue
+
+            section_start = section_match.end()
+            section_end = (
+                sections[section_index + 1].start()
+                if section_index + 1 < len(sections)
+                else len(block)
+            )
+            section_body = block[section_start:section_end].strip()
+            profile_data[key] = section_body
+
+        profiles[name] = profile_data
 
     return profiles
 
 
-def _add_suspect_agency(
+def _add_suspect_briefs_to_actor_catalog(
     actor_catalog: Dict[str, Dict[str, Any]],
-    suspect_profiles: Dict[str, Dict[str, str]],
+    suspect_briefs_profiles: Dict[str, Dict[str, str]],
 ) -> Dict[str, Dict[str, Any]]:
     merged: Dict[str, Dict[str, Any]] = {}
+    normalized_profiles: Dict[str, Dict[str, str]] = {}
+
+    for brief_name, profile in suspect_briefs_profiles.items():
+        normalized_name = _normalize_actor_name(brief_name)
+        if normalized_name and normalized_name not in normalized_profiles:
+            normalized_profiles[normalized_name] = profile
 
     for name in sorted(actor_catalog.keys()):
         merged_entry: Dict[str, Any] = dict(actor_catalog[name])
-        if name in suspect_profiles:
-            merged_entry["suspect_agency"] = dict(suspect_profiles[name])
+
+        profile = suspect_briefs_profiles.get(name)
+        if profile is None:
+            profile = normalized_profiles.get(_normalize_actor_name(name))
+
+        if profile is not None:
+            merged_entry["suspect_brief"] = dict(profile)
         merged[name] = merged_entry
         
     return merged
@@ -639,18 +695,161 @@ def _extract_crime_constraints(crime_narrative_text: Optional[str]) -> Dict[str,
     }
 
 
-def _extract_hidden_premise_and_proof(investigation_text: Optional[str]) -> Dict[str, str]:
-    if not investigation_text:
+def _extract_architecture_constraints(architecture_text: Optional[str]) -> Dict[str, str]:
+    if not architecture_text:
         return {}
 
-    sections = _extract_numbered_sections(investigation_text)
-    hidden = sections.get(3, {}).get("body", "")
-    proof = sections.get(4, {}).get("body", "")
+    sections = _extract_numbered_sections(architecture_text)
+    return {
+        "story_outline_section": sections.get(1, {}).get("body", ""),
+        "beat_map_section": sections.get(2, {}).get("body", ""),
+        "breakthrough_design_section": sections.get(3, {}).get("body", ""),
+    }
+
+
+def _coerce_clue_graph_dict(clue_graph: Any) -> Dict[str, Any]:
+    if clue_graph is None:
+        return {}
+
+    if isinstance(clue_graph, dict):
+        return clue_graph
+
+    if hasattr(clue_graph, "model_dump"):
+        dumped = clue_graph.model_dump()
+        if isinstance(dumped, dict):
+            return dumped
+
+    if isinstance(clue_graph, str):
+        if not clue_graph.strip():
+            return {}
+        try:
+            parsed = json.loads(clue_graph)
+        except json.JSONDecodeError as exception:
+            print(f"Warning: Failed to parse clue_graph string as JSON: {exception}")
+            return {}
+        return parsed if isinstance(parsed, dict) else {}
+
+    return {}
+
+
+def _extract_clue_graph_context(clue_graph: Any) -> Dict[str, Any]:
+    graph = _coerce_clue_graph_dict(clue_graph)
+    if not graph:
+        return {
+            "enabled": False,
+            "total_nodes": 0,
+            "total_edges": 0,
+            "total_suspect_branches": 0,
+            "proof_chain_node_ids": [],
+            "final_solution_node_ids": [],
+            "culprit_branch_suspect": "",
+            "dead_end_branch_suspects": [],
+            "open_branch_suspects": [],
+        }
+
+    nodes = graph.get("nodes", [])
+    edges = graph.get("edges", [])
+    branches = graph.get("suspect_branches", [])
+    if not isinstance(nodes, list):
+        nodes = []
+    if not isinstance(edges, list):
+        edges = []
+    if not isinstance(branches, list):
+        branches = []
+
+    culprit_branch_suspect = ""
+    dead_end_branch_suspects: List[str] = []
+    open_branch_suspects: List[str] = []
+
+    for branch in branches:
+        if not isinstance(branch, dict):
+            continue
+        suspect_name = str(branch.get("suspect_name", "")).strip()
+        outcome = str(branch.get("outcome", "")).strip()
+
+        if outcome == "confirmed_culprit" and suspect_name:
+            culprit_branch_suspect = suspect_name
+        elif outcome == "dead_end" and suspect_name:
+            dead_end_branch_suspects.append(suspect_name)
+        elif outcome == "open" and suspect_name:
+            open_branch_suspects.append(suspect_name)
+
+    proof_chain_node_ids = [
+        str(node_id)
+        for node_id in graph.get("primary_proof_chain_node_ids", [])
+        if str(node_id).strip()
+    ]
+    final_solution_node_ids = [
+        str(node_id)
+        for node_id in graph.get("final_solution_node_ids", [])
+        if str(node_id).strip()
+    ]
 
     return {
-        "hidden_premise_section": hidden,
-        "final_proof_section": proof,
+        "enabled": True,
+        "total_nodes": len(nodes),
+        "total_edges": len(edges),
+        "total_suspect_branches": len(branches),
+        "proof_chain_node_ids": proof_chain_node_ids,
+        "final_solution_node_ids": final_solution_node_ids,
+        "culprit_branch_suspect": culprit_branch_suspect,
+        "dead_end_branch_suspects": dead_end_branch_suspects,
+        "open_branch_suspects": open_branch_suspects,
     }
+
+
+def _unique_non_empty(values: List[str]) -> List[str]:
+    seen: set[str] = set()
+    unique_values: List[str] = []
+    for value in values:
+        normalized = value.strip()
+        if not normalized or normalized in seen:
+            continue
+        seen.add(normalized)
+        unique_values.append(normalized)
+    return unique_values
+
+
+def _build_clue_timeline_maps(
+    chapters: List[ChapterData],
+) -> Tuple[Dict[int, List[Dict[str, Any]]], Dict[int, List[Dict[str, Any]]], Dict[int, List[Dict[str, Any]]]]:
+    revealed_by_chapter: Dict[int, List[Dict[str, Any]]] = {}
+
+    for chapter in chapters:
+        chapter_clues = [
+            asdict(clue)
+            for clue in chapter.clues
+            if clue.clue_id.strip()
+        ]
+        for clue in chapter_clues:
+            clue["chapter_number"] = chapter.chapter_number
+        revealed_by_chapter[chapter.chapter_number] = chapter_clues
+
+    previously_revealed_by_chapter: Dict[int, List[Dict[str, Any]]] = {}
+    previously_revealed: List[Dict[str, Any]] = []
+    for chapter in chapters:
+        chapter_number = chapter.chapter_number
+        previously_revealed_by_chapter[chapter_number] = list(previously_revealed)
+        previously_revealed.extend(revealed_by_chapter.get(chapter_number, []))
+
+    future_revealed_by_chapter: Dict[int, List[Dict[str, Any]]] = {}
+    future_revealed: List[Dict[str, Any]] = []
+    for chapter in reversed(chapters):
+        chapter_number = chapter.chapter_number
+        future_revealed_by_chapter[chapter_number] = list(future_revealed)
+        future_revealed = revealed_by_chapter.get(chapter_number, []) + future_revealed
+
+    return revealed_by_chapter, previously_revealed_by_chapter, future_revealed_by_chapter
+
+
+def _to_stable_json(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, sort_keys=True)
+
+
+def _is_changed(latest: Any, new_value: Any) -> bool:
+    if latest is None:
+        return True
+    return _to_stable_json(latest) != _to_stable_json(new_value)
 
 
 def _build_validation_report(
@@ -718,28 +917,24 @@ def extract_chapter_packages(
     *,
     story_data: Any,
     chapter_outline: str,
-    architecture: str,
     crime_narrative: str,
-    side_stories: str,
-    agendas: str,
-    investigation: str
+    suspect_briefs: str,
+    architecture: str,
+    clue_graph: Any = None,
 ) -> Dict[str, Any]:
     if not chapter_outline:
         raise ValueError("chapter_outline is required")
 
     chapter_outline_text = chapter_outline
-    investigation_text = investigation or ""
     crime_narrative_text = crime_narrative or ""
-    side_stories_text = side_stories or ""
-    agendas_text = agendas or ""
+    suspect_briefs_text = suspect_briefs or ""
+    architecture_text = architecture or ""
 
     sections = _extract_numbered_sections(chapter_outline_text)
     overview_body = sections.get(1, {}).get("body", "")
     execution_body = sections.get(2, {}).get("body", "")
     global_distribution_body = sections.get(3, {}).get("body", "")
     pacing_body = sections.get(4, {}).get("body", "")
-    
-    story_outline = _extract_numbered_sections(architecture).get(1, {}).get("body", "")
 
     if not execution_body:
         raise ValueError("Could not find section 2 (chapter-by-chapter execution plan).")
@@ -750,31 +945,47 @@ def extract_chapter_packages(
     declared_overview_total = _extract_overview_total_chapters(overview_body)
 
     culprit_from_actor, victim_name, detective_name, actor_catalog = _extract_actor_context(story_data)
-    suspect_profiles = _extract_suspect_agency(agendas_text)
-    actor_catalog = _add_suspect_agency(actor_catalog, suspect_profiles)
+    suspect_briefs_profiles = _extract_suspect_briefs_profiles(suspect_briefs_text)
+    actor_catalog = _add_suspect_briefs_to_actor_catalog(actor_catalog, suspect_briefs_profiles)
+
     crime_constraints = _extract_crime_constraints(crime_narrative_text)
-    hidden_and_proof = _extract_hidden_premise_and_proof(investigation_text)
+    architecture_constraints = _extract_architecture_constraints(architecture_text)
+    clue_graph_context = _extract_clue_graph_context(clue_graph)
+
+    hidden_premise_text = (
+        architecture_constraints.get("story_outline_section", "")
+        or crime_constraints.get("evidence_landscape", "")
+    )
+    final_proof_text = architecture_constraints.get("breakthrough_design_section", "")
+    proof_chain_node_ids = clue_graph_context.get("proof_chain_node_ids", [])
+    if proof_chain_node_ids:
+        final_proof_text = (
+            final_proof_text.strip() + "\n\n" if final_proof_text.strip() else ""
+        ) + "Clue graph proof-chain nodes: " + " -> ".join(proof_chain_node_ids)
 
     chapter_packages: List[Dict[str, Any]] = []
     previous_hook = ""
     previous_wrongly_framed = ""
 
-    all_clues: Dict[Dict[str, Any]] = {
-        chapter.chapter_number: [asdict(clue) for clue in chapter.clues if clue.clue_id.strip()]
-        for chapter in chapters
-    }
-    for chapter_number, clues in all_clues.items():
-        for clue in clues:
-            clue["chapter_number"] = chapter_number
+    (
+        all_clues,
+        previously_revealed_map,
+        future_revealed_map,
+    ) = _build_clue_timeline_maps(chapters)
 
-    for chapter_index, chapter in enumerate(chapters):
-        suspicion_text = chapter.start_state.get("currentsuspicionorder", "")        
+    for chapter in chapters:
+        suspicion_text = chapter.start_state.get("currentsuspicionorder", "")
         end_hook = chapter.end_state.get("chapterhook", "")
         end_wrongly_framed = chapter.end_state.get("whatremainswronglyframed", "")
 
+        chapter_number = chapter.chapter_number
+        revealed_clues = all_clues.get(chapter_number, [])
+        previously_revealed_clues = previously_revealed_map.get(chapter_number, [])
+        forbidden_clues = future_revealed_map.get(chapter_number, [])
+
         package = {
             "chapter_meta": {
-                "chapter_number": chapter.chapter_number,
+                "chapter_number": chapter_number,
                 "chapter_label": chapter.chapter_label,
                 "chapter_purpose": chapter.chapter_purpose,
             },
@@ -784,9 +995,9 @@ def extract_chapter_packages(
                 "key_active_misconception": chapter.start_state.get("keyactivemisconception", ""),
             },
             "scene_plan": [asdict(scene) for scene in chapter.scenes],
-            "revealed_clues": all_clues.get(chapter.chapter_number, []),
-            "previously_revealed_clues": [ clue for num, clues in all_clues.items() if num < chapter.chapter_number for clue in clues],
-            "forbidden_clues": [ clue for num, clues in all_clues.items() if num > chapter.chapter_number for clue in clues],
+            "revealed_clues": revealed_clues,
+            "previously_revealed_clues": previously_revealed_clues,
+            "forbidden_clues": forbidden_clues,
             "end_state": {
                 "detective_updated_working_theory": chapter.end_state.get(
                     "detectiveupdatedworkingtheory", ""
@@ -801,21 +1012,23 @@ def extract_chapter_packages(
                 "chapter_hook": end_hook,
             },
             "continuity": {
+                "temporal_relation_to_previous_chapter": chapter.start_state.get(
+                    "temporalrelationtopreviouschapter",
+                    "",
+                ),
                 "prior_chapter_hook": previous_hook,
-                "prior_wrongly_framed": previous_wrongly_framed,
-                "current_unresolved_threads": [t for t in [end_wrongly_framed, end_hook] if t],
+                "prior_wrongly_framed": previous_wrongly_framed
             },
             "story_constraints": {
                 "culprit": culprit_from_actor,
                 "detective_name": detective_name,
                 "victim_name": victim_name,
-                "hidden_premise": hidden_and_proof.get("hidden_premise_section", ""),
-                "final_proof": hidden_and_proof.get("final_proof_section", ""),
+                "hidden_premise": hidden_premise_text,
+                "final_proof": final_proof_text,
                 "motive_and_decision": crime_constraints.get("motive_and_decision", ""),
                 "execution_truth": crime_constraints.get("execution", ""),
                 "cover_up_truth": crime_constraints.get("cover_up", ""),
-                "complications_truth": crime_constraints.get("complications", ""),
-                "side_stories_reference": side_stories_text or "",
+                "suspect_briefs_reference": suspect_briefs_text,
             },
         }
 
@@ -832,7 +1045,10 @@ def extract_chapter_packages(
             "overview_text": overview_body,
             "global_clue_distribution": global_distribution_body,
             "pacing_notes": pacing_body,
-            "story_outline": story_outline,
+            "story_outline": architecture_constraints.get("story_outline_section", ""),
+            "architecture_beat_map": architecture_constraints.get("beat_map_section", ""),
+            "breakthrough_design": architecture_constraints.get("breakthrough_design_section", ""),
+            "clue_graph_context": clue_graph_context,
         },
         "actors": actor_catalog,
         "chapter_packages": chapter_packages,
@@ -845,23 +1061,27 @@ def save_chapter_packages(
     story_data: Any,
     chapter_outline: str,
     crime_narrative: str,
-    side_stories: str,
-    agendas: str,
-    investigation: str,
+    suspect_briefs: str,
     architecture: str,
+    clue_graph: Any = None,
 ) -> Dict[str, Any]:
     result = extract_chapter_packages(
         story_data=story_data,
         chapter_outline=chapter_outline,
         crime_narrative=crime_narrative,
-        side_stories=side_stories,
-        agendas=agendas,
-        investigation=investigation,
-        architecture=architecture
+        suspect_briefs=suspect_briefs,
+        architecture=architecture,
+        clue_graph=clue_graph,
     )
 
-    
-    story_directory.save_stage("chapter_package_extraction", result)
-    story_directory.save_stage("chapter_package_validation", result.get("validation", {}))
+    latest_package, _ = story_directory.load_stage("chapter_package_extraction")
+    new_validation = result.get("validation", {})
+
+    if _is_changed(latest_package, result):
+        story_directory.save_stage("chapter_package_extraction", result)
+        story_directory.save_stage("chapter_package_validation", new_validation)
+        print("Saved new chapter_package_extraction stage (content changed).")
+    else:
+        print("Skipped saving chapter_package_extraction (no changes detected).")
   
     return result

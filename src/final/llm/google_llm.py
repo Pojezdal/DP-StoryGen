@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import httpx
 from pydantic import BaseModel
 
 from .llm import LLM, GenerationParams, GenerationResult
@@ -195,17 +196,9 @@ class GoogleLLM(LLM):
                 else:
                     print(f"Received client error from API: {exc}")
                     raise
+            
+            except httpx.RemoteProtocolError as exc:
+                print(f"Received RemoteProtocolError from API: {exc}. This can happen due to transient network issues. Potentially caused by VPN or network issues. Exiting...")
+                exit(1)
                     
         print(f"Failed to call API after {max_retries} attempts.")
-        
-        
-    def _validate_schema(self, text: str, schema: BaseModel) -> BaseModel | None:
-        try:
-            validated = schema.model_validate_json(text)
-            return validated
-        except Exception as e:
-            print("Error parsing LLM response with json schema:", e)
-            with open("llm_response_error_debug.txt", "w") as f:
-                f.write(f"Error parsing LLM response with json schema: {e}\n")
-                f.write(f"Original output:\n{text}\n")
-            return None

@@ -11,6 +11,9 @@ from pydantic import BaseModel
 from final.llm.llm import GenerationParams, GenerationResult
 
 
+_STORY_GENERATION_PROMPT_FILENAME = "story_generation_prompt.txt"
+
+
 class StoryDirectory:
     def __init__(self, path: Path):
         self.path = path
@@ -47,6 +50,24 @@ class StoryDirectory:
         filepath = self.path / filename
         with open(filepath, "w", encoding="utf-8") as file:
             file.write(text)
+
+
+    def save_story_generation_prompt(self, user_prompt: str) -> None:
+        prompt = (user_prompt or "").strip()
+        if not prompt:
+            return
+        self.save_plain(_STORY_GENERATION_PROMPT_FILENAME, prompt)
+
+
+    def load_story_generation_prompt(self) -> str | None:
+        filepath = self.path / _STORY_GENERATION_PROMPT_FILENAME
+        if not filepath.exists() or not filepath.is_file():
+            return None
+
+        with open(filepath, "r", encoding="utf-8") as file:
+            prompt = file.read().strip()
+
+        return prompt if prompt else None
     
     
     def save_stage(self, stage: str, data: dict, plain_data : str | None = None):

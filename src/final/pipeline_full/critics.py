@@ -1,7 +1,9 @@
 import re
 import os
+import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
+from pydantic import BaseModel
 
 from final.utils.prompt_builder import build_prompt
 from final.utils.serialization import StoryDirectory
@@ -26,32 +28,27 @@ DEFAULT_INVESTIGATION_BEATS_CRITIC_CONFIGS: list[dict[str, str]] = [
         ),
         "criterion_name": "Clue Integrity, Discoverability & Fair Play",
         "criterion_description": (
-            "Evaluate the investigation beats output for fair-play mystery design. "
+            "Evaluate the clue graph and architecture outputs for fair-play mystery design. "
             "FOCUS AREAS:\n"
-            "- SURFACE STAGE FAIRNESS: Does the CASE SURFACE MODEL and FALSE THEORY LADDER "
-            "create plausible early interpretations without accidentally identifying the true "
-            "culprit too strongly too soon?\n"
-            "- FALSE THEORY VALIDITY: Are the false theories coherent mini-solutions "
-            "(apparent motive + means + opportunity), or are they weak, artificial, or "
-            "obviously doomed?\n"
+            "- EARLY FAIRNESS: Do early clue_graph branches keep at least two non-culprit lines plausibly active?\n"
+            "- BRANCH VALIDITY: Are dead-end branches evidence-driven rather than confession-trusting shortcuts?\n"
             "- DISCOVERABILITY: Are all important clues that matter later introduced in a "
-            "discoverable form before they are used in the later investigation beats or final proof?\n"
+            "discoverable form before they are used in architecture beats or final proof?\n"
             "- NO HIDDEN SOLUTION LOGIC: Does the final solution rely on any fact, inference, "
             "or access path that was not previously established?\n"
-            "- EVIDENCE DISTRIBUTION: Is solution-relevant evidence spread across the pipeline "
-            "(surface → agenda reactions → beats), rather than being dumped only at the end?\n"
+            "- GRAPH-TO-BEAT FIDELITY: Does architecture respect clue_graph causality and node dependency order?\n"
             "- ACCESS PATH FAIRNESS: If private information, hidden objects, or sensitive records "
-            "matter, is there a plausible way investigators could obtain them stated in the beats?\n"
+            "matter, is there a plausible way investigators could obtain them stated in graph or beats?\n"
             "- CLUE REINTERPRETATION QUALITY: Do earlier clues change meaning in a satisfying and "
             "traceable way, rather than simply being overwritten by the final explanation?\n"
             "- KNOWLEDGE BOUNDARIES: Do suspects and culprit only react to information they could "
             "plausibly know at that point in the investigation? Flag omniscient reactions.\n"
-            "- FULL PICTURE: Are all important clues revealed? Do they provide enough information "
+            "- FULL PICTURE: Are all important clue threads present? Do they provide enough information "
             "to explain key point of the crime?\n\n" 
             "WHEN CRITIQUING:\n"
-            "- Identify specific clues, theories, or beats that violate fair play.\n"
+            "- Identify specific graph nodes, branch paths, or beats that violate fair play.\n"
             "- Point out where the reader would feel cheated, underinformed, or prematurely certain.\n"
-            "- Suggest concrete fixes with downstream-first priority; escalate to upstream stage changes only for major root-cause defects that cannot be repaired downstream."
+            "- Suggest concrete fixes with downstream-first priority; escalate upstream only for major root-cause defects."
         ),
     },
     {
@@ -65,28 +62,26 @@ DEFAULT_INVESTIGATION_BEATS_CRITIC_CONFIGS: list[dict[str, str]] = [
         ),
         "criterion_name": "Misdirection, Theory Progression & Investigative Pacing",
         "criterion_description": (
-            "Evaluate the dramatic architecture of the investigation beats output. "
+            "Evaluate the dramatic architecture built from clue graph to beat map. "
             "FOCUS AREAS:\n"
-            "- STRONG OPENING MODEL: Does the surface stage create a compelling first reading "
-            "of the case, with a clear apparent explanation and a meaningful anomaly?\n"
-            "- FALSE THEORY LADDER STRENGTH: Do the working theories escalate in depth and sophistication, "
+            "- STRONG OPENING MODEL: Do early beats create a compelling first reading with meaningful ambiguity?\n"
+            "- FALSE THEORY LADDER STRENGTH: Do branch lines escalate in depth and sophistication, "
             "or do they feel repetitive, shallow, or interchangeable?\n"
             "- SUSPICION TRAJECTORY: Is there a clear and convincing progression from early suspect(s) "
             "to deeper wrong suspect(s) to true culprit, with actual theory shifts rather than random suspicion bouncing?\n"
-            "- RED HERRING QUALITY: Are non-culprit agendas and secrets strong enough to temporarily support "
+            "- RED HERRING QUALITY: Are non-culprit branches strong enough to temporarily support "
             "coherent alternative solutions, or do they just create generic suspicious noise?\n"
             "- COMPLICATIONS, NOT JUST ACCUMULATION: Do the investigation beats create real reversals, setbacks, "
             "or interpretive collapses, rather than merely adding more facts?\n"
             "- MIDPOINT OR LATE REVERSAL: Is there a major discovery that meaningfully destabilizes the current case theory?\n"
-            "- PAYOFF OF AGENDAS: Do the character-agenda outputs actually influence later beats and theory shifts, "
-            "or do they exist as isolated annotations with no dramatic consequence?\n"
+            "- PAYOFF OF SUSPECT ACTIONS: Do suspect_action nodes dynamically influence later beats and theory shifts?\n"
             "- ENDGAME CONVERGENCE: Do the final beats accelerate toward the solution cleanly, or does the case meander "
             "too long and then resolve abruptly?\n"
             "- REVEAL SATISFACTION: Does the hidden premise / final proof genuinely reframe earlier material in a surprising "
             "but inevitable way?\n\n"
             "WHEN CRITIQUING:\n"
-            "- Point to dead zones, redundant beats, weak false theories, or unearned reveals.\n"
-            "- Suggest where to strengthen, merge, cut, or reorder theories/beats.\n"
+            "- Point to dead zones, redundant beats, weak false branches, or unearned reveals.\n"
+            "- Suggest where to strengthen, merge, cut, or reorder branch/beat transitions.\n"
             "- Focus on pacing of information and the quality of misdirection, not prose style."
         ),
     },
@@ -101,7 +96,7 @@ DEFAULT_INVESTIGATION_BEATS_CRITIC_CONFIGS: list[dict[str, str]] = [
         ),
         "criterion_name": "Behavioral Realism, Agenda Logic & Reactive Plausibility",
         "criterion_description": (
-            "Evaluate whether the investigation beats output preserves realistic human behavior. "
+            "Evaluate whether clue graph and architecture preserve realistic human behavior under pressure. "
             "FOCUS AREAS:\n"
             "- AGENDA AUTHENTICITY: Do all major suspects (not only the culprit) have believable ongoing "
             "investigation-phase goals, fears, and self-protective behaviors?\n"
@@ -116,29 +111,28 @@ DEFAULT_INVESTIGATION_BEATS_CRITIC_CONFIGS: list[dict[str, str]] = [
             "awareness, or do they ignore obvious threats they would realistically notice?\n"
             "- MOTIVE-PROPORTION MATCH: Are lies, concealments, and risk-taking proportionate to each character's secret? "
             "Minor embarrassment should not produce extreme criminal behavior unless justified.\n"
-            "- DETECTIVE REASONING HUMANITY: Does the detective's breakthrough arise from understanding human behavior, contradictions, "
-            "fear, timing, and motive patterns—not solely from a late forensic miracle?\n"
-            "- CROSS-STAGE CONSISTENCY: Do the agendas established actually match how characters behave in the later beats, "
-            "or do they contradict themselves once the plot advances?\n\n"
+            "- DETECTIVE REASONING HUMANITY: Does the detective's breakthrough arise from behavior and contradiction patterns, "
+            "not solely from a late miracle clue?\n"
+            "- CROSS-STAGE CONSISTENCY: Do suspect briefs, clue graph actions, and architecture beats stay behaviorally aligned?\n\n"
             "WHEN CRITIQUING:\n"
             "- Identify characters whose actions feel mechanical, under-motivated, or too convenient.\n"
             "- Suggest how to reframe agendas, reactions, or beat triggers so they emerge from believable psychology.\n"
-            "- Prioritize fixing downstream investigation layers first; request upstream changes only when absolutely necessary for major root-cause issues."
+            "- Prioritize fixing architecture and clue_graph first; request upstream changes only when absolutely necessary for major root-cause issues."
         ),
     },
 ]
 
 
 _CRITIC_STAGE_ORDER = [
-    "surface_level_generation",
-    "agendas_generation",
-    "investigation_generation",
-    "side_stories_generation",
+    "architecture_generation",
+    "clue_graph_generation",
+    "suspect_briefs_generation",
     "crime_generation",
 ]
 _REVISED_PACKAGE_START = "<<<REVISED PACKAGE START>>>"
 _REVISED_PACKAGE_END = "<<<REVISED PACKAGE END>>>"
 _STAGE_HEADER_RE = re.compile(r"^###\s+STAGE:\s*([a-z_]+)\s*$", re.MULTILINE)
+GraphAlignmentMode = Literal["keep", "ignore"]
 
 
 def critique_investigation_package(
@@ -146,13 +140,13 @@ def critique_investigation_package(
     story_directory: StoryDirectory,
     story_data: StoryData,
     crime_narrative: str,
-    side_stories: str,
-    surface_level: str,
-    agendas: str,
-    investigation: str,
+    suspect_briefs: str,
+    clue_graph: dict[str, Any] | str | BaseModel,
+    architecture: str,
     run_index: int = -1,
     num_rounds: int = 1,
     critic_configs: list[dict[str, str]] | None = None,
+    graph_alignment_mode: GraphAlignmentMode = "ignore",
 ) -> dict[str, str]:
     """Run multi-round critics loop on the investigation package.
 
@@ -174,13 +168,18 @@ def critique_investigation_package(
     if critic_configs is None:
         critic_configs = DEFAULT_INVESTIGATION_BEATS_CRITIC_CONFIGS
 
+    if graph_alignment_mode not in GraphAlignmentMode.__args__:
+        raise ValueError(
+            "graph_alignment_mode must be one of: 'keep', 'ignore'"
+        )
+
     story_data_text = story_data if isinstance(story_data, str) else story_data.model_dump_json(indent=2)
     run_prefix = f"critics_{run_index:02d}"
+    clue_graph_text = _to_text(clue_graph)
     initial_package = {
-        "surface_level_generation": surface_level,
-        "agendas_generation": agendas,
-        "investigation_generation": investigation,
-        "side_stories_generation": side_stories,
+        "architecture_generation": architecture,
+        "clue_graph_generation": clue_graph_text,
+        "suspect_briefs_generation": suspect_briefs,
         "crime_generation": crime_narrative,
     }
 
@@ -228,6 +227,7 @@ def critique_investigation_package(
                 critiques=critiques,
                 story_data_text=story_data_text,
                 current_package=current_package,
+                graph_alignment_mode=graph_alignment_mode,
             )
             story_directory.save_stage_llm(
                 stage=leader_name,
@@ -258,7 +258,8 @@ def critique_investigation_package(
                 llm=llm,
                 story_data_text=story_data_text,
                 crime_narrative=crime_narrative,
-                side_stories=side_stories,
+                suspect_briefs=suspect_briefs,
+                clue_graph=clue_graph_text,
                 versions=[initial_package] + round_packages,
             )
             story_directory.save_stage_llm(
@@ -293,10 +294,9 @@ def _call_critic_persona(
         **config,
         "story_data": story_data_text,
         "crime_narrative": current_package["crime_generation"],
-        "side_stories": current_package["side_stories_generation"],
-        "surface_level": current_package["surface_level_generation"],
-        "agendas": current_package["agendas_generation"],
-        "investigation": current_package["investigation_generation"],
+        "suspect_briefs": current_package["suspect_briefs_generation"],
+        "clue_graph": current_package["clue_graph_generation"],
+        "architecture": current_package["architecture_generation"],
     }
     system_instruction, prompt = build_prompt("critic_persona", _PROMPT_DIR, prompt_data)
 
@@ -325,6 +325,7 @@ def _call_leader(
     critiques: list[str],
     story_data_text: str,
     current_package: dict[str, str],
+    graph_alignment_mode: GraphAlignmentMode,
 ) -> dict[str, Any]:
     critique_blocks: list[str] = []
     for config, critique_text in zip(critic_configs, critiques):
@@ -333,14 +334,19 @@ def _call_leader(
             f"{critique_text}"
         )
 
+    graph_alignment_policy, graph_alignment_rules = _get_graph_alignment_prompt_data(
+        graph_alignment_mode
+    )
+
     prompt_data = {
         "story_data": story_data_text,
         "crime_narrative": current_package["crime_generation"],
-        "side_stories": current_package["side_stories_generation"],
-        "surface_level": current_package["surface_level_generation"],
-        "agendas": current_package["agendas_generation"],
-        "investigation": current_package["investigation_generation"],
+        "suspect_briefs": current_package["suspect_briefs_generation"],
+        "clue_graph": current_package["clue_graph_generation"],
+        "architecture": current_package["architecture_generation"],
         "all_critiques": "\n\n".join(critique_blocks),
+        "graph_alignment_policy": graph_alignment_policy,
+        "graph_alignment_rules": graph_alignment_rules,
     }
     system_instruction, prompt = build_prompt("critic_leader", _PROMPT_DIR, prompt_data)
 
@@ -367,7 +373,8 @@ def _call_evaluator(
     llm: LLM,
     story_data_text: str,
     crime_narrative: str,
-    side_stories: str,
+    suspect_briefs: str,
+    clue_graph: str,
     versions: list[dict[str, str]],
 ) -> dict[str, Any]:
     version_blocks: list[str] = []
@@ -381,7 +388,8 @@ def _call_evaluator(
     prompt_data = {
         "story_data": story_data_text,
         "crime_narrative": crime_narrative,
-        "side_stories": side_stories,
+        "suspect_briefs": suspect_briefs,
+        "clue_graph": clue_graph,
         "all_versions": "\n\n".join(version_blocks),
     }
     system_instruction, prompt = build_prompt("critic_evaluator", _PROMPT_DIR, prompt_data)
@@ -462,3 +470,31 @@ def _next_critics_run_index(story_directory: StoryDirectory) -> int:
             indices.add(int(match.group(1)))
 
     return (max(indices) + 1) if indices else 0
+
+
+def _to_text(value: dict[str, Any] | str | BaseModel) -> str:
+    if isinstance(value, str):
+        return value
+    if isinstance(value, BaseModel):
+        return value.model_dump_json(indent=2)
+    return json.dumps(value, indent=2, ensure_ascii=False)
+
+
+def _get_graph_alignment_prompt_data(mode: GraphAlignmentMode) -> tuple[str, str]:
+    if mode == "keep":
+        return (
+            "KEEP ARCHITECTURE-CLUE_GRAPH ALIGNMENT",
+            (
+                "Update the clue_graph_generation output to maintain logical consistency with any accepted architecture_generation changes. "
+                "If an accepted architecture change creates a logical mismatch with clue_graph_generation, update clue_graph_generation in the same pass to resolve the mismatch. "
+                "Do not leave unresolved divergences between architecture and clue graph after the critique round."
+            ),
+        )
+    elif mode == "ignore":
+        return (
+            "IGNORE ARCHITECTURE-CLUE_GRAPH ALIGNMENT",
+            (
+                "Do not worry about maintaining logical consistency between architecture_generation and clue_graph_generation in this critique round. "
+                "Ignore the graph and don't include its revisied version in the output - skip the clue_graph_generation stage in the revised package. "
+            ),
+        )

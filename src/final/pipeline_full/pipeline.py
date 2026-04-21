@@ -7,6 +7,7 @@ from final.utils.prompt_builder import build_prompt
 from final.utils.serialization import StoryDirectory
 from final.llm.llm import LLM, GenerationParams, GenerationResult
 from .schemas.story_data import StoryData
+from .schemas.clue_graph import ClueGraph
 
 _PROMPT_DIR = Path(__file__).parent / "prompts"
 _INCLUDE_THOUGHTS = True
@@ -55,6 +56,7 @@ def _select_random_culprit(story_data: StoryData) -> StoryData:
 
 def story_data_generation(llm: LLM, story_directory: StoryDirectory, user_input: str) -> StoryData:
     stage_name = "story_data_generation"
+    story_directory.save_story_generation_prompt(user_input)
     system_instruction, prompt = build_prompt(stage_name, _PROMPT_DIR, {"user_input": user_input})    
     generation_params = GenerationParams(
         max_tokens=10000,
@@ -88,8 +90,8 @@ def crime_generation(llm: LLM, story_directory: StoryDirectory, story_data: Stor
     system_instruction, prompt = build_prompt(stage_name, _PROMPT_DIR, {"story_data": story_data})
     generation_params = GenerationParams(
         max_tokens=10000,
-        temperature=1.0,
-        top_p=0.95,
+        temperature=0.8,
+        top_p=0.9,
         top_k=20,
         response_type="text/plain",
         include_thoughts=_INCLUDE_THOUGHTS,
@@ -125,6 +127,42 @@ def side_stories_generation(
         max_tokens=10000,
         temperature=1.0,
         top_p=0.95,
+        top_k=20,
+        response_type="text/plain",
+        include_thoughts=_INCLUDE_THOUGHTS,
+        thinking_budget=_DEFAULT_THINKING_BUDGET,
+    )
+
+    response: GenerationResult = llm.generate(prompt, system_instruction, generation_params)
+
+    story_directory.save_stage_llm(
+        stage_name,
+        llm.model_id,
+        prompt,
+        system_instruction,
+        generation_params,
+        response,
+    )
+
+    return response.output
+
+
+def suspect_briefs_generation(
+    llm: LLM,
+    story_directory: StoryDirectory,
+    story_data: StoryData,
+    crime_narrative: str,
+) -> str:
+    stage_name = "suspect_briefs_generation"
+    system_instruction, prompt = build_prompt(
+        stage_name,
+        _PROMPT_DIR,
+        {"story_data": story_data, "crime_narrative": crime_narrative},
+    )
+    generation_params = GenerationParams(
+        max_tokens=10000,
+        temperature=0.9,
+        top_p=0.90,
         top_k=20,
         response_type="text/plain",
         include_thoughts=_INCLUDE_THOUGHTS,
@@ -234,9 +272,7 @@ def investigation_generation(
     story_directory: StoryDirectory,
     story_data: StoryData,
     crime_narrative: str,
-    side_stories: str,
-    surface_level: str,
-    agendas: str,
+    suspect_briefs: str,
 ) -> str:
     stage_name = "investigation_generation"
     system_instruction, prompt = build_prompt(
@@ -245,17 +281,57 @@ def investigation_generation(
         {
             "story_data": story_data,
             "crime_narrative": crime_narrative,
-            "side_stories": side_stories,
-            "surface_level": surface_level,
-            "agendas": agendas,
+            "suspect_briefs": suspect_briefs,
         },
     )
     generation_params = GenerationParams(
         max_tokens=10000,
-        temperature=1.0,
-        top_p=0.95,
+        temperature=0.9,
+        top_p=0.90,
         top_k=20,
         response_type="text/plain",
+        include_thoughts=_INCLUDE_THOUGHTS,
+        thinking_budget=_DEFAULT_THINKING_BUDGET,
+    )
+
+    response: GenerationResult = llm.generate(prompt, system_instruction, generation_params)
+
+    story_directory.save_stage_llm(
+        stage_name,
+        llm.model_id,
+        prompt,
+        system_instruction,
+        generation_params,
+        response,
+    )
+
+    return response.output
+
+
+def clue_graph_generation(
+    llm: LLM,
+    story_directory: StoryDirectory,
+    story_data: StoryData,
+    crime_narrative: str,
+    suspect_briefs: str,
+) -> ClueGraph:
+    stage_name = "clue_graph_generation"
+    system_instruction, prompt = build_prompt(
+        stage_name,
+        _PROMPT_DIR,
+        {
+            "story_data": story_data,
+            "crime_narrative": crime_narrative,
+            "suspect_briefs": suspect_briefs,
+        },
+    )
+    generation_params = GenerationParams(
+        max_tokens=20000,
+        temperature=0.7,
+        top_p=0.9,
+        top_k=20,
+        response_type="application/json",
+        response_json_schema=ClueGraph,
         include_thoughts=_INCLUDE_THOUGHTS,
         thinking_budget=_DEFAULT_THINKING_BUDGET,
     )
@@ -279,22 +355,23 @@ def architecture_generation(
     story_directory: StoryDirectory,
     story_data: StoryData,
     crime_narrative: str,
-    side_stories: str,
-    surface_level: str,
-    agendas: str,
-    investigation: str,
+    suspect_briefs: str,
+    clue_graph: ClueGraph | dict | str,
 ) -> str:
     stage_name = "architecture_generation"
+
+    clue_graph_payload = clue_graph
+    if isinstance(clue_graph, BaseModel):
+        clue_graph_payload = clue_graph.model_dump_json(indent=2)
+
     system_instruction, prompt = build_prompt(
         stage_name,
         _PROMPT_DIR,
         {
             "story_data": story_data,
             "crime_narrative": crime_narrative,
-            "side_stories": side_stories,
-            "surface_level": surface_level,
-            "agendas": agendas,
-            "investigation": investigation,
+            "suspect_briefs": suspect_briefs,
+            "clue_graph": clue_graph_payload,
         },
     )
     generation_params = GenerationParams(
@@ -326,23 +403,33 @@ def chapter_outline_generation(
     story_directory: StoryDirectory,
     story_data: StoryData,
     crime_narrative: str,
-    side_stories: str,
-    surface_level: str,
-    agendas: str,
-    investigation: str,
+    suspect_briefs: str,
     architecture: str,
+    clue_graph: ClueGraph | dict | str | None = None,
 ) -> str:
     stage_name = "chapter_outline_generation"
+
+    clue_graph_payload = (
+        "[OPTIONAL INPUT NOT PROVIDED]\n"
+        "No clue graph was supplied for this run. Use architecture as the canonical backbone and "
+        "derive detailed clue placement from crime_narrative + suspect_briefs without introducing "
+        "new contradictions."
+    )
+    if isinstance(clue_graph, BaseModel):
+        clue_graph_payload = clue_graph.model_dump_json(indent=2)
+    elif isinstance(clue_graph, dict):
+        clue_graph_payload = json.dumps(clue_graph, indent=2, ensure_ascii=False)
+    elif isinstance(clue_graph, str) and clue_graph.strip():
+        clue_graph_payload = clue_graph
+
     system_instruction, prompt = build_prompt(
         stage_name,
         _PROMPT_DIR,
         {
             "story_data": story_data,
             "crime_narrative": crime_narrative,
-            "side_stories": side_stories,
-            "surface_level": surface_level,
-            "agendas": agendas,
-            "investigation": investigation,
+            "suspect_briefs": suspect_briefs,
+            "clue_graph": clue_graph_payload,
             "architecture": architecture,
         },
     )

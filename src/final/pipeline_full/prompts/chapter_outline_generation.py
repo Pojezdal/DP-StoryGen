@@ -4,12 +4,14 @@ You are generating the INVESTIGATION REALIZATION LAYER.
 
 Earlier stages have already fixed:
 - the crime ground truth
-- suspect ground truths during the crime window
-- the surface interpretation layer
-- the character agency / post-crime dynamics
+- suspect ground truths during the investigation
+- optional causal clue graph input (evidence and dependency logic, if supplied)
 - the investigation beat architecture
 
 Your job is to convert that fixed architecture into a concrete, chapter-by-chapter execution blueprint.
+
+If a clue graph is provided, treat it as a strict evidence/dependency reference.
+If a clue graph is not provided, treat architecture + crime narrative + suspect briefs as canonical and derive a coherent clue ledger without inventing unsupported breakthroughs.
 
 You are NOT writing prose.
 You are NOT redesigning the case.
@@ -20,13 +22,11 @@ This pass must lock:
 - clue placement and reveal mode
 - detective belief progression
 - suspicion progression
+- chapter-to-chapter temporal continuity relation
 - reader-facing ambiguity and misread space
 
-═══════════════════════════════════════════════════════════
 PASS GOAL
-═══════════════════════════════════════════════════════════
-
-Create a compact chapter plan that is executable for later prose synthesis.
+Create a detailed chapter plan that is executable for later prose synthesis.
 
 Target scale:
 - Usually 8-12 chapters
@@ -42,11 +42,10 @@ Design intent:
 - clues should vary in weight (some underweighted, misread, or treated as mundane)
 - false leads and secondary secrets must have space and payoff
 - culprit should remain plausible but not obvious too early
+- each scene must contain concrete investigative activity, not generic transition prose
+- clue handling must be granular: show distinct clue items, reveal mode, and scene anchoring
 
-═══════════════════════════════════════════════════════════
 COMPLETENESS CONTRACT (STRICT)
-═══════════════════════════════════════════════════════════
-
 Your output MUST be complete and internally consistent.
 
 Hard rules:
@@ -65,40 +64,38 @@ Hard rules:
   - Clue IDs: CL-## (clue) / OBS-## (observation) / DOC-## (document) / FL-## (false lead)
 - Ensure each clue in a chapter ledger references a scene in that chapter.
 - Scene summaries must be substantive and specific:
-  - 4-6 sentences per scene
+  - 5-8 sentences per scene
   - must include concrete action, investigative tactic, social resistance or tension, and a case-state change
-- A scene summary with fewer than 4 sentences or without concrete investigative content is invalid and must be rewritten.
+- A scene summary with fewer than 5 sentences or without concrete investigative content is invalid and must be rewritten.
 
 Pre-submit self-check (mandatory):
 - All 4 sections present?
 - Proposed total chapter count equals number of "### CHAPTER <n>:" headers?
 - Every chapter has A-E?
+- Every chapter has a valid temporal relation to previous chapter in B. START STATE?
 - Every scene has all fields?
-- Every scene summary has 4-6 sentences and at least 100 words?
+- Every scene summary has 5-8 sentences and at least 120 words?
 - Every chapter has a chapter-end state?
 - Global clue distribution and pacing notes are populated?
 
-═══════════════════════════════════════════════════════════
+
 OUTPUT SECTIONS (ONLY THESE)
-═══════════════════════════════════════════════════════════
 
 1. CHAPTER PLAN OVERVIEW
 2. CHAPTER-BY-CHAPTER EXECUTION PLAN
 3. GLOBAL CLUE DISTRIBUTION CHECK
 4. PACING / FAIR-PLAY NOTES
 
-═══════════════════════════════════════════════════════════
+
 1. CHAPTER PLAN OVERVIEW
-═══════════════════════════════════════════════════════════
 
 Provide a compact overview including:
 - proposed total chapter count
 - short pacing rationale
 - broad arc flow (opening stabilization → expansion/complication → contraction/reframe → late convergence)
 
-═══════════════════════════════════════════════════════════
+
 2. CHAPTER-BY-CHAPTER EXECUTION PLAN
-═══════════════════════════════════════════════════════════
 
 For EACH chapter, use this exact structure:
 
@@ -111,6 +108,8 @@ A. CHAPTER PURPOSE
 - why this chapter is necessary
 
 B. START STATE
+- Temporal relation to previous chapter
+  (one of: immediate_continuation, later_same_day, next_day, multi_day_gap, flashback, parallel_timeline)
 - Detective working theory
 - Current suspicion order (top 2-4)
 - Key active misconception
@@ -120,7 +119,7 @@ For EACH scene include:
 - Scene ID
 - Scene type (primary function)
 - Time and location
-- Scene summary (4-6 sentences)
+- Scene summary (5-8 sentences)
   Required content inside the summary
 - Detective takeaway
 - Reader-facing effect
@@ -153,9 +152,8 @@ E. CHAPTER END STATE
 - Reader carry-forward impression
 - Chapter hook
 
-═══════════════════════════════════════════════════════════
+
 3. GLOBAL CLUE DISTRIBUTION CHECK
-═══════════════════════════════════════════════════════════
 
 Provide a compact global audit:
 - Major clue progression (first appearance and when it becomes meaningful)
@@ -164,9 +162,8 @@ Provide a compact global audit:
 - Secondary secret coverage (where non-murder secrets distort investigation)
 - Culprit visibility control (how early obviousness is prevented)
 
-═══════════════════════════════════════════════════════════
+
 4. PACING / FAIR-PLAY NOTES
-═══════════════════════════════════════════════════════════
 
 Provide short diagnostics on:
 - overloaded chapters
@@ -179,9 +176,8 @@ Provide short diagnostics on:
 
 If risks exist, state concrete fixes.
 
-═══════════════════════════════════════════════════════════
+
 QUALITY RULES
-═══════════════════════════════════════════════════════════
 
 - Preserve chronology and knowledge gating.
 - Preserve fair-play mystery logic.
@@ -189,6 +185,8 @@ QUALITY RULES
 - Avoid revelation overload; each chapter must still earn its place.
 - Do not make every clue a breakthrough.
 - Keep the output concrete enough that later prose generation mainly dramatizes fixed logic.
+- Keep each scene causally tied to the architecture (and clue_graph progression when clue_graph is provided).
+- Keep clue ledger items specific and non-merged; avoid vague bundled clue entries.
 
 FORMAT STABILITY (STRICT FOR PACKAGE EXTRACTION):
 - Keep top-level output headers exactly as written:
@@ -204,6 +202,8 @@ FORMAT STABILITY (STRICT FOR PACKAGE EXTRACTION):
   - "**C. SCENE LIST**"
   - "**D. CLUE / INFORMATION REVEAL LEDGER**"
   - "**E. CHAPTER END STATE**"
+- In B. START STATE, include this exact label line:
+  - "- Temporal relation to previous chapter"
 - In scene entries, keep these labels exact:
   - "**Scene ID:**"
   - "**Scene type:**"
@@ -226,7 +226,7 @@ Requirements:
 - usually 2 scenes per chapter (1-3 allowed)
 - preserve fixed ground truth and architecture
 - include all required sections and fields without omissions
-- scene summaries must be 4-6 sentences
+- scene summaries must be 5-8 sentences
 
 Do NOT write prose chapters.
 Do NOT redesign the mystery.
@@ -238,17 +238,11 @@ Story data (canonical setting, cast, and constraints):
 Crime narrative (fixed ground truth):
 {crime_narrative}
 
-Side stories / suspect ground truths (fixed pre-crime and crime-window truth):
-{side_stories}
+Suspect briefs (fixed investigation-phase behavior and perceived oddities):
+{suspect_briefs}
 
-Surface interpretation (fixed):
-{surface_level}
-
-Character agency / post-crime dynamics (fixed):
-{agendas}
-
-Investigation synthesis (fixed chain of discoveries and theory shifts):
-{investigation}
+Clue graph (optional; if present, use as strict causal evidence structure and dependency order):
+{clue_graph}
 
 Investigation beat architecture (fixed high-level progression):
 {architecture}

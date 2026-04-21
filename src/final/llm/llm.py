@@ -106,3 +106,15 @@ class LLM(ABC):
             "word_count": word_count,
             "sentence_count": sentence_count,
         }
+        
+    @staticmethod    
+    def _validate_schema(text: str, schema: BaseModel) -> BaseModel | None:
+        try:
+            validated = schema.model_validate_json(text)
+            return validated
+        except Exception as e:
+            print("Error parsing LLM response with json schema:", e)
+            with open("llm_response_error_debug.txt", "w") as f:
+                f.write(f"Error parsing LLM response with json schema: {e}\n")
+                f.write(f"Original output:\n{text}\n")
+            return None

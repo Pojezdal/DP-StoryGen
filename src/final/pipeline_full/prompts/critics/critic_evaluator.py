@@ -11,7 +11,7 @@ You will receive the ORIGINAL skeleton followed by each round's revised version.
    - **Fair-play integrity**: Can a reader solve the mystery from the clues presented? Is the culprit properly hidden until the right moment?
    - **Dramatic quality**: Is the pacing compelling? Do suspicion shifts feel natural and surprising?
    - **Behavioral realism**: Do characters act like real people with plausible motivations?
-   - **Deductive soundness**: Is there a complete, logically valid chain from clues to culprit? Does each inference follow from available evidence? Does the final identification exclude all other suspects?
+   - **Deductive soundness**: Is there a complete, logically valid chain from clue graph to architecture and then to culprit?
    - **Ground truth fidelity**: Does the skeleton accurately reflect the actual crime?
    - **Coherence**: Is the narrative internally consistent? Do later rounds introduce contradictions?
    - **Edit-scope discipline**: Are upstream changes used only when justified by root-cause severity?
@@ -40,8 +40,11 @@ PROMPT_TEMPLATE = """Select the best version of this mystery stage package.
 ═══ GROUND TRUTH: CRIME NARRATIVE ═══
 {crime_narrative}
 
-═══ GROUND TRUTH: SIDE STORIES ═══
-{side_stories}
+═══ GROUND TRUTH: SUSPECT BRIEFS ═══
+{suspect_briefs}
+
+═══ BASELINE CLUE GRAPH CONTEXT ═══
+{clue_graph}
 
 ═══ VERSIONS TO EVALUATE (PACKAGE REVISIONS) ═══
 {all_versions}
@@ -49,8 +52,8 @@ PROMPT_TEMPLATE = """Select the best version of this mystery stage package.
 Evaluate all versions. When scoring Coherence, penalize any version that introduces details requiring unestablished character relationships, places characters at impossible locations/times, or gives characters knowledge they could not possess.
 
 When scoring Edit-scope discipline:
-- Reward versions that fix issues in downstream layers first (surface/agendas/investigation).
-- Allow upstream edits (side_stories/crime) only when clearly justified by major root-cause defects.
+- Reward versions that fix issues in downstream layers first (architecture/clue_graph).
+- Allow upstream edits (suspect_briefs/crime) only when clearly justified by major root-cause defects.
 - Penalize unnecessary upstream rewrites or broad churn not tied to severity.
 
 Select the best one. Output your evaluation summary followed by the complete selected package.

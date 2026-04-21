@@ -6,6 +6,10 @@ You must use the provided chapter data package as the source of truth for this c
 
 GLOBAL STORY CONTEXT
 - Total chapters and pacing: {overview_text}
+- Story outline anchor: {story_outline}
+- Architecture beat map (investigation chronology): {architecture_beat_map}
+- Breakthrough design (late proof path): {breakthrough_design}
+- Clue graph context (optional metadata): {clue_graph_context}
 - Global clue distribution: {global_clue_distribution}
 - Pacing and fair-play notes: {pacing_notes}
 - Actors: {actors}
@@ -24,6 +28,8 @@ Your tasks:
 2. Follow the chapter package strictly:
    - Respect chapter purpose, start state, scene plan, revealed_clues, previously_revealed_clues, forbidden_clues, clue_state_ledger, continuity, and end_state.
    - Keep detective reasoning consistent with currently wrongly framed beliefs.
+   - Treat story_constraints as canonical truth bounds.
+   - Use suspect behavior texture from actors[*].suspect_brief where available.
 3. Respect chapter clue scope strictly:
    - Introduce only clues listed in revealed_clues for this chapter.
    - Clues in previously_revealed_clues can be referenced and built upon, but do not re-describe them in detail as if new.
@@ -44,6 +50,10 @@ Your tasks:
 
 Length target:
 - {word_min} to {word_max} words.
+
+Optional clue-graph behavior:
+- If clue_graph_context.enabled is true, keep chapter-level reasoning aligned with clue_graph_proof_chain_node_ids progression in story_constraints.
+- If clue_graph_context.enabled is false, rely on revealed/previously_revealed/forbidden clues and continuity as the authoritative gate.
 
 Output format:
 SECTION 1: CHAPTER_TEXT

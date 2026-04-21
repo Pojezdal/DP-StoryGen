@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import os
 import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -9,6 +8,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from final.utils.prompt_builder import build_prompt
 from final.utils.serialization import StoryDirectory
 from final.llm.llm import LLM, GenerationParams, GenerationResult
+from .detail_triple_store import DetailTripleStore
 from .schemas.story_data import StoryData
 
 _PROMPT_DIR = Path(__file__).parent / "prompts"
@@ -91,11 +91,31 @@ def _load_previous_context_from_story(
     return chapter_text, handoff_text
 
 
+def _load_existing_generated_chapter(
+    story_directory: StoryDirectory,
+    chapter_number: int,
+) -> Optional[Dict[str, Any]]:
+    stage_name = f"chapter_generation_{chapter_number:02d}"
+    _, raw_output = story_directory.load_stage(stage_name)
+
+    if raw_output:
+        chapter_text, handoff_text = _split_sections(raw_output)
+        return {
+            "chapter_number": chapter_number,
+            "raw_output": raw_output,
+            "chapter_text": chapter_text,
+            "handoff_text": handoff_text,
+            "stage_name": stage_name,
+        }
+
+    return None
+
+
 def generate_chapter(
     llm: LLM,
     story_directory: StoryDirectory,
     story_overview: Dict[str, Any],
-    actors: List[Dict[str, Any]],
+    actors: Dict[str, Dict[str, Any]] | List[Dict[str, Any]],
     chapter_package: Dict[str, Any],
     previous_chapter_text: str = "",
     previous_context: str = "",
@@ -110,6 +130,9 @@ def generate_chapter(
     prompt_data = {
         "chapter_number": chapter_number,
         "overview_text": story_overview.get("overview_text", ""),
+        "story_outline": story_overview.get("story_outline", ""),
+        "architecture_beat_map": story_overview.get("architecture_beat_map", ""),
+        "breakthrough_design": story_overview.get("breakthrough_design", ""),
         "global_clue_distribution": story_overview.get("global_clue_distribution", ""),
         "pacing_notes": story_overview.get("pacing_notes", ""),
         "actors": json.dumps(actors, ensure_ascii=False, indent=2),
@@ -166,13 +189,17 @@ def generate_chapter(
 
 
 def generate_chapters(
-    llm,
+    llm: LLM,
     story_directory: StoryDirectory,
     package_data: Dict[str, Any],
     start_chapter: int = 1,
     end_chapter: Optional[int] = None,
     word_min: int = 1500,
     word_max: int = 2500,
+    force_regenerate_chapters: bool = False,
+    extract_detail_triples_enabled: bool = False,
+    triple_extraction_llm: Optional[LLM] = None,
+    triple_extraction_actors_context: Optional[Any] = None,
 ) -> List[Dict[str, Any]]:
 
     chapter_packages = package_data.get("chapter_packages", [])
@@ -186,6 +213,20 @@ def generate_chapters(
     prev_chapter_text = ""
     previous_context = ""
 
+    triple_store: DetailTripleStore | None = None
+    extraction_runtime_llm: Optional[LLM] = None
+    if extract_detail_triples_enabled:
+        triple_store = DetailTripleStore(story_directory=story_directory)
+        extraction_runtime_llm = triple_extraction_llm or llm
+        if start_chapter > 1:
+            triple_store.load(
+                start_chapter=1,
+                end_chapter=start_chapter - 1,
+                extract_if_missing=True,
+                extraction_llm=extraction_runtime_llm,
+                actors_context=triple_extraction_actors_context,
+            )
+
     for index in range(1, start_chapter):
         prev_chapter_text, prev_handoff_text = _load_previous_context_from_story(
             story_directory,
@@ -198,18 +239,36 @@ def generate_chapters(
         if chapter_number < start_chapter or chapter_number > end_chapter:
             continue
 
-        result = generate_chapter(
-            llm=llm,
-            story_directory=story_directory,
-            story_overview=package_data.get("overview", {}),
-            actors=package_data.get("actors", []),
-            chapter_package=package,
-            previous_chapter_text=prev_chapter_text,
-            previous_context=previous_context,
-            word_min=word_min,
-            word_max=word_max,
-        )
+        result = None
+        if not force_regenerate_chapters:
+            result = _load_existing_generated_chapter(story_directory, chapter_number)
+            if result is not None:
+                print(f"Loaded Chapter {chapter_number:02d} from existing artifacts.")
+
+        if result is None:
+            result = generate_chapter(
+                llm=llm,
+                story_directory=story_directory,
+                story_overview=package_data.get("overview", {}),
+                actors=package_data.get("actors", []),
+                chapter_package=package,
+                previous_chapter_text=prev_chapter_text,
+                previous_context=previous_context,
+                word_min=word_min,
+                word_max=word_max,
+            )
+
         outputs.append(result)
+
+        if triple_store is not None and extraction_runtime_llm is not None:
+            triple_store.load(
+                start_chapter=chapter_number,
+                end_chapter=chapter_number,
+                extract_if_missing=True,
+                extraction_llm=extraction_runtime_llm,
+                actors_context=triple_extraction_actors_context,
+            )
+
         prev_chapter_text = result.get("chapter_text", "")
         previous_context += f"Chapter {chapter_number:02d} context:\n{result.get('handoff_text', '')}\n\n"
 
@@ -223,7 +282,7 @@ def merge_chapters(story_directory: StoryDirectory) -> str:
         _, chapter_body = story_directory.load_stage("chapter", filename=f"chapter_{index:02d}")
         if not chapter_body:
             break
-        parts.append(f"Chapter {index:02d}: {chapter_body}")
+        parts.append(f"Chapter {index:02d}:\n\n{chapter_body}\n\n")
         index += 1
     
     full_story = "\n\n".join(parts).strip()
