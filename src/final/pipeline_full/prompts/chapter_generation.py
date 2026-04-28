@@ -10,6 +10,7 @@ GLOBAL STORY CONTEXT
 - Architecture beat map (investigation chronology): {architecture_beat_map}
 - Breakthrough design (late proof path): {breakthrough_design}
 - Clue graph context (optional metadata): {clue_graph_context}
+- Detail triple continuity context (optional from already generated chapters): {detail_triple_context_json}
 - Global clue distribution: {global_clue_distribution}
 - Pacing and fair-play notes: {pacing_notes}
 - Actors: {actors}
@@ -36,14 +37,19 @@ Your tasks:
    - Do not reference or describe forbidden_clues in any way, as they are meant to be hidden from the reader until future chapters.
    - Do not introduce decisive new evidence or major clue resolutions that are not grounded in this package.
    - If prior clues are referenced for continuity, treat them as already-known context unless this package explicitly advances them.
-4. Continuity requirement for Chapter 2 and later:
+4. Use detail triple continuity context when available:
+   - Treat detail_triple_context_json as continuity memory from prior chapters (state, possession, location, condition, relationships).
+   - Use it to keep scene-level facts consistent and avoid accidental resets/contradictions.
+   - If a detail triple conflicts with the CURRENT CHAPTER PACKAGE, the package wins.
+   - Do not convert detail triples into new clues unless the clue is already present in revealed_clues or previously_revealed_clues.
+5. Continuity requirement for Chapter 2 and later:
    - In the first 1-2 paragraphs, naturally connect to the emotional and investigative momentum from PREVIOUS CHAPTER ENDING CONTEXT.
    - Do not repeat prior text verbatim.
-5. Style and quality:
+6. Style and quality:
    - Detective fiction tone, concrete actions, grounded dialogue, sensory detail.
    - No meta comments about outlines, packages, prompts, or chapters as artifacts.
    - No contradictions with story_constraints (culprit truth, hidden premise, and final proof), but do not prematurely expose hidden premise.
-6. End the chapter by landing on the intended chapter hook from the package as a semantic target, not a quoted line.
+7. End the chapter by landing on the intended chapter hook from the package as a semantic target, not a quoted line.
    - Integrate the end_state.chapter_hook idea naturally into the final paragraph.
    - Do not copy the chapter_hook text verbatim.
    - Avoid adding a standalone final sentence that simply restates the hook.

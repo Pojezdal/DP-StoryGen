@@ -184,13 +184,6 @@ def main() -> None:
 	story_text, story_source = _load_story_text(story_path, args.story_file)
 	print(f"Using story source: {story_source}")
 
-	# The deepeval pipeline currently loads stage 'final_story', so save a simple stage snapshot.
-	story_directory.save_stage(
-		"final_story",
-		data={"model": "manual", "generation_result": {"output": story_text}},
-		plain_data=story_text,
-	)
-
 	if not story_directory.load_story_generation_prompt():
 		if args.story_prompt and args.story_prompt.strip():
 			story_directory.save_story_generation_prompt(args.story_prompt.strip())
@@ -203,7 +196,7 @@ def main() -> None:
 	llm_openrouter = OpenRouterLLM(model_id=args.model_id, api_keys=api_keys)
 	custom_llm = CustomLLMEvaluatior(
 		model=llm_openrouter,
-		GenerationParams=GenerationParams(max_tokens=2048, temperature=0.7),
+		GenerationParams=GenerationParams(max_tokens=4096, temperature=0.0),
 	)
  
 	evaluate_story, summarize_evaluation = _import_pipeline_functions()

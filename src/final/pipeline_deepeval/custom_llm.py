@@ -15,10 +15,10 @@ class CustomLLMEvaluatior(DeepEvalBaseLLM):
     def load_model(self):
         return self.model
 
-    def generate(self, prompt: str, **kwargs) -> str:
+    def generate(self, prompt: str) -> str:
         response = self.model.generate(
             prompt=prompt,
-            system_instruction="",
+            system_instruction="You are a helpful and precise assistant for evaluating story quality based on provided criteria. Please provide clear, concise, and well-structured responses that directly address the evaluation criteria. Be strict and critical in your evaluation.",
             generation_params=self.generation_params,
         )
         print(f"LLM generation completed. Output token count: {response.token_count if response else 'N/A'}")
@@ -27,8 +27,8 @@ class CustomLLMEvaluatior(DeepEvalBaseLLM):
 
         return str(response.output)
 
-    async def a_generate(self, prompt: str, **kwargs) -> str:
-        return self.generate(prompt, **kwargs)
+    async def a_generate(self, prompt: str) -> str:
+        return self.generate(prompt)
 
     def get_model_name(self):
         return self.model.model_id

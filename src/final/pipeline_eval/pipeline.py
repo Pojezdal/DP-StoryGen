@@ -1,12 +1,16 @@
 from __future__ import annotations
 
+from dataclasses import replace
 import json
 from pathlib import Path
 
 from final.llm.llm import GenerationParams, GenerationResult, LLM
 from final.utils.prompt_builder import build_prompt
 from final.utils.serialization import StoryDirectory
-from final.pipeline_eval.schemas.story_rubric_evaluation import StoryRubricEvaluation
+from final.pipeline_eval.schemas.story_rubric_evaluation import (
+    StoryRubricEvaluation,
+    StoryRubricEvaluationWithoutOverall,
+)
 from final.pipeline_eval.schemas.story_pairwise_comparison import StoryPairwiseComparison
 
 
@@ -24,6 +28,20 @@ _PAIRWISE_LONG_MAX_TOKENS = 3600
 _PAIRWISE_LONG_TRIGGER_TOTAL_CHARS = 140000
 
 
+def _coerce_rubric_evaluation_output(output_candidate: object) -> StoryRubricEvaluation | None:
+    if isinstance(output_candidate, StoryRubricEvaluationWithoutOverall):
+        return StoryRubricEvaluation.from_without_overall(output_candidate)
+
+    if isinstance(output_candidate, dict):
+        try:
+            raw = StoryRubricEvaluationWithoutOverall.model_validate(output_candidate)
+        except Exception:
+            return None
+        return StoryRubricEvaluation.from_without_overall(raw)
+
+    return None
+
+
 def _extract_cached_evaluation(story_directory: StoryDirectory, stage_name: str) -> StoryRubricEvaluation | None:
     data, plain_data = story_directory.load_stage(stage_name)
 
@@ -31,14 +49,13 @@ def _extract_cached_evaluation(story_directory: StoryDirectory, stage_name: str)
         generation_result = data.get("generation_result", {})
         output_candidate = generation_result.get("output")
         if isinstance(output_candidate, dict):
-            try:
-                return StoryRubricEvaluation.model_validate(output_candidate)
-            except Exception:
-                pass
+            coerced = _coerce_rubric_evaluation_output(output_candidate)
+            if coerced is not None:
+                return coerced
 
     if isinstance(plain_data, str) and plain_data.strip():
         try:
-            return StoryRubricEvaluation.model_validate(json.loads(plain_data))
+            return _coerce_rubric_evaluation_output(json.loads(plain_data))
         except Exception:
             return None
 
@@ -97,7 +114,7 @@ def _generate_story_evaluation(
         top_p=0.9,
         top_k=10,
         response_type="application/json",
-        response_json_schema=StoryRubricEvaluation,
+        response_json_schema=StoryRubricEvaluationWithoutOverall,
         include_thoughts=_INCLUDE_THOUGHTS,
         thinking_budget=_DEFAULT_THINKING_BUDGET,
     )
@@ -276,7 +293,7 @@ def story_rubric_evaluation(
 
         print(f"Fallback retry succeeded after initial error: {exc}")
 
-    output: StoryRubricEvaluation | None = response.output
+    output = _coerce_rubric_evaluation_output(response.output)
     if output is None and len(story_text) >= _LONG_STORY_FALLBACK_TRIGGER_CHARS and not used_fallback:
         print(
             "Structured output validation failed on full long-story input. "
@@ -295,11 +312,13 @@ def story_rubric_evaluation(
             evaluation_focus=fallback_focus,
             max_tokens=_LONG_STORY_MAX_TOKENS,
         )
-        output = response.output
+        output = _coerce_rubric_evaluation_output(response.output)
         used_fallback = True
 
     if output is None:
         raise ValueError("LLM response could not be validated against StoryRubricEvaluation schema")
+
+    response = replace(response, output=output)
 
     if used_fallback:
         print("Long-story fallback mode was used for rubric evaluation.")

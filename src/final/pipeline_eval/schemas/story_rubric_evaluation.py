@@ -26,8 +26,7 @@ class DetectiveFictionRubric(BaseModel):
     reveal_and_resolution_payoff: RubricAspectEvaluation
 
 
-class StoryRubricEvaluation(BaseModel):
-    overall_score: float = Field(..., ge=0.0, le=10.0, description="Overall score on a 0-10 scale")
+class StoryRubricEvaluationWithoutOverall(BaseModel):
     overall_verdict: str = Field(..., min_length=3, description="Short verdict summary")
     general: GeneralStoryRubric
     detective: DetectiveFictionRubric
@@ -35,3 +34,41 @@ class StoryRubricEvaluation(BaseModel):
         ...,
         description="How well the final story matches the original story-generation prompt and explicit constraints",
     )
+
+    def aspect_scores(self) -> list[int]:
+        return [
+            self.general.creativity_and_originality.score,
+            self.general.coherence_and_structure.score,
+            self.general.character_depth.score,
+            self.general.pacing_and_tension.score,
+            self.general.prose_clarity_and_voice.score,
+            self.detective.clue_fairness_and_visibility.score,
+            self.detective.deduction_chain_logic.score,
+            self.detective.red_herring_quality.score,
+            self.detective.suspect_motives_and_opportunity.score,
+            self.detective.reveal_and_resolution_payoff.score,
+            self.prompt_alignment.score,
+        ]
+
+    def computed_overall_score(self) -> float:
+        scores = self.aspect_scores()
+        if not scores:
+            return 0.0
+        return round(sum(scores) / len(scores), 1)
+
+
+class StoryRubricEvaluation(StoryRubricEvaluationWithoutOverall):
+    overall_score: float = Field(..., ge=0.0, le=10.0, description="Overall score on a 0-10 scale")
+
+    @classmethod
+    def from_without_overall(
+        cls,
+        evaluation: StoryRubricEvaluationWithoutOverall,
+    ) -> "StoryRubricEvaluation":
+        return cls(
+            overall_score=evaluation.computed_overall_score(),
+            overall_verdict=evaluation.overall_verdict,
+            general=evaluation.general,
+            detective=evaluation.detective,
+            prompt_alignment=evaluation.prompt_alignment,
+        )

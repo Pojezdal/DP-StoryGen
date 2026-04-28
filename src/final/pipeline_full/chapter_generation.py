@@ -111,6 +111,23 @@ def _load_existing_generated_chapter(
     return None
 
 
+def _save_triples_context_log(
+    story_directory: StoryDirectory,
+    chapter_number: int,
+    selected_triples: List[Dict[str, Any]],
+) -> None:
+    stage_name = f"chapter_generation_triples_context_{chapter_number:02d}"
+    payload = {
+        "chapter_number": chapter_number,
+        "selected_triples_count": len(selected_triples),
+        "selected_triples": selected_triples,
+    }
+    story_directory.save_stage(
+        stage=stage_name,
+        data=payload,
+    )
+
+
 def generate_chapter(
     llm: LLM,
     story_directory: StoryDirectory,
@@ -119,6 +136,7 @@ def generate_chapter(
     chapter_package: Dict[str, Any],
     previous_chapter_text: str = "",
     previous_context: str = "",
+    detail_triple_context: Optional[List[Dict[str, Any]]] = None,
     word_min: int = 1500,
     word_max: int = 2500,
 ) -> Dict[str, Any]:
@@ -133,6 +151,16 @@ def generate_chapter(
         "story_outline": story_overview.get("story_outline", ""),
         "architecture_beat_map": story_overview.get("architecture_beat_map", ""),
         "breakthrough_design": story_overview.get("breakthrough_design", ""),
+        "clue_graph_context": json.dumps(
+            story_overview.get("clue_graph_context", {}),
+            ensure_ascii=False,
+            indent=2,
+        ),
+        "detail_triple_context_json": json.dumps(
+            detail_triple_context or [],
+            ensure_ascii=False,
+            indent=2,
+        ),
         "global_clue_distribution": story_overview.get("global_clue_distribution", ""),
         "pacing_notes": story_overview.get("pacing_notes", ""),
         "actors": json.dumps(actors, ensure_ascii=False, indent=2),
@@ -239,6 +267,16 @@ def generate_chapters(
         if chapter_number < start_chapter or chapter_number > end_chapter:
             continue
 
+        selected_detail_triples: List[Dict[str, Any]] = []
+        if triple_store is not None:
+            selected_detail_triples = triple_store.select_for_next_chapter(package)
+
+        _save_triples_context_log(
+            story_directory=story_directory,
+            chapter_number=chapter_number,
+            selected_triples=selected_detail_triples,
+        )
+
         result = None
         if not force_regenerate_chapters:
             result = _load_existing_generated_chapter(story_directory, chapter_number)
@@ -254,6 +292,7 @@ def generate_chapters(
                 chapter_package=package,
                 previous_chapter_text=prev_chapter_text,
                 previous_context=previous_context,
+                detail_triple_context=selected_detail_triples,
                 word_min=word_min,
                 word_max=word_max,
             )

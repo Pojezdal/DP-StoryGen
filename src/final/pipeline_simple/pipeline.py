@@ -303,6 +303,7 @@ def run_simple_pipeline(
                 chapter_outline=chapter["chapter_outline"],
                 previous_chapter_context=previous_context,
             )
+            print(f"Generated text for chapter {chapter_number}: {chapter['chapter_title']}")
 
         chapter_texts.append(
             {
@@ -313,7 +314,7 @@ def run_simple_pipeline(
         )
 
     compiled_story = _compile_story(chapter_texts)
-    story_directory.save_plain("final_story_simple.txt", compiled_story)
+    story_directory.save_plain("full_story.txt", compiled_story)
     _save_compiled_stage(story_directory, compiled_story)
 
     return {

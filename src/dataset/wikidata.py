@@ -183,8 +183,3 @@ with open(f"datasets/wikidata/literary/failure_report.jsonl", "w") as f:
     for reason, items in failed.items():
         for item in items:
             f.write(json.dumps({"reason": reason, "title": item}) + "\n")
-        
-# os.makedirs("datasets/wikidata/movies", exist_ok=True)
-# with open(f"datasets/wikidata/movies/data.jsonl", "w") as f:
-#     for data in successful:
-#         f.write(json.dumps(data.to_dict()) + "\n")

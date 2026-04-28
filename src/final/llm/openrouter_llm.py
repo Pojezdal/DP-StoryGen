@@ -112,10 +112,13 @@ class OpenRouterLLM(LLM):
                 raise
 
             except errors.TooManyRequestsResponseError as exc:
-                print(f"OpenRouter rate limit hit (attempt {attempt}/{max_retries}): {exc}")
-                if attempt == max_retries:
+                self.current_key_index += 1
+                if self.current_key_index >= len(self.api_keys):
+                    print(f"Received RESOURCE_EXHAUSTED error from API and no more API keys to switch to.")
                     raise
-                self._sleep_for_retry(attempt)
+                else:
+                    print(f"Received RESOURCE_EXHAUSTED error from API, switching to next API key {self.current_key_index + 1}/{len(self.api_keys)}. Retrying...")
+                    self.client = self._create_client(self.api_keys[self.current_key_index])
 
             except (
                 errors.RequestTimeoutResponseError,

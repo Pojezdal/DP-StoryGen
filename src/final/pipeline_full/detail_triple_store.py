@@ -178,7 +178,6 @@ class DetailTripleStore:
             "predicate": str(record.get("predicate", "")).strip(),
             "object": str(record.get("object", "")).strip(),
             "chapter": record.get("chapter", None),
-            "chapter_text_hash": str(record.get("chapter_text_hash", "") or "").strip(),
             "evidence_snippet": str(record.get("evidence_snippet", "")).strip(),
             "fact_type": str(record.get("fact_type", "other") or "other").strip(),
             "subject_type": str(record.get("subject_type", "other") or "other").strip(),
@@ -196,7 +195,6 @@ class DetailTripleStore:
                 record.get("predicate", ""),
                 record.get("object", ""),
                 record.get("chapter", None),
-                record.get("chapter_text_hash", ""),
                 record.get("evidence_snippet", ""),
                 record.get("fact_type", "other"),
                 record.get("subject_type", "other"),
@@ -414,7 +412,6 @@ class DetailTripleStore:
 def triples_to_records(
     triples: List[DetailTriple],
     chapter_number: int | None,
-    chapter_text_hash: str = "",
 ) -> List[Dict[str, Any]]:
     records: List[Dict[str, Any]] = []
     for triple in triples:
@@ -424,7 +421,6 @@ def triples_to_records(
                 "predicate": triple.predicate,
                 "object": triple.object,
                 "chapter": chapter_number,
-                "chapter_text_hash": chapter_text_hash,
                 "evidence_snippet": triple.evidence_snippet,
                 "fact_type": triple.fact_type,
                 "subject_type": triple.subject_type,
