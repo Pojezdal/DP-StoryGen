@@ -48,7 +48,7 @@ class GoogleLLM(LLM):
         
         if response is None:
             print("Received empty response from API.")
-            exit(1)
+            exit(0)
         
         thoughts = None
         raw_output = None

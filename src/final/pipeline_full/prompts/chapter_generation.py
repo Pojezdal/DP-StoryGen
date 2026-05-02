@@ -1,4 +1,4 @@
-SYSTEM_INSTRUCTION = """You are a novelist specializing in detective fiction with strong continuity, clue discipline, and fair-play plotting."""
+SYSTEM_INSTRUCTION = """You are a novelist specializing in detective fiction with strong continuity, clue discipline, and fair-play plotting. Treat compact continuity triples as memory, not new clues."""
 
 PROMPT_TEMPLATE = """You are writing Chapter {chapter_number} of a detective novel.
 
@@ -10,7 +10,7 @@ GLOBAL STORY CONTEXT
 - Architecture beat map (investigation chronology): {architecture_beat_map}
 - Breakthrough design (late proof path): {breakthrough_design}
 - Clue graph context (optional metadata): {clue_graph_context}
-- Detail triple continuity context (optional from already generated chapters): {detail_triple_context_json}
+- Detail triple continuity context (compact facts only): {detail_triple_context_json}
 - Global clue distribution: {global_clue_distribution}
 - Pacing and fair-play notes: {pacing_notes}
 - Actors: {actors}
@@ -38,10 +38,12 @@ Your tasks:
    - Do not introduce decisive new evidence or major clue resolutions that are not grounded in this package.
    - If prior clues are referenced for continuity, treat them as already-known context unless this package explicitly advances them.
 4. Use detail triple continuity context when available:
-   - Treat detail_triple_context_json as continuity memory from prior chapters (state, possession, location, condition, relationships).
+   - Detail triple continuity context is a compact list of facts: subject, predicate, object, chapter, and optional evidence_snippet.
+   - Treat it as continuity memory from prior chapters (state, possession, location, condition, relationships).
    - Use it to keep scene-level facts consistent and avoid accidental resets/contradictions.
    - If a detail triple conflicts with the CURRENT CHAPTER PACKAGE, the package wins.
    - Do not convert detail triples into new clues unless the clue is already present in revealed_clues or previously_revealed_clues.
+   - If evidence_snippet is present, use it only to disambiguate the fact; do not quote it as dialogue or narration.
 5. Continuity requirement for Chapter 2 and later:
    - In the first 1-2 paragraphs, naturally connect to the emotional and investigative momentum from PREVIOUS CHAPTER ENDING CONTEXT.
    - Do not repeat prior text verbatim.

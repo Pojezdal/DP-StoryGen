@@ -14,12 +14,53 @@ from .schemas.story_data import StoryData
 _PROMPT_DIR = Path(__file__).parent / "prompts"
 _INCLUDE_THOUGHTS = True
 _DEFAULT_THINKING_BUDGET = 24576 # using maximum thinking budget for all stages in the pipeline, can be adjusted as needed
+_INCLUDE_TRIPLE_EVIDENCE_SNIPPETS = True
+_TRIPLE_EVIDENCE_SNIPPET_MAX_LEN = 180
 
 
 _SECTION_HEADER_RE = re.compile(
     r"^\s*(?:#{1,6}\s*)?(?:[-*]\s*)?(?:\*\*)?\s*SECTION\s+([123])\s*[:\-]\s*(.+?)\s*(?:\*\*)?\s*$",
     re.IGNORECASE | re.MULTILINE,
 )
+
+
+def _compact_detail_triples(
+    detail_triples: Optional[List[Dict[str, Any]]],
+    *,
+    include_evidence_snippet: bool,
+    snippet_max_len: int,
+) -> List[Dict[str, Any]]:
+    if not detail_triples:
+        return []
+
+    compacted: List[Dict[str, Any]] = []
+    for record in detail_triples:
+        if not isinstance(record, dict):
+            continue
+
+        subject = str(record.get("subject", "")).strip()
+        predicate = str(record.get("predicate", "")).strip()
+        obj = str(record.get("object", "")).strip()
+        if not (subject or predicate or obj):
+            continue
+
+        compact: Dict[str, Any] = {
+            "subject": subject,
+            "predicate": predicate,
+            "object": obj,
+            "chapter": record.get("chapter", None),
+        }
+
+        if include_evidence_snippet:
+            snippet = str(record.get("evidence_snippet", "")).strip()
+            if snippet:
+                if snippet_max_len > 0 and len(snippet) > snippet_max_len:
+                    snippet = snippet[:snippet_max_len].rstrip() + "..."
+                compact["evidence_snippet"] = snippet
+
+        compacted.append(compact)
+
+    return compacted
 
 
 def _extract_last_paragraph(text: str) -> str:
@@ -271,10 +312,16 @@ def generate_chapters(
         if triple_store is not None:
             selected_detail_triples = triple_store.select_for_next_chapter(package)
 
+        compact_detail_triples = _compact_detail_triples(
+            selected_detail_triples,
+            include_evidence_snippet=_INCLUDE_TRIPLE_EVIDENCE_SNIPPETS,
+            snippet_max_len=_TRIPLE_EVIDENCE_SNIPPET_MAX_LEN,
+        )
+
         _save_triples_context_log(
             story_directory=story_directory,
             chapter_number=chapter_number,
-            selected_triples=selected_detail_triples,
+            selected_triples=compact_detail_triples,
         )
 
         result = None
@@ -292,7 +339,7 @@ def generate_chapters(
                 chapter_package=package,
                 previous_chapter_text=prev_chapter_text,
                 previous_context=previous_context,
-                detail_triple_context=selected_detail_triples,
+                detail_triple_context=compact_detail_triples,
                 word_min=word_min,
                 word_max=word_max,
             )
